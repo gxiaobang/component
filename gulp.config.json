@@ -1,0 +1,10 @@
+{
+	"path": {
+		"clean": {
+			"src": "./build"
+		},
+		"component": {
+			"src": "./assets/component/"
+		}
+	}
+}
