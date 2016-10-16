@@ -2,18 +2,23 @@
  * 主页
  */
 
+import React from 'react';
 import ReactDOM from 'react-dom';
-import { Dialog } from 'component';
+import { Dialog, Hello } from 'component';
 
-window.onload = function() {
-	ReactDOM.render(
-			<Dialog 
-				title="提示框" 
-				btns={
-					[ { cls: 'primary', text: '确定' } ]
+ReactDOM.render(
+		<Dialog 
+			title="提示框" 
+			btns={[
+				{ 
+					cls: 'primary', 
+					text: '确定', 
+					handler: function() {
+						console.log(arguments);
+					}
 				}
-				message="内容提示"
-			/>,
-			document.querySelector('#dialog')
-		)
-};
+			]}
+			message="内容信息"
+		/>,
+		document.querySelector('#dialog')
+	)	

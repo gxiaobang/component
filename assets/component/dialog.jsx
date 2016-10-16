@@ -5,6 +5,7 @@
  */
 
 import React from 'react';
+import '../styles/dialog.scss';
 
 class Dialog extends React.Component {
 	render() {
@@ -17,7 +18,13 @@ class Dialog extends React.Component {
 					<footer>
 						{
 							this.props.btns.map((item) => {
-								return <button className={item.cls}>{item.text}</button>
+								return (
+										<button 
+											className={item.cls} 
+											onClick={item.handler.bind(this)}>
+											{item.text}
+										</button>
+									)
 							})
 						}
 					</footer>

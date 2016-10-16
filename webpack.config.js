@@ -7,8 +7,10 @@ var webpack = require('webpack'),
 
 module.exports = {
     entry: {
+        // react: './node_modules/react/react.js',
         main: './assets/main.jsx',
-        home: './assets/home.jsx'
+        home: './assets/home.jsx',
+        // action: './assets/action/**/*.jsx'
     },
     output: {
         publicPath: './build/public',
@@ -19,13 +21,19 @@ module.exports = {
         extensions: ['', '.js', '.jsx', '.sass', '.scss'],
         // 别名
         alias: {
-            component: '../assets/component/main'
+            component: __dirname + '/assets/component/main',
+            view: __dirname + '/assets/view/'
+            // react: __dirname + '/build/react'
         }
     },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin('common.js')
     ],
     module: {
+        /*externals: {
+            'react': 'React',
+            'react-dom': 'ReactDOM'
+        },*/
         loaders: [
             { 
             	test: /\.jsx$/,
@@ -36,7 +44,9 @@ module.exports = {
             },
             {
                 test: /\.scss$/,
-                loader: 'style!css!sass?sourceMap'
+                // loader: 'style!css!sass?sourceMap'
+                loader: ExtractTextPlugin.extract('style-loader', 'css-loader', 'sass-loader'),
+                // include: path.resolve(config.path)
             }
         ]
     },

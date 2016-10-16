@@ -5,6 +5,10 @@
 		},
 		"component": {
 			"src": "./assets/component/"
+		},
+		"action": {
+			"src": "./assets/view/",
+			"dest": "./assets/action/"
 		}
 	}
 }
