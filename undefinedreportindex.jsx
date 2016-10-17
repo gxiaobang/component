@@ -1,1 +1,0 @@
-define(() => {import Reportindex from E:\www\form-ui/assets/view/reportindex.jsx;return Reportindex})

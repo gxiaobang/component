@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import '../styles/dialog.scss';
+import '../styles/dialog';
 
 class Dialog extends React.Component {
 	render() {

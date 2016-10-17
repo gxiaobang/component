@@ -10,6 +10,38 @@ var fs = require('fs'),
 		path = require('path');
 
 
+// 文件写入
+const writeFile = {
+	action(file) {
+		// console.log(config.path.action.dest + file)
+		// 需要先创建目录
+		fs.writeFile(
+			config.path.action.dest + file,
+			`/**\n * 注：执行gulp action:init生成\n */\n` +	// 注释
+			`import Page from '../../view/${file}';\n` +
+			'def(() => {\n' +
+				`\treturn Page;\n` +
+			'});',
+			err => {
+				if (err) throw err;
+				console.log('file saved');
+			}
+		);
+	},
+	component(imp, exp) {
+		fs.writeFile(
+			config.path.component.src + 'main.jsx',
+			`/**\n * 注：执行gulp component:init生成\n */\n` +	// 注释
+			imp.join('\n') + `\n\nexport { ${exp.join(', ')} };`,
+			err => {
+				if (err) throw err;
+				console.log('file saved');
+			}
+		)
+	}
+};
+
+// 清理build
 gulp.task('clean', () => {
 	gulp.src(config.path.clean.src, { read: false })
 		.pipe(clean());
@@ -33,33 +65,11 @@ gulp.task('component:init', () => {
 			}
 		});
 
-		fs.writeFile(
-			config.path.component.src + 'main.jsx',
-			`/**\n * 注意：执行gulp component:init生成\n */\n` +	// 注释
-			imp.join('\n') + `\n\nexport { ${exp.join(', ')} };`,
-			err => {
-				if (err) throw err;
-				console.log('file saved');
-			}
-		)
+		writeFile.component(imp, exp);
 	})
 });
 
-function writeAction(file) {
-	fs.writeFile(
-		config.path.action.dest + file,
-		`/**\n * 注意：执行gulp action:init生成\n */\n` +	// 注释
-		'define(() => {\n' +
-			`\timport Page from 'view/${file}';\n` +
-			`\treturn Page;\n` +
-		'});',
-		err => {
-			if (err) throw err;
-			console.log('file saved');
-		}
-	);
-}
-
+// 写入action 文件
 gulp.task('action:init', () => {
 	fs.readdir(config.path.action.src, (err, files) => {
 		if (err) throw err;
@@ -76,13 +86,15 @@ gulp.task('action:init', () => {
 						if (err) throw err;
 
 						files.forEach((file) => {
-							writeAction(dir + '/' + file);
+							// writeAction(dir + '/' + file);
+							writeFile.action(dir + '/' + file);
 						});
 					});
 				}
 				// 文件
 				else if (stat.isFile()) {
-					writeAction(file);
+					// writeAction(file);
+					writeFile.action(file);
 				}
 				else {
 					console.log('路径不存在');

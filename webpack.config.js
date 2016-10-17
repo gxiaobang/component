@@ -10,10 +10,13 @@ module.exports = {
         // react: './node_modules/react/react.js',
         main: './assets/main.jsx',
         home: './assets/home.jsx',
+        aaa: './assets/action/aaa/index.jsx',
+        bbb: './assets/action/bbb/index.jsx',
+        ccc: './assets/action/ccc/index.jsx',
         // action: './assets/action/**/*.jsx'
     },
     output: {
-        publicPath: './build/public',
+        // publicPath: './build/public',
         path: './build/',
         filename: '[name].js'
     },
@@ -26,9 +29,6 @@ module.exports = {
             // react: __dirname + '/build/react'
         }
     },
-    plugins: [
-        new webpack.optimize.CommonsChunkPlugin('common.js')
-    ],
     module: {
         /*externals: {
             'react': 'React',
@@ -44,11 +44,16 @@ module.exports = {
             },
             {
                 test: /\.scss$/,
+                loaders: ['style', 'css?sourceMap', 'sass?sourceMap']
                 // loader: 'style!css!sass?sourceMap'
-                loader: ExtractTextPlugin.extract('style-loader', 'css-loader', 'sass-loader'),
+                // loader: ExtractTextPlugin.extract('style-loader', 'css-loader', 'sass-loader'),
                 // include: path.resolve(config.path)
             }
         ]
     },
+    plugins: [
+        // new ExtractTextPlugin('style.css', {allChunks: true}),
+        new webpack.optimize.CommonsChunkPlugin('common.js')
+    ],
     devtool: 'eval-source-map'
 };
