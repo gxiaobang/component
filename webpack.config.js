@@ -8,7 +8,7 @@ var webpack = require('webpack'),
 module.exports = {
     entry: {
         // react: './node_modules/react/react.js',
-        main: './assets/main.jsx',
+        // main: './assets/main.jsx',
         home: './assets/home.jsx',
         aaa: './assets/action/aaa/index.jsx',
         bbb: './assets/action/bbb/index.jsx',

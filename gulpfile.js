@@ -13,10 +13,16 @@ var fs = require('fs'),
 // 文件写入
 const writeFile = {
 	action(file) {
-		// console.log(config.path.action.dest + file)
+		var data = path.parse(file);
+		var dir = config.path['action:init'].dest + data.dir;
+
 		// 需要先创建目录
+		if (!fs.existsSync(dir)) {
+			fs.mkdirSync(dir);
+		}
+
 		fs.writeFile(
-			config.path.action.dest + file,
+			config.path['action:init'].dest + file,
 			`/**\n * 注：执行gulp action:init生成\n */\n` +	// 注释
 			`import Page from '../../view/${file}';\n` +
 			'def(() => {\n' +
@@ -30,7 +36,7 @@ const writeFile = {
 	},
 	component(imp, exp) {
 		fs.writeFile(
-			config.path.component.src + 'main.jsx',
+			config.path['component:init'].src + 'main.jsx',
 			`/**\n * 注：执行gulp component:init生成\n */\n` +	// 注释
 			imp.join('\n') + `\n\nexport { ${exp.join(', ')} };`,
 			err => {
@@ -41,15 +47,23 @@ const writeFile = {
 	}
 };
 
+
 // 清理build
-gulp.task('clean', () => {
-	gulp.src(config.path.clean.src, { read: false })
+gulp.task('build:clean', () => {
+	gulp.src(config.path.build.src, { read: false })
 		.pipe(clean());
 });
+gulp.task('action:clean', () => {
+	gulp.src(config.path.action.src, { read: false })
+		.pipe(clean());
+});
+gulp.task('clean', ['build:clean', 'action:clean']);
+
+
 
 // 写入component main文件
 gulp.task('component:init', () => {
-	fs.readdir(config.path.component.src, (err, files) => {
+	fs.readdir(config.path['component:init'].src, (err, files) => {
 
 		if (err) throw err;
 
@@ -68,21 +82,27 @@ gulp.task('component:init', () => {
 		writeFile.component(imp, exp);
 	})
 });
-
 // 写入action 文件
 gulp.task('action:init', () => {
-	fs.readdir(config.path.action.src, (err, files) => {
+	fs.readdir(config.path['action:init'].src, (err, files) => {
 		if (err) throw err;
+
+		// 创建action目录
+		if (files.length) {
+			if (!fs.existsSync(config.path.action.src)) {
+				fs.mkdirSync(config.path.action.src);
+			}
+		}
 
 		// console.log(files);
 		files.forEach(file => {
-			fs.stat(config.path.action.src + file, (err, stat) => {
+			fs.stat(config.path['action:init'].src + file, (err, stat) => {
 
 				if (err) throw err;
 				// 文件夹
 				if (stat.isDirectory()) {
 					var dir = file;
-					fs.readdir(config.path.action.src + file, (err, files) => {
+					fs.readdir(config.path['action:init'].src + file, (err, files) => {
 						if (err) throw err;
 
 						files.forEach((file) => {
@@ -103,3 +123,4 @@ gulp.task('action:init', () => {
 		});
 	});
 });
+gulp.task('init', ['component:init', 'action:init']);

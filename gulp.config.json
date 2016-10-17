@@ -1,12 +1,15 @@
 {
 	"path": {
-		"clean": {
+		"build": {
 			"src": "./build"
 		},
-		"component": {
+		"action": {
+			"src": "./assets/action"
+		},
+		"component:init": {
 			"src": "./assets/component/"
 		},
-		"action": {
+		"action:init": {
 			"src": "./assets/view/",
 			"dest": "./assets/action/"
 		}
