@@ -1,6 +1,6 @@
 # react-framework
 
-## 基于react单页多页面架构
+## 基于react单页架构
 
 ## 项目配置
 
@@ -22,7 +22,7 @@ $webpack -w
 ```
 `-w`监听文件变化
 
-## 目录功能
+## 目录结构
 * `assets` 静态文件
 	* `action` 页面路由 (运行`gulp action:init`生成)
 	* `component` 组件目录 (`main.jsx`入口文件通过`gulp component:init`生成)
