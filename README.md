@@ -24,10 +24,10 @@ $webpack -w
 
 ## 目录功能
 * `assets` 静态文件
-		* `action` 页面路由 (运行`gulp action:init`生成)
-		* `component` 组件目录 (main.jsx入口文件通过`gulp component:init`生成)
-		* `styles` 样式目录 (sass)
-		* `view` 页面 (被`action`引用)
+	* `action` 页面路由 (运行`gulp action:init`生成)
+	* `component` 组件目录 (`main.jsx`入口文件通过`gulp component:init`生成)
+	* `styles` 样式目录 (`sass`)
+	* `view` 页面 (被`action`引用)
 
 * `build` 编译文件
 
