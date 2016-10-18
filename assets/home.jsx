@@ -50,9 +50,9 @@ class Menu extends React.Component {
 
 ReactDOM.render(
 		<Menu list={[
-				{ text: '菜单一', url: './build/aaa' },
-				{ text: '菜单二', url: './build/bbb' },
-				{ text: '菜单三', url: './build/ccc' }
+				{ text: '菜单一', url: './build/action/aaa/index.js' },
+				{ text: '菜单二', url: './build/action/bbb/index.js'},
+				{ text: '菜单三', url: './build/action/ccc/index.js' }
 			]} />,
 		document.querySelector('#menu')
 	)

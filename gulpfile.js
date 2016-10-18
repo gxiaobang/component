@@ -4,7 +4,7 @@
 
 var gulp = require('gulp'),
 		clean = require('gulp-clean'),
-		config = require('./gulp.config.json');
+		config = require('./gulp.config');
 
 var fs = require('fs'),
 		path = require('path');
@@ -14,7 +14,7 @@ var fs = require('fs'),
 const writeFile = {
 	action(file) {
 		var data = path.parse(file);
-		var dir = config.path['action:init'].dest + data.dir;
+		var dir = config.path.view.dest + data.dir;
 
 		// 需要先创建目录
 		if (!fs.existsSync(dir)) {
@@ -22,7 +22,7 @@ const writeFile = {
 		}
 
 		fs.writeFile(
-			config.path['action:init'].dest + file,
+			config.path.view.dest + file,
 			`/**\n * 注：执行gulp action:init生成\n */\n` +	// 注释
 			`import Page from '../../view/${file}';\n` +
 			'def(() => {\n' +
@@ -36,7 +36,7 @@ const writeFile = {
 	},
 	component(imp, exp) {
 		fs.writeFile(
-			config.path['component:init'].src + 'main.jsx',
+			config.path.component.src + 'main.jsx',
 			`/**\n * 注：执行gulp component:init生成\n */\n` +	// 注释
 			imp.join('\n') + `\n\nexport { ${exp.join(', ')} };`,
 			err => {
@@ -63,7 +63,7 @@ gulp.task('clean', ['build:clean', 'action:clean']);
 
 // 写入component main文件
 gulp.task('component:init', () => {
-	fs.readdir(config.path['component:init'].src, (err, files) => {
+	fs.readdir(config.path.component.src, (err, files) => {
 
 		if (err) throw err;
 
@@ -84,7 +84,8 @@ gulp.task('component:init', () => {
 });
 // 写入action 文件
 gulp.task('action:init', () => {
-	fs.readdir(config.path['action:init'].src, (err, files) => {
+	console.log(config.path.view.src)
+	fs.readdir(config.path.view.src, (err, files) => {
 		if (err) throw err;
 
 		// 创建action目录
@@ -96,13 +97,13 @@ gulp.task('action:init', () => {
 
 		// console.log(files);
 		files.forEach(file => {
-			fs.stat(config.path['action:init'].src + file, (err, stat) => {
+			fs.stat(config.path.view.src + file, (err, stat) => {
 
 				if (err) throw err;
 				// 文件夹
 				if (stat.isDirectory()) {
 					var dir = file;
-					fs.readdir(config.path['action:init'].src + file, (err, files) => {
+					fs.readdir(config.path.view.src + file, (err, files) => {
 						if (err) throw err;
 
 						files.forEach((file) => {

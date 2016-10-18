@@ -5,15 +5,11 @@
 var webpack = require('webpack'),
     ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-module.exports = {
+var fs = require('fs');
+
+var config = {
     entry: {
-        // react: './node_modules/react/react.js',
-        // main: './assets/main.jsx',
-        home: './assets/home.jsx',
-        aaa: './assets/action/aaa/index.jsx',
-        bbb: './assets/action/bbb/index.jsx',
-        ccc: './assets/action/ccc/index.jsx',
-        // action: './assets/action/**/*.jsx'
+        home: './assets/home'
     },
     output: {
         // publicPath: './build/public',
@@ -25,7 +21,7 @@ module.exports = {
         // 别名
         alias: {
             component: __dirname + '/assets/component/main',
-            view: __dirname + '/assets/view/'
+            // view: __dirname + '/assets/view/'
             // react: __dirname + '/build/react'
         }
     },
@@ -57,3 +53,28 @@ module.exports = {
     ],
     devtool: 'eval-source-map'
 };
+
+// 设置入口
+function setEntry(name) {
+	// 同步读取
+	var stat = fs.statSync(name);
+	// 文件夹
+	if (stat.isDirectory()) {
+		fs.readdirSync(name).forEach(file => {
+			setEntry(name + '/' + file);
+		});
+	}
+	// 文件
+	else if (stat.isFile()) {
+		config.entry[ 
+			name.replace(/\.\/assets/, '')
+				.replace(/\.jsx$/, '')
+		] = name;
+	}
+	else {
+		console.log('路径不存在');
+	}
+}
+setEntry('./assets/action');
+
+module.exports = config;
