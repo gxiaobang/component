@@ -7,13 +7,16 @@ var webpack = require('webpack'),
 
 var fs = require('fs');
 
+// NODE_ENV=production webpack 发布打包
+var debug = process.env.NODE_ENV != 'production';
+
 var config = {
     entry: {
         home: './assets/home'
     },
     output: {
         // publicPath: './build/public',
-        path: './build/',
+        path: './build/' + (debug ? 'dev' : '[hash:8]') + '/',
         filename: '[name].js'
     },
     resolve: {

@@ -4,8 +4,11 @@
 	<meta charset="UTF-8">
 	<title>react framework</title>
 	<script src="./node_modules/requirejs/require.js"></script>
-	<script src="./build/common.js"></script>
+	<script src="./build/dev/common.js"></script>
 	<script>
+		require.config({
+			baseUrl: './build/dev/'
+		});
 		var def = define;
 	</script>
 </head>
@@ -15,7 +18,8 @@
 	<div id="dialog"></div>
 	<div id="menu"></div>
 	<div id="page"></div>
+	<div id="pageTab"></div>
 
-	<script src="./build/home.js"></script>
+	<script src="./build/dev/home.js"></script>
 </body>
 </html>
