@@ -5,7 +5,8 @@
  */
 
 import React from 'react';
-import '../styles/dialog';
+// 引入样式
+import '@styles/dialog';
 
 class Dialog extends React.Component {
 	render() {

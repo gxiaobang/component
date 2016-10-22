@@ -11,11 +11,11 @@ module.exports = {
 			src: './assets/action'
 		},
 		view: {
-			src: './assets/view/',
-			dest: './assets/action/'
+			src: './assets/view',
+			dest: './assets/action'
 		},
-		component: {
-			src: './assets/component/'
+		components: {
+			src: './assets/components'
 		}
 	}
 };

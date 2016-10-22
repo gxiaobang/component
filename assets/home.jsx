@@ -4,7 +4,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Dialog, Hello } from 'component';
+import { Dialog, Hello } from 'components';
 
 /*ReactDOM.render(
 		<Dialog 
