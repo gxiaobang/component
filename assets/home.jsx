@@ -25,8 +25,17 @@ import '@styles/home';
 	)	*/
 
 class Menu extends React.Component {
-	constructor(props) {
-		super(props);
+
+	static defaultProps: {
+		title: '菜单'
+	}
+
+	constructor() {
+		super();
+		// console.log(props)
+		// this.status = {};
+
+		console.log(this.props);
 		this.pageInit();
 	}
 
@@ -73,13 +82,16 @@ class Menu extends React.Component {
 
 	render() {
 		return (
-				<ul className="menu">
-				{
-					this.props.list.map(item => {
-						return <li onClick={this.handleClick.bind(this, item)}>{item.text}</li>
-					})
-				}
-				</ul>
+				<section className="menu">
+					<h2>{this.props.title}</h2>
+					<ul>
+					{
+						this.props.list.map(item => {
+							return <li onClick={this.handleClick.bind(this, item)}>{item.text}</li>
+						})
+					}
+					</ul>
+				</section>
 			)
 	}
 }
@@ -137,11 +149,17 @@ class PageTab extends React.Component {
 	}
 }
 
-ReactDOM.render(
-		<Menu list={[
-				{ text: '菜单一', url: 'aaa/index', code: 'aaa' },
-				{ text: '菜单二', url: 'bbb/index', code: 'bbb' },
-				{ text: '菜单三', url: 'ccc/index', code: 'ccc' }
-			]} />,
-		document.querySelector('#menu')
-	)
+
+window.onload = () => {
+	ReactDOM.render(
+			<Menu list={[
+					{ text: 'aaa', url: 'aaa/index', code: 'aaa' },
+					{ text: 'bbb', url: 'bbb/index', code: 'bbb' },
+					{ text: 'ccc', url: 'ccc/index', code: 'ccc' }
+				]} />,
+			document.querySelector('#menu')
+		)
+};
+
+
+export default () => {};

@@ -4,10 +4,9 @@
 	<meta charset="UTF-8">
 	<title>react framework</title>
 	<script src="./node_modules/requirejs/require.js"></script>
-	<script src="./build/<%= htmlWebpackPlugin.options.dir %>/common.js"></script>
 	<script>
 		require.config({
-			baseUrl: './build/dev/'
+			baseUrl: './build/<%= htmlWebpackPlugin.options.dir %>/'
 		});
 		window._define = define;
 	</script>
@@ -20,7 +19,5 @@
 	<div id="menu"></div>
 	<div id="page"></div>
 	<div id="pageTab"></div>
-
-	<script src="./build/<%= htmlWebpackPlugin.options.dir %>/home.js"></script>
 </body>
 </html>

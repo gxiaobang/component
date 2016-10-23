@@ -4,14 +4,13 @@
 	<meta charset="UTF-8">
 	<title>react framework</title>
 	<script src="./node_modules/requirejs/require.js"></script>
-	<script src="./build/dev/common.js"></script>
 	<script>
 		require.config({
 			baseUrl: './build/dev/'
 		});
 		window._define = define;
 	</script>
-</head>
+<script type="text/javascript" src="build/dev/common.js"></script><script type="text/javascript" src="build/dev/home.js"></script></head>
 <body>
 	<h1>测试</h1>
 	<div id="hello"></div>
@@ -20,7 +19,5 @@
 	<div id="menu"></div>
 	<div id="page"></div>
 	<div id="pageTab"></div>
-
-	<script src="./build/dev/home.js"></script>
 </body>
 </html>

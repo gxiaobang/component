@@ -32,4 +32,4 @@ $webpack -w
 
 * `build` 编译文件
 	* `dev` 开发环境
-	* `release` 发布打包
+	* `[版本号]` 生产环境

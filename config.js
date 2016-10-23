@@ -3,6 +3,7 @@
  */
 
 module.exports = {
+	version: '1.0.0',
 	path: {
 		baseurl: './assets',
 		build: {
