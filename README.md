@@ -4,32 +4,31 @@
 
 ## 项目配置
 
-### 支行环境`node6.x`
+### 运行环境`node6.x`
 
-### 下载安装依赖包
+### 安装依赖包
 ```bash
 $npm install
 ```
-读取`package.json`配置
 
 ### 初始化项目
 ```bash
-$gulp init
+$gulp create
 ```
-创建webpack所需`entry`文件
+创建webpack`entry`文件，在下一步通过webpack去动态读取`fs`
 
-### 运行webpack
+### 运行webpack编译
 ```bash
 $webpack -w
 ```
-`-w`监听文件变化
+`-w`是`--watch`的简写，用来监听文件变化
 
 ## 目录结构
 * `assets` 静态文件
-	* `action` 页面路由 (运行`gulp action:init`生成)
-	* `components` 组件目录 (`main.jsx`入口文件通过`gulp component:init`生成)
+	* `action` 页面路由 (运行`gulp action:create`生成)
+	* `components` 组件目录 (`main.jsx`入口文件通过`gulp components:create`生成)
 	* `styles` 样式目录 (`sass`)
-	* `view` 页面 (被`action`引用)
+	* `views` 页面 (被`action`引用)
 
 * `build` 编译文件
 	* `dev` 开发环境

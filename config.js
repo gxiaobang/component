@@ -1,17 +1,18 @@
 /**
- * gulp参数配置
+ * 参数配置
  */
 
 module.exports = {
 	path: {
+		baseurl: './assets',
 		build: {
 			src: './build'
 		},
 		action: {
 			src: './assets/action'
 		},
-		view: {
-			src: './assets/view',
+		views: {
+			src: './assets/views',
 			dest: './assets/action'
 		},
 		components: {

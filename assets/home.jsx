@@ -4,7 +4,8 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Dialog, Hello } from 'components';
+import { Dialog, Hello } from '@components';
+import '@styles/home';
 
 /*ReactDOM.render(
 		<Dialog 
@@ -24,8 +25,8 @@ import { Dialog, Hello } from 'components';
 	)	*/
 
 class Menu extends React.Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.pageInit();
 	}
 
@@ -84,8 +85,8 @@ class Menu extends React.Component {
 }
 
 class PageTab extends React.Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
 			pages: []
 		};

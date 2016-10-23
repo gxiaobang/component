@@ -4,11 +4,13 @@
 
 var gulp = require('gulp'),
 		clean = require('gulp-clean'),
-		config = require('./gulp.config');
+		config = require('./config');
 
 var fs = require('fs'),
-		path = require('path'),
-		crypto = require('crypto');
+		path = require('path');
+
+// 生成md5路径
+// var crypto = require('crypto');
 
 
 // 文件写入
@@ -28,9 +30,9 @@ const writeFile = {
 
 		fs.writeFile(
 			src,
-			`/**\n * 注：执行gulp action:init生成\n */\n` +	// 注释
-			`import Page from '${src.replace('action', 'view')}';\n` +
-			'def(() => {\n' +
+			`/**\n * 注：执行gulp action:create生成\n */\n` +	// 注释
+			`import Page from '${src.replace('./assets/action', '@views')}';\n` +
+			'_define(() => {\n' +
 				`\treturn Page;\n` +
 			'});',
 			err => {
@@ -42,7 +44,7 @@ const writeFile = {
 	components(imp, exp) {
 		fs.writeFile(
 			config.path.components.src + '/main.jsx',
-			`/**\n * 注：执行gulp components:init生成\n */\n` +	// 注释
+			`/**\n * 注：执行gulp components:create生成\n */\n` +	// 注释
 			imp.join('\n') + `\n\nexport { ${exp.join(', ')} };`,
 			err => {
 				if (err) throw err;
@@ -85,12 +87,15 @@ gulp.task('action:clean', () => {
 	gulp.src(config.path.action.src, { read: false })
 		.pipe(clean());
 });
+gulp.task('components:clean', () => {
+	
+});
 gulp.task('clean', ['build:clean', 'action:clean']);
 
 
 
-// write components/main.jsx
-gulp.task('components:init', () => {
+// 创建components/main.jsx
+gulp.task('components:create', () => {
 	let imp = [],
 			exp = [];
 	fs.readdirSync(config.path.components.src).forEach(file => {
@@ -103,16 +108,16 @@ gulp.task('components:init', () => {
 	});
 	writeFile.components(imp, exp);
 });
-// 写入action 文件
-gulp.task('action:init', () => {
+// 创建action文件
+gulp.task('action:create', () => {
 	// 创建action目录
 	if (!fs.existsSync(config.path.action.src)) {
 		fs.mkdirSync(config.path.action.src);
 	}
 
-	reRead(config.path.view.src, function(src) {
-		src = src.replace('view', 'action');
+	reRead(config.path.views.src, function(src) {
+		src = src.replace('views', 'action');
 		writeFile.action(src);
 	});
 });
-gulp.task('init', ['components:init', 'action:init']);
+gulp.task('create', ['components:create', 'action:create']);

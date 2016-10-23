@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<title>react framework</title>
 	<script src="./node_modules/requirejs/require.js"></script>
-	<script src="./build/dev/common.js"></script>
+	<script src="./build/<%= htmlWebpackPlugin.options.dir %>/common.js"></script>
 	<script>
 		require.config({
 			baseUrl: './build/dev/'
@@ -13,7 +13,7 @@
 	</script>
 </head>
 <body>
-	<h1>测试</h1>
+	<h1><%= htmlWebpackPlugin.options.title %></h1>
 	<div id="hello"></div>
 	<div id="form"></div>
 	<div id="dialog"></div>
@@ -21,6 +21,6 @@
 	<div id="page"></div>
 	<div id="pageTab"></div>
 
-	<script src="./build/dev/home.js"></script>
+	<script src="./build/<%= htmlWebpackPlugin.options.dir %>/home.js"></script>
 </body>
 </html>

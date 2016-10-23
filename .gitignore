@@ -2,3 +2,4 @@ node_modules/
 build/
 assets/component/main.jsx
 assets/action/
+index.html
