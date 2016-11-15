@@ -8,7 +8,7 @@
 		require.config({
 			baseUrl: './build/dev/'
 		});
-		window._define = define;
+		window.def = define;
 	</script>
 <script type="text/javascript" src="build/dev/common.js"></script><script type="text/javascript" src="build/dev/home.js"></script></head>
 <body>
@@ -19,5 +19,9 @@
 	<div id="menu"></div>
 	<div id="page"></div>
 	<div id="pageTab"></div>
+
+	<script>
+		home.init();
+	</script>
 </body>
 </html>

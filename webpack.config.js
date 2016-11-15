@@ -1,5 +1,6 @@
 /**
  * webpack打包配置
+ * @author gxiaobang
  */
 
 var webpack = require('webpack'),
@@ -24,7 +25,7 @@ var webpackConfig = {
 	output: {
 		// publicPath: './build/public',
 		path: './build/' + (debug ? 'dev' : config.version),
-		filename: debug ? '[name].js' : '[name].[chunkHash].js'
+		filename: debug ? '[name].js' : '[name].[chunkHash:8].js'
 	},
 	resolve: {
 		extensions: ['', '.js', '.jsx', '.sass', '.scss'],

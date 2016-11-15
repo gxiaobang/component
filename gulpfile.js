@@ -1,5 +1,6 @@
 /**
  * 前端自动化
+ * @author gxiaobang
  */
 
 var gulp = require('gulp'),
@@ -14,7 +15,7 @@ var fs = require('fs'),
 
 
 // 文件写入
-const writeFile = {
+const createFile = {
 	action(src) {
 
 		var dir = path.parse(src).dir;
@@ -32,12 +33,12 @@ const writeFile = {
 			src,
 			`/**\n * 注：执行gulp action:create生成\n */\n` +	// 注释
 			`import Page from '${src.replace('./assets/action', '@views')}';\n` +
-			'_define(() => {\n' +
+			'def(() => {\n' +
 				`\treturn Page;\n` +
 			'});',
 			err => {
 				if (err) throw err;
-				console.log('file saved');
+				console.log('file is created');
 			}
 		);
 	},
@@ -48,7 +49,7 @@ const writeFile = {
 			imp.join('\n') + `\n\nexport { ${exp.join(', ')} };`,
 			err => {
 				if (err) throw err;
-				console.log('file saved');
+				console.log('file is created');
 			}
 		)
 	}
@@ -106,7 +107,7 @@ gulp.task('components:create', () => {
 			exp.push(upperName);
 		}
 	});
-	writeFile.components(imp, exp);
+	createFile.components(imp, exp);
 });
 // 创建action文件
 gulp.task('action:create', () => {
@@ -117,7 +118,7 @@ gulp.task('action:create', () => {
 
 	reRead(config.path.views.src, function(src) {
 		src = src.replace('views', 'action');
-		writeFile.action(src);
+		createFile.action(src);
 	});
 });
 gulp.task('create', ['components:create', 'action:create']);

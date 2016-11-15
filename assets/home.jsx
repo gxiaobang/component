@@ -34,8 +34,6 @@ class Menu extends React.Component {
 		super();
 		// console.log(props)
 		// this.status = {};
-
-		console.log(this.props);
 		this.pageInit();
 	}
 
@@ -150,16 +148,19 @@ class PageTab extends React.Component {
 }
 
 
-window.onload = () => {
-	ReactDOM.render(
+
+
+const home = {
+	init() {
+		ReactDOM.render(
 			<Menu list={[
 					{ text: 'aaa', url: 'aaa/index', code: 'aaa' },
 					{ text: 'bbb', url: 'bbb/index', code: 'bbb' },
 					{ text: 'ccc', url: 'ccc/index', code: 'ccc' }
 				]} />,
 			document.querySelector('#menu')
-		)
+		);
+	}
 };
 
-
-export default () => {};
+global.home = home;
