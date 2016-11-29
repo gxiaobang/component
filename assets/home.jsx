@@ -1,5 +1,6 @@
 /**
  * 主页
+ * @author gxiaobang
  */
 
 import React from 'react';
@@ -7,41 +8,27 @@ import ReactDOM from 'react-dom';
 import { Dialog, Hello } from '@components';
 import '@styles/home';
 
-/*ReactDOM.render(
-		<Dialog 
-			title="提示框" 
-			btns={[
-				{ 
-					cls: 'primary', 
-					text: '确定', 
-					handler: function() {
-						console.log(arguments);
-					}
-				}
-			]}
-			message="内容信息"
-		/>,
-		document.querySelector('#dialog')
-	)	*/
 
 class Menu extends React.Component {
 
-	static defaultProps: {
+	static defaultProps = {
 		title: '菜单'
 	}
 
-	constructor() {
-		super();
-		// console.log(props)
-		// this.status = {};
-		this.pageInit();
+	static propTypes = {
+		title: React.PropTypes.string.isRequired
 	}
 
-	pageInit() {
-		this.pageTab = ReactDOM.render(
-				<PageTab />,
-				document.querySelector('#pageTab')
-			);
+	state = {
+		title: 1
+	}
+
+	constructor(props) {
+		super(props);
+
+		// console.log(props);
+
+		// props.title = '菜单';
 	}
 
 	handleClick(item) {
@@ -84,8 +71,8 @@ class Menu extends React.Component {
 					<h2>{this.props.title}</h2>
 					<ul>
 					{
-						this.props.list.map(item => {
-							return <li onClick={this.handleClick.bind(this, item)}>{item.text}</li>
+						this.props.data.map((item, index) => {
+							return <li key={index} onClick={this.handleClick.bind(this, item)}>{item.name}</li>
 						})
 					}
 					</ul>
@@ -148,17 +135,34 @@ class PageTab extends React.Component {
 }
 
 
+class Home extends React.Component {
+	constructor() {
+		super();
+	}
+
+	render() {
+		return (
+				<div>
+					<Menu title="标题" data={
+						[
+							{ name: '菜单一', url: '/aaa/index' },
+							{ name: '菜单二', url: '/bbb/index' },
+							{ name: '菜单三', url: '/ccc/index' }
+						]	
+					}></Menu>
+					<PageTab></PageTab>
+				</div>
+			)
+	}
+}
 
 
+// 包装接口
 const home = {
 	init() {
 		ReactDOM.render(
-			<Menu list={[
-					{ text: 'aaa', url: 'aaa/index', code: 'aaa' },
-					{ text: 'bbb', url: 'bbb/index', code: 'bbb' },
-					{ text: 'ccc', url: 'ccc/index', code: 'ccc' }
-				]} />,
-			document.querySelector('#menu')
+			<Home />,
+			document.querySelector('#home')
 		);
 	}
 };
