@@ -7,14 +7,12 @@ module.exports = {
 	path: {
 		baseurl: './assets',
 		build: {
-			src: './build'
+			src: './assets',
+			dest: './build'
 		},
-		action: {
-			src: './assets/action'
-		},
-		views: {
+		page: {
 			src: './assets/views',
-			dest: './assets/action'
+			dest: './assets/page'
 		},
 		components: {
 			src: './assets/components'

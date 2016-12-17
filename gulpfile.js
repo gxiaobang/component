@@ -16,7 +16,7 @@ var fs = require('fs'),
 
 // 文件写入
 const createFile = {
-	action(src) {
+	page(src) {
 
 		var dir = path.parse(src).dir;
 
@@ -31,8 +31,8 @@ const createFile = {
 
 		fs.writeFile(
 			src,
-			`/**\n * 注：执行gulp action:create生成\n */\n` +	// 注释
-			`import Page from '${src.replace('./assets/action', '@views')}';\n` +
+			`/**\n * 注：执行gulp page:create生成\n */\n` +	// 注释
+			`import Page from '${src.replace('./assets/page', '@views')}';\n` +
 			'def(() => {\n' +
 				`\treturn Page;\n` +
 			'});',
@@ -81,17 +81,17 @@ function reRead(src, cb) {
 
 // 清理build
 gulp.task('build:clean', () => {
-	gulp.src(config.path.build.src, { read: false })
+	gulp.src(config.path.build.dest, { read: false })
 		.pipe(clean());
 });
-gulp.task('action:clean', () => {
-	gulp.src(config.path.action.src, { read: false })
+gulp.task('page:clean', () => {
+	gulp.src(config.path.page.dest, { read: false })
 		.pipe(clean());
 });
 gulp.task('components:clean', () => {
 	
 });
-gulp.task('clean', ['build:clean', 'action:clean']);
+gulp.task('clean', ['build:clean', 'page:clean']);
 
 
 
@@ -109,16 +109,16 @@ gulp.task('components:create', () => {
 	});
 	createFile.components(imp, exp);
 });
-// 创建action文件
-gulp.task('action:create', () => {
-	// 创建action目录
-	if (!fs.existsSync(config.path.action.src)) {
-		fs.mkdirSync(config.path.action.src);
+// 创建page文件
+gulp.task('page:create', () => {
+	// 创建page目录
+	if (!fs.existsSync(config.path.page.dest)) {
+		fs.mkdirSync(config.path.page.dest);
 	}
 
-	reRead(config.path.views.src, function(src) {
-		src = src.replace('views', 'action');
-		createFile.action(src);
+	reRead(config.path.page.src, function(src) {
+		src = src.replace('views', 'page');
+		createFile.page(src);
 	});
 });
-gulp.task('create', ['components:create', 'action:create']);
+gulp.task('create', ['components:create', 'page:create']);

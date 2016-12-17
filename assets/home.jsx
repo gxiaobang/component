@@ -9,7 +9,7 @@ import { Dialog, Hello } from '@components';
 import '@styles/home';
 
 
-class Menu extends React.Component {
+class Nav extends React.Component {
 
 	static defaultProps = {
 		title: '菜单'
@@ -54,7 +54,7 @@ class Menu extends React.Component {
 		});
 
 		// console.log(this.pageTab.refs);
-		requirejs(['action/' + data.url], (Page) => {
+		requirejs(['page/' + data.url], (Page) => {
 			// console.log(Page);
 
 			ReactDOM.render(
@@ -143,18 +143,47 @@ class Home extends React.Component {
 	render() {
 		return (
 				<div>
-					<Menu title="标题" data={
+					<Nav title="标题" data={
 						[
 							{ name: '菜单一', url: '/aaa/index' },
 							{ name: '菜单二', url: '/bbb/index' },
 							{ name: '菜单三', url: '/ccc/index' }
 						]	
-					}></Menu>
+					}></Nav>
 					<PageTab></PageTab>
 				</div>
 			)
 	}
 }
+
+// 组件通信
+/*class Parent extends React.Component {
+	state = {
+		checked: true
+	}
+	handler() {
+		this.state.checked = !this.state.checked;
+		this.setState({
+			checked: this.state.checked
+		})
+	}
+	render() {
+		return (
+				<div>
+					<div onClick={this.handler.bind(this)}>click me!</div>
+					<Child checked={this.state.checked} />
+				</div>
+			);
+	}
+}
+
+class Child extends React.Component {
+
+	render() {
+		console.log(this.props.checked)
+		return <div>it's checked. {this.props.checked.toString()}</div>
+	}
+}*/
 
 
 // 包装接口
@@ -165,6 +194,12 @@ const home = {
 			document.querySelector('#home')
 		);
 	}
+	/*init() {
+		ReactDOM.render(
+			<Parent />,
+			document.querySelector('#home')
+		);
+	}*/
 };
 
 global.home = home;

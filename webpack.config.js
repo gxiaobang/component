@@ -16,7 +16,10 @@ var config = require('./config');
 // var crypto = require('crypto');
 
 // NODE_ENV=production webpack 发布打包
-var debug = process.env.NODE_ENV != 'production';
+// var debug = process.env.NODE_ENV != 'production';
+
+var debug = process.argv.slice(2).indexOf('-p') > -1;
+
 
 var webpackConfig = {
 	entry: {
@@ -116,7 +119,7 @@ function addAlias(paths) {
 }
 
 // 设置entry
-reRead('./assets/action', src => {
+reRead('./assets/page', src => {
 	webpackConfig.entry[ 
 		src.replace(/\.\/assets/, '')
 			.replace(/\.jsx$/, '')
