@@ -20,7 +20,8 @@ class Nav extends React.Component {
 	}
 
 	state = {
-		title: 1
+		title: 1,
+		pages: []
 	}
 
 	constructor(props) {
@@ -34,35 +35,39 @@ class Nav extends React.Component {
 	handleClick(item) {
 		// console.log(this.pageTab)
 		var that = this;
-		for (let i = 0; i < this.pageTab.pages.length; i++) {
-			if (this.pageTab.pages[i].url == item.url) {
+
+		console.log(this.props.pageTab)
+
+		return;
+		for (let i = 0; i < this.pages.length; i++) {
+			if (this.pages[i].url == item.url) {
 				console.log('page loaded');
 				return;
 			}
 		}
 
-		this.pageTab.pages.forEach(item => item.isActive = false);
+		this.pages.forEach(item => item.isActive = false);
 		var data = {
 			title: item.text,
 			url: item.url,
 			code: item.code,
 			isActive: true
 		};
-		this.pageTab.pages.push(data);
-		/*this.pageTab.setState({
-			pages: this.pageTab.pages
+		this.pages.push(data);
+		/*this.setState({
+			pages: this.pages
 		});*/
 
-		// console.log(this.pageTab.refs);
-		requirejs(['page/' + data.url], (Page) => {
+		// console.log(this.refs);
+		/*requirejs(['page/' + data.url], (Page) => {
 			// console.log(Page);
 
 			ReactDOM.render(
 					<Page text={data.text} />,
 					// data.body
-					that.pageTab.refs[ data.code ]
+					this.refs[ data.code ]
 				);
-		});
+		});*/
 	}
 
 	render() {
@@ -91,6 +96,10 @@ class PageTab extends React.Component {
 	}
 
 	render() {
+		/*this.props.callbackParent({
+			pageTab: this
+		});*/
+
 		return (
 				<div className="content">
 					<div className="content-header">
@@ -120,12 +129,23 @@ class PageTab extends React.Component {
 			)
 	}
 
+	add(item) {
+		this.pages.push(item);
+		this.setState({ pages: this.pages });
+		this.props.callbackParent({
+			pages: this.state.pages
+		});
+	}
+
 	// 关闭
 	close(item) {
 		for (let i = 0; i < this.state.pages.length; i++) {
 			if (this.state.pages[ i ] == item) {
 				this.state.pages.splice(i, 1);
 				this.setState({
+					pages: this.state.pages
+				});
+				this.props.callbackParent({
 					pages: this.state.pages
 				});
 				return true;
@@ -137,20 +157,27 @@ class PageTab extends React.Component {
 
 
 class Home extends React.Component {
+
+	state = {
+		pages: null
+	}
+
+	callbackParent(state) {
+		this.setState(state);
+	}
+
 	render() {
-		this.nav = <Nav title="标题" data={
-									[
-										{ name: '菜单一', url: '/aaa/index' },
-										{ name: '菜单二', url: '/bbb/index' },
-										{ name: '菜单三', url: '/ccc/index' }
-									]	
-								} />;
-		this.nav.pageTab = <PageTab />;
-	
+		
 		return (
 				<div>
-					{this.nav}
-					{this.nav.pageTab}
+					<Nav title="标题" data={
+						[
+							{ name: '菜单一', url: '/aaa/index' },
+							{ name: '菜单二', url: '/bbb/index' },
+							{ name: '菜单三', url: '/ccc/index' }
+						]	
+					} pageTab={this.state.pageTab} />
+					<PageTab callbackParent={this.callbackParent} />
 				</div>
 			);
 	}

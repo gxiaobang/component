@@ -34,7 +34,7 @@ var webpackConfig = {
 		extensions: ['', '.js', '.jsx', '.sass', '.scss'],
 		// 别名
 		alias: {
-			'@components': __dirname + '/assets/components/main',
+			'@components': path.join(__dirname, '/assets/components/main'),
 			// views: __dirname + '/assets/views/'
 			// react: __dirname + '/build/react'
 		}
@@ -70,7 +70,7 @@ var webpackConfig = {
 			title: '测试',
 			dir: 'dev',
 			template: 'index.hbs',
-			filename: __dirname + '/index.html',
+			filename: path.join(__dirname, '/index.html'),
 			/*files: {
 				js: ['home']
 			}*/
@@ -84,7 +84,7 @@ var webpackConfig = {
 			metadata: { version: config.version }
 		})
 	],
-	devtool: debug ? null : 'eval-source-map'
+	devtool: debug ? 'eval-source-map' : null
 };
 
 // 递归读文件
@@ -117,9 +117,9 @@ function addAlias(paths) {
 			// console.log(src);
 			let data = path.parse(src);
 			let key = `@${src.replace('./assets/', '')}`;
-			webpackConfig.resolve.alias[ key ] = __dirname + src.replace('.', '');
+			webpackConfig.resolve.alias[ key ] = path.join(__dirname, src.replace('.', ''));
 			// 去后缀
-			webpackConfig.resolve.alias[ key.replace(/\.\w+/, '') ] = __dirname + src.replace('.', '');
+			webpackConfig.resolve.alias[ key.replace(/\.\w+/, '') ] = path.join(__dirname, src.replace('.', ''));
 		});
 	});
 }
@@ -132,6 +132,8 @@ reRead('./assets/page', src => {
 	] = src;
 });
 
+
+// home/index?version=1.0.0访问不同的版本
 
 /*
 // 设置页面别名
@@ -152,7 +154,7 @@ reRead('./assets/styles', src => {
 */
 
 // 页面别名、样式别名、组件别名
-addAlias(['./assets/views', './assets/styles', './assets/components']);
+addAlias(['./assets/views', './assets/styles', './assets/components', './assets/base']);
 
 // console.log(webpackConfig.resolve.alias);
 
