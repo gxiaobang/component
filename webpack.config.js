@@ -5,7 +5,8 @@
 
 var webpack = require('webpack'),
 		ExtractTextPlugin = require('extract-text-webpack-plugin'),
-		HtmlWebpackPlugin = require('html-webpack-plugin');
+		HtmlWebpackPlugin = require('html-webpack-plugin'),
+		AssetsPlugin = require('assets-webpack-plugin');
 
 var fs = require('fs'),
 		path = require('path');
@@ -18,8 +19,7 @@ var config = require('./config');
 // NODE_ENV=production webpack 发布打包
 // var debug = process.env.NODE_ENV != 'production';
 
-var debug = process.argv.slice(2).indexOf('-p') > -1;
-
+var debug = process.argv.slice(2).indexOf('--release') == -1;
 
 var webpackConfig = {
 	entry: {
@@ -27,7 +27,7 @@ var webpackConfig = {
 	},
 	output: {
 		// publicPath: './build/public',
-		path: './build/' + (debug ? 'dev' : config.version),
+		path: './build/' + (debug ? 'dev' : 'release'),
 		filename: debug ? '[name].js' : '[name].[chunkHash:8].js'
 	},
 	resolve: {
@@ -63,7 +63,7 @@ var webpackConfig = {
 	},
 	plugins: [
 		// 提取相同的文件
-		new webpack.optimize.CommonsChunkPlugin('common', 'common.js'),
+		new webpack.optimize.CommonsChunkPlugin('common', debug ? '[name].js' : '[name].[chunkHash:8].js'),
 		new ExtractTextPlugin('styles.css'),
 		// 修改页面静态文件路径
 		new HtmlWebpackPlugin({
@@ -76,9 +76,15 @@ var webpackConfig = {
 			}*/
 			chunks: ['styles', 'common', 'home'],
 			inject: 'head'
+		}),
+		new AssetsPlugin({
+			path: path.join(__dirname, './build'),
+			filename: `assetsmap-${config.version}.js`,
+			prettyPrint: true,
+			metadata: { version: config.version }
 		})
 	],
-	devtool: 'eval-source-map'
+	devtool: debug ? null : 'eval-source-map'
 };
 
 // 递归读文件

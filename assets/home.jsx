@@ -34,24 +34,24 @@ class Nav extends React.Component {
 	handleClick(item) {
 		// console.log(this.pageTab)
 		var that = this;
-		for (let i = 0; i < this.pageTab.state.pages.length; i++) {
-			if (this.pageTab.state.pages[i].url == item.url) {
+		for (let i = 0; i < this.pageTab.pages.length; i++) {
+			if (this.pageTab.pages[i].url == item.url) {
 				console.log('page loaded');
 				return;
 			}
 		}
 
-		this.pageTab.state.pages.forEach(item => item.isActive = false);
+		this.pageTab.pages.forEach(item => item.isActive = false);
 		var data = {
 			title: item.text,
 			url: item.url,
 			code: item.code,
 			isActive: true
 		};
-		this.pageTab.state.pages.push(data);
-		this.pageTab.setState({
-			pages: this.pageTab.state.pages
-		});
+		this.pageTab.pages.push(data);
+		/*this.pageTab.setState({
+			pages: this.pageTab.pages
+		});*/
 
 		// console.log(this.pageTab.refs);
 		requirejs(['page/' + data.url], (Page) => {
@@ -82,11 +82,12 @@ class Nav extends React.Component {
 }
 
 class PageTab extends React.Component {
+	state = {
+		pages: []
+	}
+
 	constructor(props) {
 		super(props);
-		this.state = {
-			pages: []
-		};
 	}
 
 	render() {
@@ -136,23 +137,22 @@ class PageTab extends React.Component {
 
 
 class Home extends React.Component {
-	constructor() {
-		super();
-	}
-
 	render() {
+		this.nav = <Nav title="标题" data={
+									[
+										{ name: '菜单一', url: '/aaa/index' },
+										{ name: '菜单二', url: '/bbb/index' },
+										{ name: '菜单三', url: '/ccc/index' }
+									]	
+								} />;
+		this.nav.pageTab = <PageTab />;
+	
 		return (
 				<div>
-					<Nav title="标题" data={
-						[
-							{ name: '菜单一', url: '/aaa/index' },
-							{ name: '菜单二', url: '/bbb/index' },
-							{ name: '菜单三', url: '/ccc/index' }
-						]	
-					}></Nav>
-					<PageTab></PageTab>
+					{this.nav}
+					{this.nav.pageTab}
 				</div>
-			)
+			);
 	}
 }
 
