@@ -33,7 +33,7 @@ const createFile = {
 			src,
 			`/**\n * 注：执行gulp page:create生成\n */\n` +	// 注释
 			`import Page from '${src.replace('./assets/page', '@views')}';\n` +
-			'def(() => {\n' +
+			'window.define(() => {\n' +
 				`\treturn Page;\n` +
 			'});',
 			err => {

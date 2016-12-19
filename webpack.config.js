@@ -19,7 +19,8 @@ var config = require('./config');
 // NODE_ENV=production webpack 发布打包
 // var debug = process.env.NODE_ENV != 'production';
 
-var debug = process.argv.slice(2).indexOf('--release') == -1;
+// 发布产品
+var prod = process.argv.slice(2).indexOf('-p') > -1;
 
 var webpackConfig = {
 	entry: {
@@ -27,8 +28,8 @@ var webpackConfig = {
 	},
 	output: {
 		// publicPath: './build/public',
-		path: './build/' + (debug ? 'dev' : 'release'),
-		filename: debug ? '[name].js' : '[name].[chunkHash:8].js'
+		path: './build/' + (prod ? 'release' : 'dev'),
+		filename: prod ? '[name].[chunkHash:8].js' : '[name].js'
 	},
 	resolve: {
 		extensions: ['', '.js', '.jsx', '.sass', '.scss'],
@@ -46,7 +47,7 @@ var webpackConfig = {
 		},*/
 		loaders: [
 			{ 
-				test: /\.jsx$/,
+				test: /\.(js|jsx)$/,
 				loader: 'babel-loader',
 				query: {
 					presets: ['es2015', 'stage-2', 'react']
@@ -54,7 +55,7 @@ var webpackConfig = {
 			},
 			{
 				test: /\.scss$/,
-				loaders: ['style', 'css?sourceMap', 'sass?sourceMap']
+				loaders: prod ? ['style', 'css', 'sass'] : ['style', 'css?sourceMap', 'sass?sourceMap'],
 				// loader: 'style!css!sass?sourceMap'
 				// loader: ExtractTextPlugin.extract('style-loader', 'css-loader', 'sass-loader'),
 				// include: path.resolve(webpackConfig.path)
@@ -63,7 +64,7 @@ var webpackConfig = {
 	},
 	plugins: [
 		// 提取相同的文件
-		new webpack.optimize.CommonsChunkPlugin('common', debug ? '[name].js' : '[name].[chunkHash:8].js'),
+		new webpack.optimize.CommonsChunkPlugin('common', prod ? '[name].[chunkHash:8].js' : '[name].js'),
 		new ExtractTextPlugin('styles.css'),
 		// 修改页面静态文件路径
 		new HtmlWebpackPlugin({
@@ -84,7 +85,7 @@ var webpackConfig = {
 			metadata: { version: config.version }
 		})
 	],
-	devtool: debug ? 'eval-source-map' : null
+	devtool: prod ? null : 'eval-source-map'
 };
 
 // 递归读文件
@@ -113,13 +114,11 @@ function reRead(src, cb) {
 function addAlias(paths) {
 	paths.forEach(p => {
 		reRead(p, src => {
-			// webpackConfig.entry
-			// console.log(src);
 			let data = path.parse(src);
 			let key = `@${src.replace('./assets/', '')}`;
-			webpackConfig.resolve.alias[ key ] = path.join(__dirname, src.replace('.', ''));
-			// 去后缀
-			webpackConfig.resolve.alias[ key.replace(/\.\w+/, '') ] = path.join(__dirname, src.replace('.', ''));
+
+			webpackConfig.resolve.alias[ key ] = 
+				webpackConfig.resolve.alias[ key.replace(/\.\w+$/, '') ] = path.join(__dirname, src);
 		});
 	});
 }
@@ -132,26 +131,6 @@ reRead('./assets/page', src => {
 	] = src;
 });
 
-
-// home/index?version=1.0.0访问不同的版本
-
-/*
-// 设置页面别名
-reRead('./assets/views', src => {
-	// webpackConfig.entry
-	// console.log(src);
-	webpackConfig.resolve.alias[ crypto.createHash('md5').update(src).digest('hex') ] = __dirname + src.replace('.', '');
-});
-
-// 设置样式别名
-reRead('./assets/styles', src => {
-	// webpackConfig.entry
-	// console.log(src);
-	let data = path.parse(src);
-	let key = `@${data.dir.replace('./assets/', '')}/${data.name}`;
-	webpackConfig.resolve.alias[ key ] = __dirname + src.replace('.', '');
-});
-*/
 
 // 页面别名、样式别名、组件别名
 addAlias(['./assets/views', './assets/styles', './assets/components', './assets/base']);

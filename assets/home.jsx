@@ -5,11 +5,14 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import EventEmitter from '@base/eventEmitter';
 import { Dialog, Hello } from '@components';
 import '@styles/home';
 
+var emitter = new EventEmitter();
 
-class Nav extends React.Component {
+// 菜单（读取菜单）
+class Menu extends React.Component {
 
 	static defaultProps = {
 		title: '菜单'
@@ -35,39 +38,21 @@ class Nav extends React.Component {
 	handleClick(item) {
 		// console.log(this.pageTab)
 		var that = this;
-
-		console.log(this.props.pageTab)
-
-		return;
-		for (let i = 0; i < this.pages.length; i++) {
-			if (this.pages[i].url == item.url) {
-				console.log('page loaded');
-				return;
-			}
-		}
-
-		this.pages.forEach(item => item.isActive = false);
 		var data = {
 			title: item.text,
 			url: item.url,
 			code: item.code,
-			isActive: true
+			active: true
 		};
-		this.pages.push(data);
-		/*this.setState({
-			pages: this.pages
-		});*/
+		emitter.dispatch('add', data);
 
-		// console.log(this.refs);
-		/*requirejs(['page/' + data.url], (Page) => {
+
+		// prod 读取assetsmap
+		// require加载页面jsx
+		requirejs(['page/' + data.url], (Page) => {
 			// console.log(Page);
-
-			ReactDOM.render(
-					<Page text={data.text} />,
-					// data.body
-					this.refs[ data.code ]
-				);
-		});*/
+			emitter.dispatch('renderPage', Page, data);
+		});
 	}
 
 	render() {
@@ -86,6 +71,7 @@ class Nav extends React.Component {
 	}
 }
 
+// 菜单页面渲染和tabs切换
 class PageTab extends React.Component {
 	state = {
 		pages: []
@@ -95,20 +81,31 @@ class PageTab extends React.Component {
 		super(props);
 	}
 
-	render() {
-		/*this.props.callbackParent({
-			pageTab: this
-		});*/
+	// 组件周期（完成）
+	componentDidMount() {
+		emitter.subscribe('add', data => {
+			this.add(data);
+		});
 
+		emitter.subscribe('close', data => {
+			this.close(data);
+		});
+
+		emitter.subscribe('renderPage', (Page, data) => {
+			this.renderPage(Page, data);
+		});
+	}
+
+	render() {
 		return (
 				<div className="content">
 					<div className="content-header">
 					{
-						this.state.pages.map(item => {
+						this.state.pages.map((data, index) => {
 							return (
-									<div>
-										{item.title}
-										<div className="close" onClick={this.close.bind(this, item)}>&times;</div>
+									<div key={index}>
+										{data.title}
+										<div className="close" onClick={this.close.bind(this, data)}>&times;</div>
 									</div>
 								)
 						})
@@ -116,10 +113,10 @@ class PageTab extends React.Component {
 					</div>
 					<div className="content-body">
 					{
-						this.state.pages.map(item => {
+						this.state.pages.map((data, index) => {
 							return (
-									<div ref={item.code} style={
-										{ display: item.isActive ? '' : 'none' }
+									<div key={index} ref={data.code} style={
+										{ display: data.active ? '' : 'none' }
 									}></div>
 								);
 						})
@@ -129,23 +126,51 @@ class PageTab extends React.Component {
 			)
 	}
 
-	add(item) {
-		this.pages.push(item);
-		this.setState({ pages: this.pages });
-		this.props.callbackParent({
-			pages: this.state.pages
-		});
+	// 获取菜单页面data
+	getPageData(code) {
+		// 有添加过
+		for (let i = 0; i < this.state.pages.length; i++) {
+			if (this.state.pages[i].code == code) {
+				return this.state.pages[i];
+			}
+		}
+	}
+
+	// 有添加过
+	hasAdded(code) {
+		for (let i = 0; i < this.state.pages.length; i++) {
+			if (this.state.pages[i].code == code) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	// 清除选中
+	clearSelect() {
+		this.state.pages.forEach(data => data.active = false);
+	}
+
+	add(data) {
+		this.clearSelect();
+
+		if (this.hasAdded(data.code)) {
+			this.getPageData(data.code).active = true;
+		}
+		else {
+			this.state.pages.push(data);
+		}
+
+		this.setState({ pages: this.state.pages });
 	}
 
 	// 关闭
-	close(item) {
+	close(data) {
 		for (let i = 0; i < this.state.pages.length; i++) {
-			if (this.state.pages[ i ] == item) {
+			if (this.state.pages[ i ] == data) {
 				this.state.pages.splice(i, 1);
 				this.setState({
-					pages: this.state.pages
-				});
-				this.props.callbackParent({
 					pages: this.state.pages
 				});
 				return true;
@@ -153,31 +178,29 @@ class PageTab extends React.Component {
 		}
 		return false;
 	}
+
+	// 渲染页面
+	renderPage(Page, data) {
+		ReactDOM.render(
+				<Page data={data} title={data.title} />,
+				this.refs[ data.code ]
+			);
+	}
 }
 
 
 class Home extends React.Component {
-
-	state = {
-		pages: null
-	}
-
-	callbackParent(state) {
-		this.setState(state);
-	}
-
 	render() {
-		
 		return (
 				<div>
-					<Nav title="标题" data={
+					<Menu title="标题" data={
 						[
-							{ name: '菜单一', url: '/aaa/index' },
-							{ name: '菜单二', url: '/bbb/index' },
-							{ name: '菜单三', url: '/ccc/index' }
+							{ name: '菜单一', url: '/aaa/index', code: 'a' },
+							{ name: '菜单二', url: '/bbb/index', code: 'b' },
+							{ name: '菜单三', url: '/ccc/index', code: 'c' }
 						]	
-					} pageTab={this.state.pageTab} />
-					<PageTab callbackParent={this.callbackParent} />
+					} />
+					<PageTab />
 				</div>
 			);
 	}
