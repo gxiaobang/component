@@ -3,17 +3,15 @@
 <head>
 	<meta charset="UTF-8">
 	<title>react framework</title>
-	<script src="./node_modules/requirejs/require.js"></script>
-	<script>
-		require.config({
-			baseUrl: './build/<%= htmlWebpackPlugin.options.dir %>/'
-		});
-	</script>
+	
 </head>
 <body>
 	<div id="home"></div>
-
+	
 	<script>
+		depend.config({
+			baseUrl: './build/<%= htmlWebpackPlugin.options.dir %>/'
+		});
 		home.init();
 	</script>
 </body>

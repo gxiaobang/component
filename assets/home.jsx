@@ -5,8 +5,9 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import EventEmitter from '@base/eventEmitter';
 import { Dialog, Hello } from '@components';
+import EventEmitter from '@base/eventEmitter';
+import depend from '@base/depend';
 import '@styles/home';
 
 var emitter = new EventEmitter();
@@ -23,7 +24,6 @@ class Menu extends React.Component {
 	}
 
 	state = {
-		title: 1,
 		pages: []
 	}
 
@@ -49,7 +49,7 @@ class Menu extends React.Component {
 
 		// prod 读取assetsmap
 		// require加载页面jsx
-		requirejs(['page/' + data.url], (Page) => {
+		depend.require(['page' + data.url], (Page) => {
 			// console.log(Page);
 			emitter.dispatch('renderPage', Page, data);
 		});

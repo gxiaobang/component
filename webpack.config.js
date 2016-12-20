@@ -24,7 +24,8 @@ var prod = process.argv.slice(2).indexOf('-p') > -1;
 
 var webpackConfig = {
 	entry: {
-		home: './assets/home'
+		home: './assets/home',
+		vendor: ['react', 'react-dom', 'requirejs']
 	},
 	output: {
 		// publicPath: './build/public',
@@ -40,6 +41,9 @@ var webpackConfig = {
 			// react: __dirname + '/build/react'
 		}
 	},
+	externals: {
+		requirejs: 'window.requirejs'
+	},
 	module: {
 		/*externals: {
 			'react': 'React',
@@ -51,7 +55,8 @@ var webpackConfig = {
 				loader: 'babel-loader',
 				query: {
 					presets: ['es2015', 'stage-2', 'react']
-				}
+				},
+				// exclude: ['requirejs']
 			},
 			{
 				test: /\.scss$/,
@@ -63,9 +68,17 @@ var webpackConfig = {
 		]
 	},
 	plugins: [
+		// 全局requirejs
+		new webpack.ProvidePlugin({
+			require: 'requirejs'
+		}),
+
 		// 提取相同的文件
-		new webpack.optimize.CommonsChunkPlugin('common', prod ? '[name].[chunkHash:8].js' : '[name].js'),
-		new ExtractTextPlugin('styles.css'),
+		new webpack.optimize.CommonsChunkPlugin({
+			names: ['vendor']
+		}),
+
+		// new ExtractTextPlugin('styles.css'),
 		// 修改页面静态文件路径
 		new HtmlWebpackPlugin({
 			title: '测试',
@@ -75,7 +88,7 @@ var webpackConfig = {
 			/*files: {
 				js: ['home']
 			}*/
-			chunks: ['styles', 'common', 'home'],
+			chunks: [/*'styles', */'vendor', 'home'],
 			inject: 'head'
 		}),
 		new AssetsPlugin({

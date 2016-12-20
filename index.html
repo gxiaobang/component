@@ -3,17 +3,15 @@
 <head>
 	<meta charset="UTF-8">
 	<title>react framework</title>
-	<script src="./node_modules/requirejs/require.js"></script>
-	<script>
-		require.config({
-			baseUrl: './build/dev/'
-		});
-	</script>
-<script type="text/javascript" src="build/dev/common.js"></script><script type="text/javascript" src="build/dev/home.js"></script></head>
+	
+<script type="text/javascript" src="build/dev/vendor.js"></script><script type="text/javascript" src="build/dev/home.js"></script></head>
 <body>
 	<div id="home"></div>
-
+	
 	<script>
+		depend.config({
+			baseUrl: './build/dev/'
+		});
 		home.init();
 	</script>
 </body>
