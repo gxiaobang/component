@@ -3,7 +3,6 @@
  * @author gxiaobang
  * @version 0.1.0
  */
-import utils from '@base/utils';
 
 // 导入Script
 function createScript(src, fn) {

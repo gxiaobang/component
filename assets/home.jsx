@@ -50,7 +50,6 @@ class Menu extends React.Component {
 	render() {
 		return (
 				<section className="menu">
-					<h2>{this.props.title}</h2>
 					<ul>
 					{
 						this.props.data.map((item, index) => {
@@ -114,7 +113,7 @@ class PageTab extends React.Component {
 									<div key={index} ref={data.code} style={
 										{ display: data.active ? '' : 'none' }
 									}>
-										{data.Page}
+										{data.page}
 									</div>
 								);
 						})
@@ -175,7 +174,7 @@ class PageTab extends React.Component {
 				/*setTimeout(() => {
 					emitter.dispatch('renderPage', Page, data);
 				});*/
-				data.Page = <Page data={data} />;
+				data.page = <Page data={data} />;
 				this.setState({ pages: this.state.pages });
 			});
 		}
@@ -219,11 +218,11 @@ class Home extends React.Component {
 	render() {
 		return (
 				<div>
-					<Menu title="标题" data={
+					<Menu data={
 						[
-							{ title: '菜单一', url: '/aaa/index', code: 'a' },
-							{ title: '菜单二', url: '/bbb/index', code: 'b' },
-							{ title: '菜单三', url: '/ccc/index', code: 'c' }
+							{ title: '弹窗', url: '/aaa/index', code: 'a' },
+							{ title: '消息', url: '/bbb/index', code: 'b' },
+							{ title: '表格', url: '/ccc/index', code: 'c' }
 						]	
 					} />
 					<PageTab />
