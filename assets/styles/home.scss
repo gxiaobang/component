@@ -1,4 +1,4 @@
-
+	
 // @import './dialog';
 ul {
 	padding: 0;
@@ -6,5 +6,47 @@ ul {
 
 	li {
 		list-style: none;
+	}
+}
+
+
+.menu {
+	float: left;
+	width: 200px;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.content {
+	float: left;
+
+	padding: 10px;
+  min-width: 500px;
+  min-height: 500px;
+  margin-left: 10px;
+  border: 1px solid #ccc;
+
+	.content-header {
+		> div {
+			display: inline-block;
+		  border: 1px solid #ccc;
+		  padding: 4px;
+		  margin: 2px;
+		}
+
+		.selected {
+			background: #00BCD4;
+			color: white;
+		}
+
+		.close {
+			font-weight: bold;
+			cursor: pointer;
+		}
+
+		.content-header-title {
+			display: inline-block;
+			cursor: pointer;
+		}
 	}
 }

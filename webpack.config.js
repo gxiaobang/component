@@ -20,12 +20,13 @@ var config = require('./config');
 // var debug = process.env.NODE_ENV != 'production';
 
 // 发布产品
-var prod = process.argv.slice(2).indexOf('-p') > -1;
+var prod = process.argv.slice(2).indexOf('--release') > -1;
 
 var webpackConfig = {
 	entry: {
-		home: './assets/home',
-		vendor: ['react', 'react-dom', 'requirejs']
+		// 第三方
+		vendor: ['react', 'react-dom'/*, 'requirejs'*/],
+		home: ['./assets/home']
 	},
 	output: {
 		// publicPath: './build/public',
@@ -41,9 +42,9 @@ var webpackConfig = {
 			// react: __dirname + '/build/react'
 		}
 	},
-	externals: {
+	/*externals: {
 		requirejs: 'window.requirejs'
-	},
+	},*/
 	module: {
 		/*externals: {
 			'react': 'React',
@@ -69,33 +70,37 @@ var webpackConfig = {
 	},
 	plugins: [
 		// 全局requirejs
-		new webpack.ProvidePlugin({
+		/*new webpack.ProvidePlugin({
 			require: 'requirejs'
-		}),
+		}),*/
 
 		// 提取相同的文件
 		new webpack.optimize.CommonsChunkPlugin({
-			names: ['vendor']
+			names: ['vendor', 'common', 'home']
 		}),
 
 		// new ExtractTextPlugin('styles.css'),
 		// 修改页面静态文件路径
 		new HtmlWebpackPlugin({
 			title: '测试',
-			dir: 'dev',
+			dir: prod ? 'release' : 'dev',
+			version: config.version,
 			template: 'index.hbs',
 			filename: path.join(__dirname, '/index.html'),
 			/*files: {
 				js: ['home']
 			}*/
-			chunks: [/*'styles', */'vendor', 'home'],
+			chunks: [/*'styles', */'vendor', 'common', 'home'],
 			inject: 'head'
 		}),
 		new AssetsPlugin({
 			path: path.join(__dirname, './build'),
 			filename: `assetsmap-${config.version}.js`,
 			prettyPrint: true,
-			metadata: { version: config.version }
+			metadata: { version: config.version },
+			processOutput(assets) {
+				return `window.assetsmap=${JSON.stringify(assets)}`;
+			}
 		})
 	],
 	devtool: prod ? null : 'eval-source-map'

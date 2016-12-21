@@ -39,20 +39,12 @@ class Menu extends React.Component {
 		// console.log(this.pageTab)
 		var that = this;
 		var data = {
-			title: item.text,
+			title: item.title,
 			url: item.url,
 			code: item.code,
 			active: true
 		};
 		emitter.dispatch('add', data);
-
-
-		// prod 读取assetsmap
-		// require加载页面jsx
-		depend.require(['page' + data.url], (Page) => {
-			// console.log(Page);
-			emitter.dispatch('renderPage', Page, data);
-		});
 	}
 
 	render() {
@@ -62,7 +54,7 @@ class Menu extends React.Component {
 					<ul>
 					{
 						this.props.data.map((item, index) => {
-							return <li key={index} onClick={this.handleClick.bind(this, item)}>{item.name}</li>
+							return <li key={index} onClick={this.handleClick.bind(this, item)}>{item.title}</li>
 						})
 					}
 					</ul>
@@ -103,9 +95,13 @@ class PageTab extends React.Component {
 					{
 						this.state.pages.map((data, index) => {
 							return (
-									<div key={index}>
-										{data.title}
-										<div className="close" onClick={this.close.bind(this, data)}>&times;</div>
+									<div key={index} className={
+										data.active ? 'selected' : ''
+									}>
+										<div className="content-header-title" onClick={this.select.bind(this, data)}>
+											{data.title}
+										</div>
+										<span className="close" onClick={this.close.bind(this, data)}>&times;</span>
 									</div>
 								)
 						})
@@ -152,24 +148,50 @@ class PageTab extends React.Component {
 		this.state.pages.forEach(data => data.active = false);
 	}
 
+	select(data) {
+		this.clearSelect();
+		data.active = true;
+		this.setState({
+			pages: this.state.pages
+		});
+	}
+
 	add(data) {
 		this.clearSelect();
 
 		if (this.hasAdded(data.code)) {
 			this.getPageData(data.code).active = true;
+			this.setState({ pages: this.state.pages });
 		}
 		else {
 			this.state.pages.push(data);
-		}
+			var path = assetsmap['/page' + data.url].js.replace(/\.(js|css)$/, '');
+			this.setState({ pages: this.state.pages });
+			depend.require(path, (Page) => {
+				// console.log(Page);
 
-		this.setState({ pages: this.state.pages });
+				setTimeout(() => {
+					emitter.dispatch('renderPage', Page, data);
+				});
+			});
+		}
 	}
 
 	// 关闭
 	close(data) {
 		for (let i = 0; i < this.state.pages.length; i++) {
-			if (this.state.pages[ i ] == data) {
+			let item = this.state.pages[ i ];
+			if (item == data) {
 				this.state.pages.splice(i, 1);
+
+				if (item.active) {
+					// 重置上一个为选中
+					let n = Math.max(i - 1, 0);
+					if (this.state.pages[ n ]) {
+						this.state.pages[ n ].active = true;
+					}
+				}
+
 				this.setState({
 					pages: this.state.pages
 				});
@@ -182,7 +204,7 @@ class PageTab extends React.Component {
 	// 渲染页面
 	renderPage(Page, data) {
 		ReactDOM.render(
-				<Page data={data} title={data.title} />,
+				<Page data={data} />,
 				this.refs[ data.code ]
 			);
 	}
@@ -195,9 +217,9 @@ class Home extends React.Component {
 				<div>
 					<Menu title="标题" data={
 						[
-							{ name: '菜单一', url: '/aaa/index', code: 'a' },
-							{ name: '菜单二', url: '/bbb/index', code: 'b' },
-							{ name: '菜单三', url: '/ccc/index', code: 'c' }
+							{ title: '菜单一', url: '/aaa/index', code: 'a' },
+							{ title: '菜单二', url: '/bbb/index', code: 'b' },
+							{ title: '菜单三', url: '/ccc/index', code: 'c' }
 						]	
 					} />
 					<PageTab />

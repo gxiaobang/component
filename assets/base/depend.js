@@ -6,7 +6,7 @@
 import utils from '@base/utils';
 
 // 导入Script
-function importScript(src, fn) {
+function createScript(src, fn) {
 	var script = document.createElement('script');
 	script.src = src;
 
@@ -15,6 +15,8 @@ function importScript(src, fn) {
 	};
 
 	document.head.appendChild(script);
+
+	return script;
 }
 
 var depend = {
@@ -62,7 +64,7 @@ var depend = {
 	// 获取模块名
 	_getName(src) {
 		return src.replace(this.baseUrl, '')
-							.replace(/.(js|css)$/, '');
+							.replace(/\.(js|css)$/, '');
 	},
 
 	// 获取路径
@@ -90,7 +92,7 @@ var depend = {
 	define(fn) {
 		var script = document.currentScript;
 		// console.log(script)
-		var name = this._getName(script.getAttribute('src'));
+		var name = script.getAttribute('data-requiremodule');
 		this._add(name, fn && fn());
 	},
 	// 加载模块
@@ -98,11 +100,18 @@ var depend = {
 		if (!this._has(name)) {
 			if (this._temp.indexOf(name) == -1) {
 				this._temp.push(name);
-				importScript(this._getSrc(name), () => {
-					// fn()
+				var script = createScript(this._getSrc(name));
+
+				script.setAttribute('data-requiremodule', name);
+
+				script.onload = () => {
 					this._removeTemp(name);
 					this._feedback(name, fn);
-				});
+				};
+
+				script.onerror = () => {
+					this._removeTemp(name);
+				};
 			}
 		}
 		else {

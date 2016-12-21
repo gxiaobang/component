@@ -38,7 +38,7 @@ const createFile = {
 			'});',
 			err => {
 				if (err) throw err;
-				console.log('file is created');
+				// console.log('file is created');
 			}
 		);
 	},
@@ -49,7 +49,7 @@ const createFile = {
 			imp.join('\n') + `\n\nexport { ${exp.join(', ')} };`,
 			err => {
 				if (err) throw err;
-				console.log('file is created');
+				// console.log('file is created');
 			}
 		)
 	}

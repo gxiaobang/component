@@ -2,7 +2,12 @@ import React from 'react';
 
 class Page extends React.Component {
 	render() {
-		return <div className="page">{this.props.title}页面aaa</div>
+		return (
+				<div className="page">
+					<div>查询条件</div>
+					<div>数据列表</div>
+				</div>
+			)
 	}
 }
 
