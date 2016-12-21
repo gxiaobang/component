@@ -113,7 +113,9 @@ class PageTab extends React.Component {
 							return (
 									<div key={index} ref={data.code} style={
 										{ display: data.active ? '' : 'none' }
-									}></div>
+									}>
+										{data.Page}
+									</div>
 								);
 						})
 					}
@@ -170,9 +172,11 @@ class PageTab extends React.Component {
 			depend.require(path, (Page) => {
 				// console.log(Page);
 
-				setTimeout(() => {
+				/*setTimeout(() => {
 					emitter.dispatch('renderPage', Page, data);
-				});
+				});*/
+				data.Page = <Page data={data} />;
+				this.setState({ pages: this.state.pages });
 			});
 		}
 	}

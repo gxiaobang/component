@@ -21,15 +21,16 @@ $gulp create
 ```bash
 $webpack -w
 ```
-`-w`是`--watch`的简写，用来监听文件变化
 
-## 目录结构
+## 功能说明
 * `assets` 静态文件
-	* `action` 页面路由 (运行`gulp action:create`生成)
-	* `components` 组件目录 (`main.jsx`入口文件通过`gulp components:create`生成)
-	* `styles` 样式目录 (`sass`)
-	* `views` 页面 (被`action`引用)
+	* `page` 页面amd (运行`gulp page:create`生成)
+	* `components` 组件 (`main.jsx`入口文件通过`gulp components:create`生成)
+	* `styles` 样式 (`sass`)
+	* `views` 视图页面
 
 * `build` 编译文件
 	* `dev` 开发环境
-	* `[版本号]` 生产环境
+	* `release` 带hash串打包
+
+* `assetsmap-[version].js` 路径映射，有对应的hash
