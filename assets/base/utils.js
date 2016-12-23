@@ -307,6 +307,17 @@ function getPoint(el) {
 	}
 }
 
+// 对象map
+function objectmap(obj, fn) {
+	var map = [];
+	for (var key in obj) {
+		map.push(
+				fn && fn(key, obj[key], obj)
+			);
+	}
+	return map;
+}
+
 // 检测浏览器支持
 var suports = {
 	_cache: {},
@@ -328,5 +339,6 @@ export {
 	parseHTML, getStyle, setStyle, 
 	contains, addEvent, removeEvent,
 	templ, dateFormat, getPoint,
+	objectmap,
 	mixin, requestAnim, suports
 };

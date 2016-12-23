@@ -1,14 +1,8 @@
-	
-// @import './dialog';
-ul {
-	padding: 0;
-	margin: 0;
+/**
+ * 主页
+ */
 
-	li {
-		list-style: none;
-	}
-}
-
+@import 'normalize';
 
 .menu {
 	float: left;

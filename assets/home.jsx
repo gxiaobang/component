@@ -218,11 +218,12 @@ class Home extends React.Component {
 	render() {
 		return (
 				<div>
+					<h2>组件测试</h2>
 					<Menu data={
 						[
-							{ title: '弹窗', url: '/aaa/index', code: 'a' },
-							{ title: '消息', url: '/bbb/index', code: 'b' },
-							{ title: '表格', url: '/ccc/index', code: 'c' }
+							{ title: '弹窗', url: '/dialog/index', code: 'dialog' },
+							{ title: '消息', url: '/message/index', code: 'message' },
+							{ title: '标签页', url: '/tabs/index', code: 'tabs' }
 						]	
 					} />
 					<PageTab />

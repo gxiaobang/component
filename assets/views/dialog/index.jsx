@@ -14,7 +14,7 @@ class Page extends React.Component {
 	render() {
 		return (
 				<div className="page">
-					<h3>弹窗测试</h3>
+					<h3>{this.props.data.title}测试</h3>
 					<div>
 						<button onClick={this.handleClick}>弹窗测试</button>
 					</div>

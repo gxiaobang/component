@@ -88,7 +88,7 @@ class Dialog extends React.Component {
 						{this.props.title}
 						<span className="close" onClick={this.close.bind(this)}>&times;</span>
 					</header>
-					<section>
+					<section ref="content">
 						{
 							this.props.msg ? (
 								<div>
@@ -102,7 +102,7 @@ class Dialog extends React.Component {
 							)
 						}
 					</section>
-					<footer>
+					<footer ref="footer">
 						{
 							this.props.btns.map((item, index) => {
 								return (
@@ -134,8 +134,19 @@ class Dialog extends React.Component {
 		});
 	}
 
-	// 重构
+	// 大小限制
 	rebuild() {
+		this.limit();
+		this.resize();
+	}
+
+	// 限制
+	limit() {
+		this.refs.content.style.maxHeight = document.documentElement.clientHeight - 160 + 'px';
+	}
+
+	// 重置位置
+	resize() {
 		this.refs.dialog.style.left = (document.documentElement.clientWidth - this.refs.dialog.offsetWidth) / 2 + 'px';
 		this.refs.dialog.style.top = Math.max(
 			(document.documentElement.clientHeight - this.refs.dialog.offsetHeight) / 2 - 50, 20) + 'px';
