@@ -5,10 +5,10 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Dialog, Hello } from '@components';
-import EventEmitter from '@base/eventEmitter';
-import depend from '@base/depend';
-import '@styles/home';
+import { Dialog, Hello } from 'components';
+import EventEmitter from 'base/eventEmitter';
+// import depend from 'base/depend';
+import 'styles/home';
 
 var emitter = new EventEmitter();
 
@@ -166,14 +166,16 @@ class PageTab extends React.Component {
 		}
 		else {
 			this.state.pages.push(data);
-			var path = assetsmap['/page' + data.url].js.replace(/\.(js|css)$/, '');
 			this.setState({ pages: this.state.pages });
-			depend.require(path, (Page) => {
-				// console.log(Page);
+			/*depend.require(path, (Page) => {
+				data.page = <Page data={data} />;
+				this.setState({ pages: this.state.pages });
+			});*/
 
-				/*setTimeout(() => {
-					emitter.dispatch('renderPage', Page, data);
-				});*/
+
+			// var path = assetsmap['/page' + data.url].js.replace(/\.(js|css)$/, '');
+			require(`bundle?lazy!./views${data.url}`)(bundle => {
+				let Page = bundle.default;
 				data.page = <Page data={data} />;
 				this.setState({ pages: this.state.pages });
 			});

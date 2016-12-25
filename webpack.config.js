@@ -30,14 +30,15 @@ var webpackConfig = {
 	},
 	output: {
 		// publicPath: './build/public',
-		path: './build/' + (prod ? 'release' : 'dev'),
+		path: prod ? 'build' : 'dev',
+		publicPath: (prod ? 'build' : 'dev') + '/',
 		filename: prod ? '[name].[chunkHash:8].js' : '[name].js'
 	},
 	resolve: {
 		extensions: ['', '.js', '.jsx', '.sass', '.scss'],
 		// 别名
 		alias: {
-			'@components': path.join(__dirname, '/assets/components/main'),
+			'components': path.join(__dirname, '/assets/components/main'),
 			// views: __dirname + '/assets/views/'
 			// react: __dirname + '/build/react'
 		}
@@ -66,7 +67,8 @@ var webpackConfig = {
 				// loader: ExtractTextPlugin.extract('style-loader', 'css-loader', 'sass-loader'),
 				// include: path.resolve(webpackConfig.path)
 			}
-		]
+		]/*,
+		noParse: ['node_modules']*/
 	},
 	plugins: [
 		// 全局requirejs
@@ -83,7 +85,7 @@ var webpackConfig = {
 		// 修改页面静态文件路径
 		new HtmlWebpackPlugin({
 			title: '测试',
-			dir: prod ? 'release' : 'dev',
+			dir: prod ? 'build' : 'dev',
 			version: config.version,
 			template: 'index.hbs',
 			filename: path.join(__dirname, '/index.html'),
@@ -94,7 +96,7 @@ var webpackConfig = {
 			inject: 'head'
 		}),
 		new AssetsPlugin({
-			path: path.join(__dirname, './build'),
+			path: path.join(__dirname, prod ? 'build' : 'dev'),
 			filename: `assetsmap-${config.version}.js`,
 			prettyPrint: true,
 			metadata: { version: config.version },
@@ -133,7 +135,7 @@ function addAlias(paths) {
 	paths.forEach(p => {
 		reRead(p, src => {
 			let data = path.parse(src);
-			let key = `@${src.replace('./assets/', '')}`;
+			let key = `${src.replace('./assets/', '')}`;
 
 			webpackConfig.resolve.alias[ key ] = 
 				webpackConfig.resolve.alias[ key.replace(/\.\w+$/, '') ] = path.join(__dirname, src);
@@ -142,12 +144,12 @@ function addAlias(paths) {
 }
 
 // 设置entry
-reRead('./assets/page', src => {
+/*reRead('./assets/views', src => {
 	webpackConfig.entry[ 
 		src.replace(/\.\/assets/, '')
 			.replace(/\.jsx$/, '')
 	] = src;
-});
+});*/
 
 
 // 页面别名、样式别名、组件别名

@@ -3,15 +3,16 @@
 <head>
 	<meta charset="UTF-8">
 	<title>react framework</title>
-	<script src="./build/assetsmap-1.0.0.js"></script>
-<script type="text/javascript" src="build/dev/home.js"></script><script type="text/javascript" src="build/dev/common.js"></script><script type="text/javascript" src="build/dev/vendor.js"></script></head>
+	<!-- bundle-loader -->
+	<!-- <script src="./dev/assetsmap-1.0.0.js"></script> -->
+<script type="text/javascript" src="dev/home.js"></script><script type="text/javascript" src="dev/common.js"></script><script type="text/javascript" src="dev/vendor.js"></script></head>
 <body>
 	<div id="home"></div>
 	
 	<script>
-		depend.config({
-			baseUrl: './build/dev'
-		});
+		/*depend.config({
+			baseUrl: './dev'
+		});*/
 		home.init();
 	</script>
 </body>

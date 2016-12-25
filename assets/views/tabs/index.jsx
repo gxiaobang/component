@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-// import { Tabs } from '@components';
+// import { Tabs } from 'components';
 
 class Page extends React.Component {
 

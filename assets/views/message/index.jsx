@@ -3,13 +3,13 @@
  */
 
 import React from 'react';
-import { Message } from '@components';
+import { Message as message } from 'components';
 
 class Page extends React.Component {
 
 	handleClick() {
 		// Dialog.alert('测试弹窗', 'warn');
-		Message.show('消息测试', 'warn');
+		message.show('消息测试', 'warn');
 	}
 
 	render() {

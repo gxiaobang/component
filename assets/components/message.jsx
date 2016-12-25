@@ -6,7 +6,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import '@styles/message';
+import 'styles/message';
 
 
 class Message extends React.Component {

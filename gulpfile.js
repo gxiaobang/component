@@ -80,6 +80,10 @@ function reRead(src, cb) {
 
 
 // 清理build
+gulp.task('dev:clean', () => {
+	gulp.src(config.path.dev.dest, { read: false })
+		.pipe(clean());
+});
 gulp.task('build:clean', () => {
 	gulp.src(config.path.build.dest, { read: false })
 		.pipe(clean());
@@ -91,7 +95,7 @@ gulp.task('page:clean', () => {
 gulp.task('components:clean', () => {
 	
 });
-gulp.task('clean', ['build:clean', 'page:clean']);
+gulp.task('clean', ['dev:clean', 'build:clean', 'page:clean']);
 
 
 
@@ -121,4 +125,4 @@ gulp.task('page:create', () => {
 		createFile.page(src);
 	});
 });
-gulp.task('create', ['components:create', 'page:create']);
+gulp.task('create', ['components:create'/*, 'page:create'*/]);

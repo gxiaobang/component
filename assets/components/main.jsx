@@ -6,5 +6,6 @@ import Form from './form';
 import Hello from './hello';
 import Message from './message';
 import Table from './table';
+import Tabs from './tabs';
 
-export { Dialog, Form, Hello, Message, Table };
+export { Dialog, Form, Hello, Message, Table, Tabs };

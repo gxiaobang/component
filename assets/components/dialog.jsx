@@ -6,10 +6,10 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import depend from '@base/depend';
-import { addEvent } from '@base/utils';
+// import depend from 'base/depend';
+import { addEvent } from 'base/utils';
 // 引入样式
-import '@styles/dialog';
+import 'styles/dialog';
 
 // 创建遮罩层
 function createMask() {

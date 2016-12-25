@@ -1,5 +1,5 @@
 import { ReactDOM } from 'react-dom';
-import { Dialog } from '@components';
+import { Dialog } from 'components';
 
 function createMask() {
 	var mask = document.createElement('div');
