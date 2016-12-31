@@ -1,5 +1,5 @@
 node_modules/
 dev/
 build/
-assets/component/main.jsx
+assets/component/index.jsx
 index.html

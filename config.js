@@ -18,6 +18,9 @@ module.exports = {
 			src: './assets/views',
 			dest: './assets/page'
 		},
+		base: {
+			src: './assets/base'
+		},
 		components: {
 			src: './assets/components'
 		}

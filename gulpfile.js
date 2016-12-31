@@ -42,11 +42,19 @@ const createFile = {
 			}
 		);
 	},
-	components(imp, exp) {
+
+	index(src) {
+		let content = [];
+		fs.readdirSync(src).forEach(file => {
+			let name = path.parse(file).name;
+			if (name != 'index') {
+				content.push(`export { default as ${name.replace(/^[a-z]/, a => a.toUpperCase())} } from './${name}';`);
+			}
+		});
+
 		fs.writeFile(
-			config.path.components.src + '/main.jsx',
-			`/**\n * 注：执行gulp components:create生成\n */\n` +	// 注释
-			imp.join('\n') + `\n\nexport { ${exp.join(', ')} };`,
+			src + '/index.jsx',
+			`/**\n * 注：执行gulp create生成\n */\n${content.join('\n')}`,
 			err => {
 				if (err) throw err;
 				// console.log('file is created');
@@ -101,17 +109,8 @@ gulp.task('clean', ['dev:clean', 'build:clean', 'page:clean']);
 
 // 创建components/main.jsx
 gulp.task('components:create', () => {
-	let imp = [],
-			exp = [];
-	fs.readdirSync(config.path.components.src).forEach(file => {
-		let name = path.parse(file).name,
-				upperName = name.replace(/\w/, s => s.toUpperCase());
-		if (name != 'main') {
-			imp.push(`import ${upperName} from './${name}';`);
-			exp.push(upperName);
-		}
-	});
-	createFile.components(imp, exp);
+	createFile.index(config.path.base.src);
+	createFile.index(config.path.components.src);
 });
 // 创建page文件
 gulp.task('page:create', () => {

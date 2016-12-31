@@ -38,7 +38,7 @@ var webpackConfig = {
 		extensions: ['', '.js', '.jsx', '.sass', '.scss'],
 		// 别名
 		alias: {
-			'components': path.join(__dirname, '/assets/components/main'),
+			'components': path.join(__dirname, '/assets/components'),
 			// views: __dirname + '/assets/views/'
 			// react: __dirname + '/build/react'
 		}
@@ -78,7 +78,7 @@ var webpackConfig = {
 
 		// 提取相同的文件
 		new webpack.optimize.CommonsChunkPlugin({
-			names: ['vendor', 'common', 'home']
+			names: ['vendor', 'common']
 		}),
 
 		// new ExtractTextPlugin('styles.css'),
