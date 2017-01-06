@@ -96,24 +96,21 @@ gulp.task('build:clean', () => {
 	gulp.src(config.path.build.dest, { read: false })
 		.pipe(clean());
 });
-gulp.task('page:clean', () => {
+/*gulp.task('page:clean', () => {
 	gulp.src(config.path.page.dest, { read: false })
 		.pipe(clean());
-});
-gulp.task('components:clean', () => {
-	
-});
-gulp.task('clean', ['dev:clean', 'build:clean', 'page:clean']);
+});*/
+gulp.task('clean', ['dev:clean', 'build:clean'/*, 'page:clean'*/]);
 
 
 
 // 创建components/main.jsx
-gulp.task('components:create', () => {
+gulp.task('index:init', () => {
 	createFile.index(config.path.base.src);
 	createFile.index(config.path.components.src);
 });
 // 创建page文件
-gulp.task('page:create', () => {
+gulp.task('page:init', () => {
 	// 创建page目录
 	if (!fs.existsSync(config.path.page.dest)) {
 		fs.mkdirSync(config.path.page.dest);
@@ -124,4 +121,4 @@ gulp.task('page:create', () => {
 		createFile.page(src);
 	});
 });
-gulp.task('create', ['components:create'/*, 'page:create'*/]);
+gulp.task('init', ['index:create'/*, 'page:create'*/]);

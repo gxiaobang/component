@@ -130,14 +130,14 @@ class Dialog extends React.Component {
 
 	events() {
 		addEvent(window, 'resize', () => {
-			this.rebuild();
+			this.reflow();
 		});
 	}
 
-	// 大小限制
-	rebuild() {
+	// 回流
+	reflow() {
 		this.limit();
-		this.resize();
+		this.rebuild();
 	}
 
 	// 限制
@@ -146,7 +146,7 @@ class Dialog extends React.Component {
 	}
 
 	// 重置位置
-	resize() {
+	rebuild() {
 		this.refs.dialog.style.left = (document.documentElement.clientWidth - this.refs.dialog.offsetWidth) / 2 + 'px';
 		this.refs.dialog.style.top = Math.max(
 			(document.documentElement.clientHeight - this.refs.dialog.offsetHeight) / 2 - 50, 20) + 'px';
