@@ -5,6 +5,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+// import { Router, Route, hashHistory } from 'react-router';
 import { Dialog, Hello } from 'components';
 import EventEmitter from 'base/eventEmitter';
 // import depend from 'base/depend';
@@ -17,33 +18,26 @@ class Menu extends React.Component {
 
 	static defaultProps = {
 		title: '菜单'
-	}
+	};
 
 	static propTypes = {
 		title: React.PropTypes.string.isRequired
-	}
+	};
 
-	state = {
-		pages: []
-	}
 
 	constructor(props) {
 		super(props);
 
 		// console.log(props);
 
-		// props.title = '菜单';
+		this.state = {
+			pages: []
+		};
 	}
 
-	handleClick(item) {
+	handleClick(data) {
 		// console.log(this.pageTab)
 		var that = this;
-		var data = {
-			title: item.title,
-			url: item.url,
-			code: item.code,
-			active: true
-		};
 		emitter.dispatch('add', data);
 	}
 
@@ -64,12 +58,13 @@ class Menu extends React.Component {
 
 // 菜单页面渲染和tabs切换
 class PageTab extends React.Component {
-	state = {
-		pages: []
-	}
 
 	constructor(props) {
 		super(props);
+
+		this.state = {
+			pages: []
+		};
 	}
 
 	// 组件周期（完成）
@@ -152,21 +147,25 @@ class PageTab extends React.Component {
 	select(data) {
 		this.clearSelect();
 		data.active = true;
+		this.setHash(data.url);
 		this.setState({
 			pages: this.state.pages
 		});
 	}
 
 	add(data) {
-		this.clearSelect();
+		this.setHash(data.url);	
 
+		this.clearSelect();
 		if (this.hasAdded(data.code)) {
 			this.getPageData(data.code).active = true;
 			this.setState({ pages: this.state.pages });
 		}
 		else {
+			data.active = true;
 			this.state.pages.push(data);
-			this.setState({ pages: this.state.pages });
+			this.update();
+			// this.setState({ pages: this.state.pages });
 			/*depend.require(path, (Page) => {
 				data.page = <Page data={data} />;
 				this.setState({ pages: this.state.pages });
@@ -177,7 +176,7 @@ class PageTab extends React.Component {
 			require(`bundle?lazy!./views${data.url}`)(bundle => {
 				let Page = bundle.default;
 				data.page = <Page data={data} />;
-				this.setState({ pages: this.state.pages });
+				this.update();
 			});
 		}
 	}
@@ -192,14 +191,16 @@ class PageTab extends React.Component {
 				if (item.active) {
 					// 重置上一个为选中
 					let n = Math.max(i - 1, 0);
+					let url = '/';
 					if (this.state.pages[ n ]) {
 						this.state.pages[ n ].active = true;
+						url = this.state.pages[ n ].url;
 					}
+
+					this.setHash(url);
 				}
 
-				this.setState({
-					pages: this.state.pages
-				});
+				this.update();
 				return true;
 			}
 		}
@@ -213,21 +214,48 @@ class PageTab extends React.Component {
 				this.refs[ data.code ]
 			);
 	}
+
+	setHash(url) {
+		window.location.hash = '#' + url;
+	}
+
+	// 更新数据
+	update() {
+		this.setState({ pages: this.state.pages });
+	}
 }
 
 
 class Home extends React.Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			data: [
+				{ title: '弹窗', url: '/dialog/index', code: 'dialog' },
+				{ title: '消息', url: '/message/index', code: 'message' },
+				{ title: '标签页', url: '/tabs/index', code: 'tabs' }
+			]
+		};
+	}
+
+	// 组件周期（完成）
+	componentDidMount() {
+		// console.log
+		let url = window.location.hash.replace(/^#/, '');
+		for (let i = 0; i < this.state.data.length; i++) {
+			if (this.state.data[i].url == url) {
+				emitter.dispatch('add', this.state.data[i]);
+				break;
+			}
+		}
+	}
+
 	render() {
 		return (
 				<div>
 					<h2>组件测试</h2>
-					<Menu data={
-						[
-							{ title: '弹窗', url: '/dialog/index', code: 'dialog' },
-							{ title: '消息', url: '/message/index', code: 'message' },
-							{ title: '标签页', url: '/tabs/index', code: 'tabs' }
-						]	
-					} />
+					<Menu data={this.state.data} />
 					<PageTab />
 				</div>
 			);
@@ -262,7 +290,6 @@ class Child extends React.Component {
 		return <div>it's checked. {this.props.checked.toString()}</div>
 	}
 }*/
-
 
 // 包装接口
 const home = {

@@ -106,7 +106,7 @@ gulp.task('clean', ['dev:clean', 'build:clean'/*, 'page:clean'*/]);
 
 // 创建components/main.jsx
 gulp.task('index:init', () => {
-	createFile.index(config.path.base.src);
+	// createFile.index(config.path.base.src);
 	createFile.index(config.path.components.src);
 });
 // 创建page文件
