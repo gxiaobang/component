@@ -47,7 +47,7 @@ class Menu extends React.Component {
 					<ul>
 					{
 						this.props.data.map((item, index) => {
-							return <li key={index} onClick={this.handleClick.bind(this, item)}>{item.title}</li>
+							return <li key={index} className={item.active ? 'active' : ''} onClick={this.handleClick.bind(this, item)}>{item.title}</li>
 						})
 					}
 					</ul>
@@ -148,6 +148,7 @@ class PageTab extends React.Component {
 		this.clearSelect();
 		data.active = true;
 		this.setHash(data.url);
+		emitter.dispatch('update');
 		this.setState({
 			pages: this.state.pages
 		});
@@ -179,6 +180,8 @@ class PageTab extends React.Component {
 				this.update();
 			});
 		}
+
+		emitter.dispatch('update');
 	}
 
 	// 关闭
@@ -189,6 +192,8 @@ class PageTab extends React.Component {
 				this.state.pages.splice(i, 1);
 
 				if (item.active) {
+					item.active = false;
+
 					// 重置上一个为选中
 					let n = Math.max(i - 1, 0);
 					let url = '/';
@@ -198,10 +203,11 @@ class PageTab extends React.Component {
 					}
 
 					this.setHash(url);
+					emitter.dispatch('update');
 				}
 
 				this.update();
-				return true;
+				// return true;
 			}
 		}
 		return false;
@@ -241,7 +247,17 @@ class Home extends React.Component {
 
 	// 组件周期（完成）
 	componentDidMount() {
+
+		emitter.subscribe('update', (Page, data) => {
+			// this.renderPage(Page, data);
+			this.update();
+		});
 		// console.log
+		this.initPage();
+	}
+
+	// 初始化路由页面
+	initPage() {
 		let url = window.location.hash.replace(/^#/, '');
 		for (let i = 0; i < this.state.data.length; i++) {
 			if (this.state.data[i].url == url) {
@@ -249,6 +265,13 @@ class Home extends React.Component {
 				break;
 			}
 		}
+	}
+
+	// 更新菜单状态
+	update() {
+		this.setState({
+			data: this.state.data
+		});
 	}
 
 	render() {

@@ -12,7 +12,12 @@
 
   ul {
   	li {
+  		padding: 4px 6px;
   		cursor: pointer;
+
+  		&.active {
+				background: #e0f0d8;
+  		}
   	}
   }
 }
