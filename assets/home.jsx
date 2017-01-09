@@ -238,7 +238,7 @@ class Home extends React.Component {
 		super(props);
 		this.state = {
 			data: [
-				{ title: '弹窗', url: '/dialog/index', code: 'dialog' },
+				{ title: '弹窗2', url: '/dialog/index', code: 'dialog' },
 				{ title: '消息', url: '/message/index', code: 'message' },
 				{ title: '标签页', url: '/tabs/index', code: 'tabs' }
 			]

@@ -23,7 +23,8 @@ var dist = './dev/';
 module.exports = {
 	entry: {
 		home: [
-			'webpack/hot/dev-server',
+			'webpack-dev-server/client?http://localhost:3000',
+			'webpack/hot/only-dev-server',
 			'./assets/home'
 		],
 		// 第三方
@@ -35,7 +36,7 @@ module.exports = {
 	},
 	output: {
 		// publicPath: './build/public',
-		path: dist,
+		path: path.join(__dirname, dist),
 		publicPath: dist,
 		filename: '[name].js'
 	},
@@ -60,12 +61,12 @@ module.exports = {
 		loaders: [
 			{ 
 				test: /\.(js|jsx)$/,
-				// loaders: ['react-hot', 'babel-loader'],	
-				loader: 'babel-loader',
+				exclude: /node_modules/,
+				loaders: ['react-hot', 'babel?presets[]=react,presets[]=es2015,presets[]=stage-2'],	
+				/*loader: 'babel-loader',
 				query: {
 					presets: ['react', 'es2015', 'stage-2']
-				},
-				// exclude: ['requirejs']
+				},*/
 			},
 			{
 				test: /\.scss$/,
