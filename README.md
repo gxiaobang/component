@@ -19,7 +19,7 @@ $gulp init
 
 ### 运行webpack编译
 ```bash
-$webpack -w
+$npm run dev
 ```
 
 ## 项目结构

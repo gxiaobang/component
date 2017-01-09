@@ -3,20 +3,20 @@
  * @author gxiaobang
  */
 
-var debug = process.argv.slice(2).indexOf('dev') > -1;
-
-
 var fs = require('fs'),
 		path = require('path');
 
-var webpackConfig;
 
-if (debug) {
-	webpackConfig = require('./webpack.config.dev');
-}
-else {
-	webpackConfig = require('./webpack.config.prod');
-}
+// 命令行参数
+var argv = require('yargs')
+						.default({ dev: false })
+						.argv;
+
+var webpackConfig = require(
+		argv.dev ? 
+			'./webpack.config.dev' :
+			'./webpack.config.prod'
+	);
 
 // 递归读文件
 function reRead(src, cb) {
@@ -63,6 +63,11 @@ function addAlias(paths) {
 
 
 // 页面别名、样式别名、组件别名
-addAlias(['./assets/views', './assets/styles', './assets/components', './assets/base']);
+addAlias([
+	'./assets/views', 
+	'./assets/styles', 
+	'./assets/components', 
+	'./assets/base'
+]);
 
 module.exports = webpackConfig;

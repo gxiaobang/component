@@ -21,17 +21,23 @@ var config = require('./config');
 
 var dist = './build/';
 
-var webpackConfig = {
+module.exports = {
 	entry: {
+		home: [
+			'./assets/home'
+		],
 		// 第三方
-		vendor: ['react', 'react-dom', 'react-router'],
-		home: ['./assets/home']
+		vendor: [
+			'react', 
+			'react-dom', 
+			'react-router'
+		]
 	},
 	output: {
 		// publicPath: './build/public',
 		path: dist,
 		publicPath: dist,
-		filename: '[name].[chunkHash:8].js'
+		filename: '[name].[chunkHash:4].js'
 	},
 	resolve: {
 		extensions: ['', '.js', '.jsx', '.sass', '.scss'],
@@ -56,9 +62,9 @@ var webpackConfig = {
 				test: /\.(js|jsx)$/,
 				loader: 'babel-loader',
 				query: {
-					presets: [/*'react-hot', */'react', 'es2015', 'stage-2']
+					presets: ['react', 'es2015', 'stage-2']
 				},
-				// exclude: ['requirejs']
+				// exclude: 'node_modules'
 			},
 			{
 				test: /\.scss$/,
@@ -71,17 +77,30 @@ var webpackConfig = {
 		noParse: ['node_modules']*/
 	},
 	plugins: [
-		// 全局requirejs
+		// 全局
 		/*new webpack.ProvidePlugin({
 			require: 'requirejs'
 		}),*/
+
+		// new ExtractTextPlugin('styles.css'),
 
 		// 提取相同的文件
 		new webpack.optimize.CommonsChunkPlugin({
 			names: ['vendor', 'common']
 		}),
 
-		// new ExtractTextPlugin('styles.css'),
+		// 修改变量值
+		new webpack.DefinePlugin({
+			'process.env.NODE_ENV': '"production"'
+		}),
+
+		// 压缩js
+		new webpack.optimize.UglifyJsPlugin({
+			compress: {
+				warnings: false
+			}
+		}),
+		
 		// 修改页面静态文件路径
 		new HtmlWebpackPlugin({
 			title: '测试',
@@ -95,7 +114,8 @@ var webpackConfig = {
 			chunks: [/*'styles', */'vendor', 'common', 'home'],
 			inject: 'head'
 		}),
-		// new webpack.HotModuleReplacementPlugin(),
+
+		// 生成路径map
 		/*new AssetsPlugin({
 			path: path.join(__dirname, dist),
 			filename: `assetsmap-${config.version}.js`,
@@ -107,5 +127,3 @@ var webpackConfig = {
 		})*/
 	]
 };
-
-module.exports = webpackConfig;

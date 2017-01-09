@@ -11,7 +11,6 @@ var webpack = require('webpack'),
 var path = require('path');
 
 var config = require('./config');
-var dist = './build/';
 
 // 生成md5路径
 // var crypto = require('crypto');
@@ -19,11 +18,20 @@ var dist = './build/';
 // NODE_ENV=production webpack 发布打包
 // var debug = process.env.NODE_ENV != 'production';
 
-var webpackConfig = {
+var dist = './dev/';
+
+module.exports = {
 	entry: {
+		home: [
+			'webpack/hot/dev-server',
+			'./assets/home'
+		],
 		// 第三方
-		vendor: ['react', 'react-dom'/*, 'requirejs'*/],
-		home: ['webpack-dev-server/client?http://localhost:8080/', './assets/home']
+		vendor: [
+			'react', 
+			'react-dom', 
+			'react-router'
+		]
 	},
 	output: {
 		// publicPath: './build/public',
@@ -52,9 +60,10 @@ var webpackConfig = {
 		loaders: [
 			{ 
 				test: /\.(js|jsx)$/,
+				// loaders: ['react-hot', 'babel-loader'],	
 				loader: 'babel-loader',
 				query: {
-					presets: ['es2015', 'stage-2', 'react']
+					presets: ['react', 'es2015', 'stage-2']
 				},
 				// exclude: ['requirejs']
 			},
@@ -74,12 +83,13 @@ var webpackConfig = {
 			require: 'requirejs'
 		}),*/
 
+		// new ExtractTextPlugin('styles.css'),
+
 		// 提取相同的文件
 		new webpack.optimize.CommonsChunkPlugin({
 			names: ['vendor', 'common']
 		}),
 
-		// new ExtractTextPlugin('styles.css'),
 		// 修改页面静态文件路径
 		new HtmlWebpackPlugin({
 			title: '测试',
@@ -93,6 +103,11 @@ var webpackConfig = {
 			chunks: [/*'styles', */'vendor', 'common', 'home'],
 			inject: 'head'
 		}),
+
+		// 热加载
+		new webpack.HotModuleReplacementPlugin()
+
+		// 生成路径map
 		/*new AssetsPlugin({
 			path: path.join(__dirname, prod ? 'build' : 'dev'),
 			filename: `assetsmap-${config.version}.js`,
@@ -105,5 +120,3 @@ var webpackConfig = {
 	],
 	devtool: 'eval-source-map'
 };
-
-module.exports = webpackConfig;
