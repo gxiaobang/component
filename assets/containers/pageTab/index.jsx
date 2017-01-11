@@ -122,11 +122,20 @@ class PageTab extends React.Component {
 
 
 			// var path = assetsmap['/page' + data.url].js.replace(/\.(js|css)$/, '');
-			/*require(`bundle?lazy!../../views${data.url}`)(bundle => {
+			/*require(`views${data.url}`)(bundle => {
 				let Page = bundle.default;
 				data.page = <Page data={data} />;
 				this.update();
 			});*/
+
+			
+
+			require.ensure([], require => {
+				// let route = 'routes/tabs/index';
+				let Page = require('routes/tabs/index').default;
+				data.page = <Page data={data} />;
+				this.update();
+			});
 		}
 
 		emitter.dispatch('update');

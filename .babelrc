@@ -18,12 +18,18 @@
             "import",
             [
                 {
-                  "libraryName": "compontents",
+                  "libraryName": "compontents"
                 },
                 {
-                  "libraryName": "base",
+                  "libraryName": "base"
                 }
             ]
+        ],
+        [
+            "webpack-alias",
+            {
+              "config": "./webpack/webpack.config.dev.js"
+            }
         ]
     ]
 }

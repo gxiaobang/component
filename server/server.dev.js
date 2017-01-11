@@ -6,7 +6,7 @@ var webpack = require('webpack'),
 		WebpackDevServer = require('webpack-dev-server'),
 		opn = require('opn');
 
-var config = require('../webpack/webpack.config');
+var config = require('../webpack/webpack.config.dev');
 
 const port = 8000;
 

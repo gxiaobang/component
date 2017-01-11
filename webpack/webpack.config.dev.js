@@ -44,11 +44,12 @@ module.exports = {
 		extensions: ['', '.js', '.jsx', '.sass', '.scss'],
 		// 别名
 		alias: {
-			'components': path.resolve(BASE_PATH, './assets/components'),
 			'base': path.resolve(BASE_PATH, './assets/base'),
-			// 'base': path.resolve(BASE_PATH, '/assets/base'),
-			// views: BASE_PATH + '/assets/views/'
-			// react: BASE_PATH + '/build/react'
+			'routes': path.resolve(BASE_PATH, './assets/routes'),
+			'emitter': path.resolve(BASE_PATH, './assets/emitter'),
+			'styles': path.resolve(BASE_PATH, './assets/styles'),
+			'components': path.resolve(BASE_PATH, './assets/components'),
+			'containers': path.resolve(BASE_PATH, './assets/containers')
 		}
 	},
 	/*externals: {

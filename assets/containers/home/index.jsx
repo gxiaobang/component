@@ -8,6 +8,7 @@ import PageTab from 'containers/pageTab';
 import emitter from 'emitter/home';
 import 'styles/home';
 
+
 class Home extends React.Component {
 
 	constructor(props) {
