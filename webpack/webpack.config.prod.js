@@ -8,9 +8,10 @@ var webpack = require('webpack'),
 		HtmlWebpackPlugin = require('html-webpack-plugin'),
 		AssetsPlugin = require('assets-webpack-plugin');
 
-var path = require('path');
+var fs = require('fs'),
+		path = require('path');
 
-var config = require('./config');
+var config = require('../config');
 
 // 生成md5路径
 // var crypto = require('crypto');
@@ -18,14 +19,13 @@ var config = require('./config');
 // NODE_ENV=production webpack 发布打包
 // var debug = process.env.NODE_ENV != 'production';
 
-var dist = './dev/';
+const BASE_PATH = path.resolve(__dirname, '..');
+const dist = './build/';
 
 module.exports = {
 	entry: {
-		home: [
-			'webpack-dev-server/client?http://localhost:3000',
-			'webpack/hot/only-dev-server',
-			'./assets/home'
+		app: [
+			path.resolve(BASE_PATH, './assets/index')
 		],
 		// 第三方
 		vendor: [
@@ -36,18 +36,18 @@ module.exports = {
 	},
 	output: {
 		// publicPath: './build/public',
-		path: path.join(__dirname, dist),
+		path: dist,
 		publicPath: dist,
-		filename: '[name].js'
+		filename: '[name].[chunkHash:4].js'
 	},
 	resolve: {
 		extensions: ['', '.js', '.jsx', '.sass', '.scss'],
 		// 别名
 		alias: {
-			'components': path.join(__dirname, '/assets/components'),
-			// 'base': path.join(__dirname, '/assets/base'),
-			// views: __dirname + '/assets/views/'
-			// react: __dirname + '/build/react'
+			'components': path.resolve(BASE_PATH, './assets/components'),
+			// 'base': path.resolve(BASE_PATH, '/assets/base'),
+			// views: BASE_PATH + '/assets/views/'
+			// react: BASE_PATH + '/build/react'
 		}
 	},
 	/*externals: {
@@ -62,15 +62,15 @@ module.exports = {
 			{ 
 				test: /\.(js|jsx)$/,
 				exclude: /node_modules/,
-				loaders: ['react-hot', 'babel?presets[]=react,presets[]=es2015,presets[]=stage-2'],	
-				/*loader: 'babel-loader',
+				loader: 'babel-loader',
 				query: {
 					presets: ['react', 'es2015', 'stage-2']
-				},*/
+				},
+				// exclude: 'node_modules'
 			},
 			{
 				test: /\.scss$/,
-				loaders: ['style', 'css?sourceMap', 'sass?sourceMap'],
+				loaders: ['style', 'css', 'sass']
 				// loader: 'style!css!sass?sourceMap'
 				// loader: ExtractTextPlugin.extract('style-loader', 'css-loader', 'sass-loader'),
 				// include: path.resolve(webpackConfig.path)
@@ -79,7 +79,7 @@ module.exports = {
 		noParse: ['node_modules']*/
 	},
 	plugins: [
-		// 全局requirejs
+		// 全局
 		/*new webpack.ProvidePlugin({
 			require: 'requirejs'
 		}),*/
@@ -91,26 +91,35 @@ module.exports = {
 			names: ['vendor', 'common']
 		}),
 
+		// 修改变量值
+		new webpack.DefinePlugin({
+			'process.env.NODE_ENV': '"production"'
+		}),
+
+		// 压缩js
+		new webpack.optimize.UglifyJsPlugin({
+			compress: {
+				warnings: false
+			}
+		}),
+		
 		// 修改页面静态文件路径
 		new HtmlWebpackPlugin({
 			title: '测试',
-			// dist: dist,
+			dir: dist,
 			version: config.version,
-			template: 'index.hbs',
-			filename: path.join(__dirname, '/index.html'),
+			template: path.resolve(BASE_PATH, './assets/tpl.hbs'),
+			filename: path.resolve(BASE_PATH, './index.html'),
 			/*files: {
-				js: ['home']
+				js: ['app']
 			}*/
-			chunks: [/*'styles', */'vendor', 'common', 'home'],
+			chunks: [/*'styles', */'vendor', 'common', 'app'],
 			inject: 'head'
 		}),
 
-		// 热加载
-		new webpack.HotModuleReplacementPlugin()
-
 		// 生成路径map
 		/*new AssetsPlugin({
-			path: path.join(__dirname, prod ? 'build' : 'dev'),
+			path: path.resolve(BASE_PATH, dist),
 			filename: `assetsmap-${config.version}.js`,
 			prettyPrint: true,
 			metadata: { version: config.version },
@@ -118,6 +127,5 @@ module.exports = {
 				return `window.assetsmap=${JSON.stringify(assets)}`;
 			}
 		})*/
-	],
-	devtool: 'eval-source-map'
+	]
 };

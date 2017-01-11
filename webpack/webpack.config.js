@@ -43,12 +43,11 @@ function reRead(src, cb) {
 // 添加别名
 function addAlias(paths) {
 	paths.forEach(p => {
+		p = path.resolve(__dirname, p);
 		reRead(p, src => {
-			let data = path.parse(src);
-			let key = `${src.replace('./assets/', '')}`;
+			let key = path.parse(p).name + `${src.replace(p, '')}`;
 
-			webpackConfig.resolve.alias[ key ] = 
-				webpackConfig.resolve.alias[ key.replace(/\.\w+$/, '') ] = path.join(__dirname, src);
+			webpackConfig.resolve.alias[ key.replace(/\.\w+$/, '') ] = path.resolve(__dirname, src);
 		});
 	});
 }
@@ -64,10 +63,10 @@ function addAlias(paths) {
 
 // 页面别名、样式别名、组件别名
 addAlias([
-	'./assets/views', 
-	'./assets/styles', 
-	'./assets/components', 
-	'./assets/base'
+	'../assets/views', 
+	'../assets/styles', 
+	'../assets/components', 
+	'../assets/base'
 ]);
 
 module.exports = webpackConfig;

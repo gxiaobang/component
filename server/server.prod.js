@@ -3,14 +3,20 @@
  */
 
 var webpack = require('webpack'),
-		WebpackDevServer = require('webpack-dev-server');
+		WebpackDevServer = require('webpack-dev-server'),
+		opn = require('opn');
 
 var config = require('./webpack.config');
 var compiler = webpack(config);
+
+const port = 8000;
+
 var server = new WebpackDevServer(compiler, {
-	publicPath: config.output.publicPath,
+	// publicPath: config.output.publicPath,
 	hot: true,
 	historyApiFallback: true,
+	inline: true,
+	progress: true,
 	stats: {
 		color: true,
 		hash: false,
@@ -22,7 +28,8 @@ var server = new WebpackDevServer(compiler, {
 });
 
 // 监听3000端口
-server.listen(3000, 'localhost', (err) => {
+server.listen(port, 'localhost', (err) => {
 	if (err) throw err;
-	console.log('Listening at http:localhost:3000');
+	console.log(`Listening at http:localhost:${port}`);
+	opn(`http://localhost:${port}`);
 });
