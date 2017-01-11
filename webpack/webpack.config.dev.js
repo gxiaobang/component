@@ -44,7 +44,8 @@ module.exports = {
 		extensions: ['', '.js', '.jsx', '.sass', '.scss'],
 		// 别名
 		alias: {
-			// 'components': path.resolve(BASE_PATH, './assets/components'),
+			'components': path.resolve(BASE_PATH, './assets/components'),
+			'base': path.resolve(BASE_PATH, './assets/base'),
 			// 'base': path.resolve(BASE_PATH, '/assets/base'),
 			// views: BASE_PATH + '/assets/views/'
 			// react: BASE_PATH + '/build/react'
@@ -62,7 +63,7 @@ module.exports = {
 			{ 
 				test: /\.(js|jsx)$/,
 				exclude: /node_modules/,
-				loaders: ['react-hot', 'babel?presets[]=react,presets[]=es2015,presets[]=stage-2'],	
+				loaders: ['react-hot', 'babel'],	
 				/*loader: 'babel-loader',
 				query: {
 					presets: ['react', 'es2015', 'stage-2']

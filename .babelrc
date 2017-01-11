@@ -1,0 +1,29 @@
+{
+    "presets": [
+        "es2015",
+        "stage-3",
+        "react"
+    ],
+    "plugins": [
+        [
+            "transform-runtime",
+            {
+                "helpers": false, 
+                "polyfill": false, 
+                "regenerator": true, 
+                "moduleName": "babel-runtime" 
+            }
+        ],
+        [
+            "import",
+            [
+                {
+                  "libraryName": "compontents",
+                },
+                {
+                  "libraryName": "base",
+                }
+            ]
+        ]
+    ]
+}
