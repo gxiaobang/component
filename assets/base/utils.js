@@ -331,7 +331,7 @@ var suports = {
 	}
 };
 
-export { 
+export  { 
 	noop, 
 	isObject, isNumber, isArray, isString, isFunction,
 	forEach,

@@ -19,7 +19,7 @@ var config = require('../config');
 // var debug = process.env.NODE_ENV != 'production';
 
 const BASE_PATH = path.resolve(__dirname, '..');
-const dist = './dev/';
+const dist = './build/';
 
 module.exports = {
 	entry: {
@@ -36,14 +36,15 @@ module.exports = {
 	output: {
 		// publicPath: './build/public',
 		path: path.resolve(BASE_PATH, dist),
-		publicPath: dist,
-		filename: '[name].js'
+		// publicPath: dist,
+		filename: '[name].js',
+		// chunkFilename: '[name].[chunkhash:5].js'
 	},
 	resolve: {
 		extensions: ['', '.js', '.jsx', '.sass', '.scss'],
 		// 别名
 		alias: {
-			'components': path.resolve(BASE_PATH, './assets/components'),
+			// 'components': path.resolve(BASE_PATH, './assets/components'),
 			// 'base': path.resolve(BASE_PATH, '/assets/base'),
 			// views: BASE_PATH + '/assets/views/'
 			// react: BASE_PATH + '/build/react'
@@ -92,16 +93,16 @@ module.exports = {
 
 		// 修改页面静态文件路径
 		new HtmlWebpackPlugin({
-			title: '测试',
+			title: 'react framework',
 			// dist: dist,
-			version: config.version,
+			// version: config.version,
 			template: path.resolve(BASE_PATH, './assets/tpl.hbs'),
-			filename: path.resolve(BASE_PATH, './index.html'),
+			// filename: path.resolve(BASE_PATH, './index.html'),
 			/*files: {
 				js: ['app']
 			}*/
-			chunks: [/*'styles', */'vendor', 'common', 'app'],
-			inject: 'head'
+			// chunks: [/*'styles', */'vendor', 'common', 'app'],
+			inject: 'body'
 		}),
 
 		// 热加载

@@ -15,11 +15,7 @@ config.entry.app.unshift(
 		'webpack/hot/only-dev-server'
 	);
 
-console.log(config)
-
 var compiler = webpack(config);
-
-
 
 var server = new WebpackDevServer(compiler, {
 	// publicPath: config.output.publicPath,
@@ -27,6 +23,7 @@ var server = new WebpackDevServer(compiler, {
 	historyApiFallback: true,
 	inline: true,
 	progress: true,
+	// contentBase: './assets',
 	stats: {
 		color: true,
 		hash: false,
