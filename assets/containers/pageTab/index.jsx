@@ -164,7 +164,7 @@ class PageTab extends React.Component {
 					item.active = false;
 
 					// 重置上一个为选中
-					let n = Math.max(i - 1, 0);
+					let n = Math.min(i, this.state.pages.length - 1);
 					let url = '/';
 					if (this.state.pages[ n ]) {
 						this.state.pages[ n ].active = true;
