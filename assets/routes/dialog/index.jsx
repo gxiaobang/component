@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import { Dialog as dialog } from 'components';
+import dialog from 'components/dialog';
 
 class Page extends React.Component {
 

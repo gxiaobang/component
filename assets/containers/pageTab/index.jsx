@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import emitter from 'emitter/home';
+import routes from 'routes';
 
 // tabs切换
 class PageTab extends React.Component {
@@ -130,9 +131,20 @@ class PageTab extends React.Component {
 
 			
 
-			require.ensure([], require => {
+			/*require.ensure([], require => {
 				// let route = 'routes/tabs/index';
 				let Page = require('routes/tabs/index').default;
+				data.page = <Page data={data} />;
+				this.update();
+			}, 'tabs/index');
+
+
+			require.ensure([], require => {
+				cb(require('routes/tabs/index').default);
+			}, 'tabs/index');*/
+
+
+			routes(data.url)(Page => {
 				data.page = <Page data={data} />;
 				this.update();
 			});
