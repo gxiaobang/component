@@ -43,6 +43,57 @@ function reRead(src, cb, rootSrc) {
 }
 
 
+const writeIn = {
+	routes(src) {
+		var ret = [];
+		reRead(src, s => {
+			// console.log(s);
+			if (s != 'index') {
+				ret.push(
+					[
+						`\t['${s}'](cb) {`,
+							`\t\trequire.ensure([], require => {`,
+								`\t\t\tcb(require('routes/${s}').default);`,
+							`\t\t}, '${s}');`,
+						`\t}`
+					].join('\n')
+				);
+			}
+		});
+
+		fs.writeFile(
+				`${src}/index.jsx`,
+				[
+					`const fns = {`,
+						`${ret.join(',\n')}`,
+					`};`,
+					`export default url => fns[ url ];`
+				].join('\n'),
+				err => {
+					if (err) throw err;
+				}
+			);
+	},
+	imports(src, name) {
+		var ret = [];
+		reRead(src, s => {
+			// console.log(s);
+			if (s != 'index') {
+				ret.push(`export { default as ${s.replace(/^\w/, a => a.toUpperCase())} } from '${name + '/' + s}';`);
+			}
+		});
+
+		fs.writeFile(
+				`${src}/index.jsx`,
+				ret.join('\n'),
+				err => {
+					if (err) throw err;
+				}
+			);
+	}
+};
+
+
 // 清理build
 gulp.task('clean', () => {
 	gulp.src(config.path.build.dest, { read: false })
@@ -51,32 +102,13 @@ gulp.task('clean', () => {
 
 // 创建路由
 gulp.task('routes', () => {
-	var fns = [];
-	reRead('./assets/routes', src => {
-		// console.log(src);
-		if (src != 'index') {
-			fns.push(
-				[
-					`\t['${src}'](cb) {`,
-						`\t\trequire.ensure([], require => {`,
-							`\t\t\tcb(require('routes/${src}').default);`,
-						`\t\t}, '${src}');`,
-					`\t}`
-				].join('\n')
-			);
-		}
-	});
-
-	fs.writeFile(
-			'./assets/routes/index.jsx',
-			[
-				`const fns = {`,
-					`${fns.join(',\n')}`,
-				`};`,
-				`export default url => fns[ url ];`
-			].join('\n'),
-			err => {
-				if (err) throw err;
-			}
-		);
+	writeIn.routes('./assets/routes');
 });
+
+// 模块导入
+gulp.task('imports', () => {
+	writeIn.imports('./assets/components', 'components');
+});
+
+// 初始化
+gulp.task('init', ['routes', 'imports']);
