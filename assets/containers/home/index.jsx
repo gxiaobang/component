@@ -25,7 +25,7 @@ class Home extends React.Component {
 	// 组件周期（完成）
 	componentDidMount() {
 
-		emitter.subscribe('update', (Page, data) => {
+		emitter.on('update', (Page, data) => {
 			// this.renderPage(Page, data);
 			this.update();
 		});
@@ -38,7 +38,7 @@ class Home extends React.Component {
 		let url = window.location.hash.replace(/^#/, '');
 		for (let i = 0; i < this.state.data.length; i++) {
 			if (this.state.data[i].url == url) {
-				emitter.dispatch('add', this.state.data[i]);
+				emitter.emit('add', this.state.data[i]);
 				break;
 			}
 		}

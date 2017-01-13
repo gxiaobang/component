@@ -30,7 +30,7 @@ class Menu extends React.Component {
 	handleClick(data) {
 		// console.log(this.pageTab)
 		var that = this;
-		emitter.dispatch('add', data);
+		emitter.emit('add', data);
 	}
 
 	render() {

@@ -18,15 +18,15 @@ class PageTab extends React.Component {
 
 	// 组件周期（完成）
 	componentDidMount() {
-		emitter.subscribe('add', data => {
+		emitter.on('add', data => {
 			this.add(data);
 		});
 
-		emitter.subscribe('close', data => {
+		emitter.on('close', data => {
 			this.close(data);
 		});
 
-		emitter.subscribe('renderPage', (Page, data) => {
+		emitter.on('renderPage', (Page, data) => {
 			this.renderPage(Page, data);
 		});
 	}
@@ -97,7 +97,7 @@ class PageTab extends React.Component {
 		this.clearSelect();
 		data.active = true;
 		this.setHash(data.url);
-		emitter.dispatch('update');
+		emitter.emit('update');
 		this.setState({
 			pages: this.state.pages
 		});
@@ -150,7 +150,7 @@ class PageTab extends React.Component {
 			});
 		}
 
-		emitter.dispatch('update');
+		emitter.emit('update');
 	}
 
 	// 关闭
@@ -172,7 +172,7 @@ class PageTab extends React.Component {
 					}
 
 					this.setHash(url);
-					emitter.dispatch('update');
+					emitter.emit('update');
 				}
 
 				this.update();

@@ -1,3 +1,3 @@
-import EventEmitter from 'base/eventEmitter';
+import { EventEmitter } from 'events';
 
 export default new EventEmitter;
