@@ -1,5 +1,3 @@
-# react-component
-
 ## react组件库
 
 ### 项目说明
@@ -13,14 +11,17 @@ $npm run init
 ```
 
 ### 项目结构
-* `assets`
-	* `base` 基础工具类
-	* `components` 视图组件
-	* `containers` 业务组件
-	* `styles` 样式
-	* `routes` 路由
+* assets 工作目录
+	* utils 基础工具类
+	* components 基础组件
+	* containers 业务组件
+	* impages 图片
+	* fonts 字体图标
+	* styles 公共样式
+	* routes 静态页面路由
+	
 
-* `build` 用于发布上线打包
+* build 用于发布上线打包
 
 ### 组件内容
 + Tab选项卡
