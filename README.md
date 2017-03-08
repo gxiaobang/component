@@ -1,10 +1,15 @@
-# react-framework
+# react-component
 
-## 基于react单页架构
+## react组件库
 
-### 安装
+### 项目说明
++ 基于react组件化封装
++ 用webpack进行项目打包
++ 项目热更新，实时反馈到浏览器
+
+### 项目初始化安装
 ```bash
-$npm install
+$npm run init
 ```
 
 ### 项目结构
@@ -15,5 +20,12 @@ $npm install
 	* `styles` 样式
 	* `routes` 路由
 
-* `dev` 开发环境，有map文件用来调试
-* `build` 带hash串打包
+* `build` 用于发布上线打包
+
+### 组件内容
++ Tab选项卡
++ Modal弹窗
++ Message消息提示
++ Select下拉框
++ Checkout勾选框
++ Spin加载中
