@@ -3,7 +3,9 @@
  */
 
 import React from 'react';
-// import { Tabs } from 'components';
+import Tabs from 'components/tabs';
+
+const TabPane = Tabs.TabPane;
 
 class Page extends React.Component {
 
@@ -13,7 +15,11 @@ class Page extends React.Component {
 				<div className="page">
 					<h3>{this.props.data.title}测试</h3>
 					<div>
-
+						<Tabs>
+							<TabPane tab="tab 1">内容一</TabPane>
+							<TabPane tab="tab 2">内容二</TabPane>
+							<TabPane tab="tab 3">内容三</TabPane>
+						</Tabs>
 					</div>
 				</div>
 			)

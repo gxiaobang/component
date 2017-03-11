@@ -4,7 +4,8 @@
 
 import React from 'react';
 import Menu from 'containers/menu';
-import PageTab from 'containers/pageTab';
+import PageTab from 'containers/page-tab';
+import Header from 'containers/header';
 import emitter from 'emitter/home';
 import 'styles/home';
 
@@ -54,9 +55,11 @@ class Home extends React.Component {
 	render() {
 		return (
 				<div>
-					<h2>测试</h2>
-					<Menu data={this.state.data} />
-					<PageTab />
+					<Header />
+					<section>
+						<Menu data={this.state.data} />
+						<PageTab />
+					</section>
 				</div>
 			);
 	}

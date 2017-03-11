@@ -2,7 +2,9 @@
  * 主页
  */
 
-@import 'normalize';
+@import "normalize";
+@import "reset";
+
 
 .menu {
 	float: left;
@@ -23,12 +25,12 @@
 }
 
 .content {
-	float: left;
+	// float: left;
 
-	padding: 10px;
   min-width: 500px;
   min-height: 500px;
-  margin-left: 10px;
+	padding: 10px;
+  margin-left: 230px;
   border: 1px solid #ccc;
 
 	.content-header {

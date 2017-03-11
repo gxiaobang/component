@@ -1,0 +1,30 @@
+/**
+ * tabs
+ */
+
+.tabs {
+	.tabs-header {
+
+	}
+
+	.tabs-tab {
+		display: inline-block;
+    padding: 5px;
+    cursor: pointer;
+
+    &.active {
+			// display: block;
+			color: white;
+			background: orange;
+		}
+	}
+	
+	.tabs-pane {
+		display: none;
+		padding: 5px;
+		
+		&.active {
+			display: block;
+		}
+	}
+}
