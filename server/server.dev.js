@@ -8,7 +8,7 @@ var webpack = require('webpack'),
 
 var config = require('../webpack/webpack.config.dev');
 
-const port = 8000;
+const port = 8002;
 
 config.entry.app.unshift(
 		`webpack-dev-server/client?http://localhost:${port}`,
