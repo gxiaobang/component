@@ -3,7 +3,7 @@
  * @author gxiaobang
  */
 
-import React from 'react';
+/*import React from 'react';
 import ReactDOM from 'react-dom';
 import Home from 'containers/home';
 import emitter from 'emitter/home';
@@ -103,4 +103,4 @@ class App extends React.Component {
 ReactDOM.render(
 	<Home />,
 	document.querySelector('#app')
-);
+);*/
