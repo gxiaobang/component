@@ -49,6 +49,7 @@ module.exports = {
 			lib: path.resolve(ASSETS_PATH, './lib'),
 			store: path.resolve(ASSETS_PATH, './store'),
 			pages: path.resolve(ASSETS_PATH, './pages'),
+			includes: path.resolve(ASSETS_PATH, './includes'),
 			styles: path.resolve(ASSETS_PATH, './styles'),
 			components: path.resolve(ASSETS_PATH, './components')
 		}
@@ -84,7 +85,7 @@ module.exports = {
 
 		// 修改页面静态文件路径
 		new HtmlWebpackPlugin({
-			title: 'react components',
+			title: 'web组件',
 			// dist: dist,
 			// version: version,
 			template: path.resolve(ASSETS_PATH, './tpl.hbs'),

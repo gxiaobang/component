@@ -23,7 +23,7 @@ class Todo {
 
 	// 导入页面
 	importPage(data) {
-		System.import('pages/dialog/index')
+		System.import('pages/' + data.url + '.jsx')
 			.then(module => {
 				// console.log(module)
 				const Page = module.default;

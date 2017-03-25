@@ -1,6 +1,4 @@
 node_modules/
-dev/
+dist/
 build/
-assets/components/index.jsx
-index.html
 yarn.lock

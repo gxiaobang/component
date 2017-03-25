@@ -3,9 +3,9 @@
  */
 
 import React from 'react';
-import Menu from 'pages/_includes/menu';
-import PageTab from 'pages/_includes/page-tab';
-import Header from 'pages/_includes/header';
+import Menu from 'includes/menu';
+import PageTab from 'includes/page-tab';
+import Header from 'includes/header';
 import { observer } from 'mobx-react';
 import { Todo } from 'store/home';
 import history from 'lib/history';
