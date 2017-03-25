@@ -20,7 +20,7 @@ const { version, port, ASSETS_PATH, DIST_PATH, PUBLIC_PATH } = require('./config
 
 module.exports = {
 	// 调试map
-	devtool: 'source-map',
+	devtool: 'eval-source-map',
 	entry: {
 		app: [
 			`webpack-dev-server/client?http://localhost:${port}`,
@@ -46,12 +46,11 @@ module.exports = {
 		extensions: ['.js', '.jsx', '.sass', '.scss'],
 		// 别名
 		alias: {
-			'lib': path.resolve(ASSETS_PATH, './lib'),
-			'pages': path.resolve(ASSETS_PATH, './pages'),
-			'emitter': path.resolve(ASSETS_PATH, './emitter'),
-			'styles': path.resolve(ASSETS_PATH, './styles'),
-			'components': path.resolve(ASSETS_PATH, './components'),
-			'containers': path.resolve(ASSETS_PATH, './containers')
+			lib: path.resolve(ASSETS_PATH, './lib'),
+			store: path.resolve(ASSETS_PATH, './store'),
+			pages: path.resolve(ASSETS_PATH, './pages'),
+			styles: path.resolve(ASSETS_PATH, './styles'),
+			components: path.resolve(ASSETS_PATH, './components')
 		}
 	},
 	/*externals: {
@@ -62,11 +61,11 @@ module.exports = {
 			{ 
 				test: /\.(js|jsx)$/,
 				exclude: /node_modules/,
-				loader: ['react-hot-loader', 'babel-loader?cacheDirectory']
+				use: ['react-hot-loader', 'babel-loader']
 			},
 			{
 				test: /\.scss$/,
-				loaders: ['style-loader', 'css-loader?sourceMap', 'sass-loader?sourceMap']
+				use: ['style-loader', 'css-loader?sourceMap', 'sass-loader?sourceMap']
 			}
 		]
 	},
@@ -80,7 +79,7 @@ module.exports = {
 
 		// 提取相同的文件
 		new webpack.optimize.CommonsChunkPlugin({
-			names: ['vendor', 'common']
+			names: ['vendor'/*, 'common'*/]
 		}),
 
 		// 修改页面静态文件路径
@@ -119,6 +118,17 @@ module.exports = {
 
 	// 代理服务器
 	devServer: {
-		hot: true
+		contentBase: ASSETS_PATH,
+		port: port,
+		hot: true,
+		inline: true,
+		compress: true,
+		color: true,
+		proxy: {
+			'/api': {
+				target: 'http://xxx',
+				secure: false
+			}
+		}
 	}
 };

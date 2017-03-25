@@ -29,7 +29,7 @@
         [
             "webpack-alias",
             {
-              "config": "./webpack/webpack.config.dev.js"
+              "config": "webpack.config.dev.js"
             }
         ]
     ]

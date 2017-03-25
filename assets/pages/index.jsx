@@ -1,22 +1,27 @@
 const fns = {
 	['dialog/index'](cb) {
 		require.ensure([], require => {
-			cb(require('routes/dialog/index').default);
+			cb(require('pages/dialog/index').default);
 		}, 'dialog/index');
+	},
+	['home/index'](cb) {
+		require.ensure([], require => {
+			cb(require('pages/home/index').default);
+		}, 'home/index');
 	},
 	['message/index'](cb) {
 		require.ensure([], require => {
-			cb(require('routes/message/index').default);
+			cb(require('pages/message/index').default);
 		}, 'message/index');
 	},
 	['table/index'](cb) {
 		require.ensure([], require => {
-			cb(require('routes/table/index').default);
+			cb(require('pages/table/index').default);
 		}, 'table/index');
 	},
 	['tabs/index'](cb) {
 		require.ensure([], require => {
-			cb(require('routes/tabs/index').default);
+			cb(require('pages/tabs/index').default);
 		}, 'tabs/index');
 	}
 };

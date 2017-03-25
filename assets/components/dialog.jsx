@@ -7,7 +7,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 // import depend from 'base/depend';
-import { addEvent } from 'base/utils';
+import { addEvent } from 'lib/utils';
 // 引入样式
 import 'styles/dialog';
 

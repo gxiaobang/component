@@ -44,7 +44,7 @@ function reRead(src, cb, rootSrc) {
 
 
 const writeIn = {
-	routes(src) {
+	pages(src) {
 		var ret = [];
 		reRead(src, s => {
 			// console.log(s);
@@ -53,7 +53,7 @@ const writeIn = {
 					[
 						`\t['${s}'](cb) {`,
 							`\t\trequire.ensure([], require => {`,
-								`\t\t\tcb(require('routes/${s}').default);`,
+								`\t\t\tcb(require('pages/${s}').default);`,
 							`\t\t}, '${s}');`,
 						`\t}`
 					].join('\n')
@@ -101,8 +101,8 @@ gulp.task('clean', () => {
 });
 
 // 创建路由
-gulp.task('routes', () => {
-	writeIn.routes('./assets/routes');
+gulp.task('pages', () => {
+	writeIn.pages('./assets/pages');
 });
 
 // 模块导入
@@ -111,4 +111,4 @@ gulp.task('imports', () => {
 });
 
 // 初始化
-gulp.task('init', ['routes', 'imports']);
+gulp.task('init', ['pages', 'imports']);
