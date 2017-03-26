@@ -10,7 +10,7 @@ const AssetsPlugin = require('assets-webpack-plugin');
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
 const path = require('path');
-const { version, port, ASSETS_PATH, DIST_PATH, PUBLIC_PATH } = require('./config');
+const { version, host, port, ASSETS_PATH, DIST_PATH, PUBLIC_PATH } = require('./config');
 
 // 生成md5路径
 // var crypto = require('crypto');
@@ -23,7 +23,7 @@ module.exports = {
 	devtool: 'eval-source-map',
 	entry: {
 		app: [
-			`webpack-dev-server/client?http://localhost:${port}`,
+			`webpack-dev-server/client?http://${host}:${port}`,
 			'webpack/hot/only-dev-server',
 			path.resolve(ASSETS_PATH, './app')
 		],
@@ -62,7 +62,7 @@ module.exports = {
 			{ 
 				test: /\.(js|jsx)$/,
 				exclude: /node_modules/,
-				use: ['react-hot-loader', 'babel-loader']
+				use: [/*'react-hot-loader', */'babel-loader']
 			},
 			{
 				test: /\.scss$/,
@@ -120,11 +120,12 @@ module.exports = {
 	// 代理服务器
 	devServer: {
 		contentBase: ASSETS_PATH,
+		host: host,
 		port: port,
 		hot: true,
 		inline: true,
 		compress: true,
-		color: true,
+		historyApiFallback: true,
 		proxy: {
 			'/api': {
 				target: 'http://xxx',

@@ -1,9 +1,9 @@
 /**
- * 消息测试
+ * 表格组件
  */
 
 import React from 'react';
-// import { Table } from 'components';
+import Table from 'components/table';
 
 class Page extends React.Component {
 
@@ -56,7 +56,7 @@ class Page extends React.Component {
 
 		return (
 				<div className="page">
-					<h3>{this.props.data.title}测试</h3>
+					<h3>{this.props.data.title}组件</h3>
 					<div>
 						<Table data={
 							data

@@ -12,6 +12,8 @@ const PUBLIC_PATH = 'http://cdn.xxx.com';
 
 module.exports = {
 	version: '1.0.0',
+	// 本地地址
+	host: '0.0.0.0',
 	// 端口号
 	port: 8000,
 	// 根路径

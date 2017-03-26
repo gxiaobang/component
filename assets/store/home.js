@@ -48,13 +48,25 @@ class TodoList {
 		},
 		{
 			title: '标签页', url: 'tabs/index', code: 'tabs'
+		},
+		{
+			title: '表格', url: 'table/index', code: 'table'
+		},
+		{
+			title: '分页', url: 'pagination/index', code: 'pagination'
+		},
+		{
+			title: '按钮', url: 'button/index', code: 'button'
+		},
+		{
+			title: '加载中', url: 'spin/index', code: 'spin'
 		}
 	];
 
 	@computed get currentCode() {
 		for (let i = 0; i < this.items.length; i++) {
 			if (this.items[ i ].active) {
-				this.items[ i ].code;
+				return this.items[ i ].code;
 			}
 		}
 		return null;

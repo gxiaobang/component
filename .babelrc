@@ -1,36 +1,30 @@
 {
-    "presets": [
-        "es2015",
-        "stage-2",
-        "react"
-    ],
-    "plugins": [
-        ["transform-decorators-legacy"],
-        [
-            "transform-runtime",
-            {
-                "helpers": false, 
-                "polyfill": false, 
-                "regenerator": true, 
-                "moduleName": "babel-runtime" 
-            }
-        ],
-        [
-            "import",
-            [
-                {
-                  "libraryName": "compontents"
-                },
-                {
-                  "libraryName": "base"
-                }
-            ]
-        ],
-        [
-            "webpack-alias",
-            {
-              "config": "webpack.config.dev.js"
-            }
-        ]
-    ]
+	"presets": [
+		"es2015",
+		"stage-2",
+		"react"
+	],
+	/*"env": {
+		"development": {
+			"presets": ["react-hmre"]
+		}
+	},*/
+	"plugins": [
+		["transform-decorators-legacy"],
+		[
+			"transform-runtime",
+			{
+				"helpers": false, 
+				"polyfill": false, 
+				"regenerator": true, 
+				"moduleName": "babel-runtime" 
+			}
+		],
+		[
+			"webpack-alias",
+			{
+				"config": "webpack.config.dev.js"
+			}
+		]
+	]
 }
