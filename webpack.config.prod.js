@@ -1,131 +1,92 @@
 /**
- * webpack打包配置
+ * webpack打包配置（生产环境）
  * @author gxiaobang
  */
 
-var webpack = require('webpack'),
-		ExtractTextPlugin = require('extract-text-webpack-plugin'),
-		HtmlWebpackPlugin = require('html-webpack-plugin'),
-		AssetsPlugin = require('assets-webpack-plugin');
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const I18nPlugin = require("i18n-webpack-plugin");
 
-var fs = require('fs'),
-		path = require('path');
+const path = require('path');
+const { version, host, port, SRC_PATH, DIST_PATH, PUBLIC_PATH } = require('./config');
 
-var config = require('../config');
-
-// 生成md5路径
-// var crypto = require('crypto');
-
-// NODE_ENV=production webpack 发布打包
-// var debug = process.env.NODE_ENV != 'production';
-
-const BASE_PATH = path.resolve(__dirname, '..');
-const dist = './build/';
+// 国际化
+const languages = {
+	'en': require('./i18n/en.json'),
+	'zh-cn': require('./i18n/zh-cn.json')
+};
 
 module.exports = {
+	name: 'zh-cn',
 	entry: {
 		app: [
-			path.resolve(BASE_PATH, './assets/index')
+			path.resolve(SRC_PATH, './app')
 		],
 		// 第三方
 		vendor: [
 			'react', 
-			'react-dom', 
-			'react-router'
+			'react-dom'
 		]
 	},
 	output: {
-		// publicPath: './build/public',
-		path: dist,
-		publicPath: dist,
-		filename: '[name].[chunkHash:4].js'
+		path: DIST_PATH,
+		filename: '[name].[chunkhash:5].js',
+		publicPath: PUBLIC_PATH,
+		chunkFilename: '[name].[chunkhash:5].js'
 	},
 	resolve: {
-		extensions: ['', '.js', '.jsx', '.sass', '.scss'],
-		// 别名
+		extensions: ['.js', '.jsx', '.sass', '.scss'],
+		// 简称
 		alias: {
-			'components': path.resolve(BASE_PATH, './assets/components'),
-			// 'base': path.resolve(BASE_PATH, '/assets/base'),
-			// views: BASE_PATH + '/assets/views/'
-			// react: BASE_PATH + '/build/react'
+			lib: path.resolve(SRC_PATH, './lib'),
+			store: path.resolve(SRC_PATH, './store'),
+			pages: path.resolve(SRC_PATH, './pages'),
+			includes: path.resolve(SRC_PATH, './includes'),
+			styles: path.resolve(SRC_PATH, './styles'),
+			components: path.resolve(SRC_PATH, './components')
 		}
 	},
-	/*externals: {
-		requirejs: 'window.requirejs'
-	},*/
-	module: {
-		/*externals: {
-			'react': 'React',
-			'react-dom': 'ReactDOM'
-		},*/
-		loaders: [
+	module: {	
+		rules: [
 			{ 
 				test: /\.(js|jsx)$/,
 				exclude: /node_modules/,
-				loader: 'babel-loader',
-				query: {
-					presets: ['react', 'es2015', 'stage-2']
-				},
-				// exclude: 'node_modules'
+				use: ['babel-loader']
 			},
 			{
 				test: /\.scss$/,
-				loaders: ['style', 'css', 'sass']
-				// loader: 'style!css!sass?sourceMap'
-				// loader: ExtractTextPlugin.extract('style-loader', 'css-loader', 'sass-loader'),
-				// include: path.resolve(webpackConfig.path)
+				use: ['style-loader', 'css-loader', 'sass-loader']
 			}
-		]/*,
-		noParse: ['node_modules']*/
+		]
 	},
 	plugins: [
-		// 全局
-		/*new webpack.ProvidePlugin({
-			require: 'requirejs'
-		}),*/
 
 		// new ExtractTextPlugin('styles.css'),
 
 		// 提取相同的文件
 		new webpack.optimize.CommonsChunkPlugin({
-			names: ['vendor', 'common']
+			names: ['vendor', 'common'],
+			// minChunks: 5
 		}),
 
-		// 修改变量值
-		new webpack.DefinePlugin({
-			'process.env.NODE_ENV': '"production"'
-		}),
-
-		// 压缩js
-		new webpack.optimize.UglifyJsPlugin({
-			compress: {
-				warnings: false
-			}
-		}),
-		
 		// 修改页面静态文件路径
 		new HtmlWebpackPlugin({
-			title: '测试',
-			dir: dist,
-			version: config.version,
-			template: path.resolve(BASE_PATH, './assets/tpl.hbs'),
-			filename: path.resolve(BASE_PATH, './index.html'),
-			/*files: {
-				js: ['app']
-			}*/
-			chunks: [/*'styles', */'vendor', 'common', 'app'],
-			inject: 'head'
+			title: 'web组件',
+			template: path.resolve(SRC_PATH, './tpl.hbs'),
+			filename: `index.${version}.html`
 		}),
 
-		// 生成路径map
-		/*new AssetsPlugin({
-			path: path.resolve(BASE_PATH, dist),
-			filename: `assetsmap-${config.version}.js`,
-			prettyPrint: true,
-			metadata: { version: config.version },
-			processOutput(assets) {
-				return `window.assetsmap=${JSON.stringify(assets)}`;
+		new I18nPlugin(languages['en']),
+
+		// 压缩
+		new webpack.optimize.UglifyJsPlugin({
+			beautify: false,
+			comments: false,
+			compress: {
+				warnings: false,
+				drop_console: false
 			}
-		})*/
+		})
 	]
 };

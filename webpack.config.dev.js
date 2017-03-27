@@ -1,12 +1,11 @@
 /**
- * webpack打包配置
+ * webpack打包配置（开发环境）
  * @author gxiaobang
  */
 
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const AssetsPlugin = require('assets-webpack-plugin');
 const I18nPlugin = require("i18n-webpack-plugin");
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
@@ -34,8 +33,7 @@ module.exports = {
 		// 第三方
 		vendor: [
 			'react', 
-			'react-dom', 
-			'react-router'
+			'react-dom'
 		]
 	},
 	output: {
@@ -73,10 +71,10 @@ module.exports = {
 		]
 	},
 	plugins: [
-		// 全局requirejs
-		/*new webpack.ProvidePlugin({
-			require: 'requirejs'
-		}),*/
+
+		// 热更新
+		new webpack.HotModuleReplacementPlugin(),
+		new webpack.NamedModulesPlugin(),
 
 		// new ExtractTextPlugin('styles.css'),
 
@@ -89,14 +87,8 @@ module.exports = {
 		// 修改页面静态文件路径
 		new HtmlWebpackPlugin({
 			title: 'web组件',
-			// version: version,
-			template: path.resolve(SRC_PATH, './tpl.hbs'),
-			// chunks: [/*'styles', */'vendor', 'common', 'app'],
-			inject: 'body'
+			template: path.resolve(SRC_PATH, './tpl.hbs')
 		}),
-
-		// 热更新
-		new webpack.HotModuleReplacementPlugin(),
 
 		// 浏览器打开地址
 		new OpenBrowserPlugin({

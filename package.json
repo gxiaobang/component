@@ -1,27 +1,28 @@
 {
-  "name": "react-framework",
-  "version": "1.1.0",
-  "description": "react framework",
+  "name": "react-component",
+  "version": "1.0.0",
+  "description": "react component",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --config webpack.config.dev --progress --colors",
-    "build": "webpack --config webpack.config.build --progress --colors",
-    "server": "node ./server/server.prod"
+    "dev": "webpack-dev-server --config webpack.config.dev.js --progress --colors",
+    "build": "webpack -p --config webpack.config.prod.js --progress --colors",
+    "server": "node server.js",
+    "clean": "rm dist -rf"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gxiaobang/react-framework.git"
+    "url": "git+https://github.com/gxiaobang/react-component.git"
   },
   "keywords": [
     "react",
-    "form"
+    "component"
   ],
   "author": "gxiaobang",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/gxiaobang/react-framework/issues"
+    "url": "https://github.com/gxiaobang/react-component/issues"
   },
-  "homepage": "https://github.com/gxiaobang/react-framework#readme",
+  "homepage": "https://github.com/gxiaobang/react-component#readme",
   "dependencies": {
     "axios": "^0.15.3",
     "http-proxy-middleware": "^0.17.4",

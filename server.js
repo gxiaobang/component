@@ -1,5 +1,5 @@
 /**
- * 生产环境node代理
+ * 请求代理
  */
 
 const express = require('express');
@@ -7,12 +7,8 @@ const proxy = require('http-proxy-middleware');
 const opn = require('opn');
 
 const app = express();
-
 const path = require('path');
-
-// 参数获取
-const port = '8080';
-const host = '0.0.0.0';
+const { version, host, port, SRC_PATH, DIST_PATH, PUBLIC_PATH } = require('./config');
 
 // 真实服务器
 app.use('/api', proxy({
@@ -33,17 +29,17 @@ app.use('/mock', proxy({
 }));
 
 // 静态文件
-app.use(express.static(path.resolve('./build')));
+app.use(express.static(DIST_PATH));
 
 // 重定向到主页
 app.get('*', (req, res) => {
-	res.sendFile('xxx');
+	res.sendFile(`${DIST_PATH}/index.${version}.html`);
 });
 
 
 // 监听3000端口
 app.listen(port, host, (err) => {
 	if (err) throw err;
-	console.log(`Listening at http:localhost:${port}`);
+	console.log(`Listening at http://localhost:${port}`);
 	opn(`http://localhost:${port}`);
 });
