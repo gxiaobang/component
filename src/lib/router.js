@@ -1,8 +1,8 @@
 /**
- * 历史纪录管理
+ * 路由管理
  */
 
-const history = {
+const router = {
 	// 设置地址
 	setURL(url) {
 		window.location.hash = url ? ('#!' + url) : '';
@@ -14,4 +14,4 @@ const history = {
 	}
 };
 
-export default history;
+export default router;

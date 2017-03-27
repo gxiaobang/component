@@ -8,7 +8,7 @@ class Header extends React.Component {
 
 	render() {
 		return (
-			<div className="header">web组件</div>
+			<div className="header">{__('web组件')}</div>
 		);
 	}
 }

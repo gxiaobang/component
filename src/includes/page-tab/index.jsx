@@ -4,7 +4,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import { Todo } from 'store/home';
-import history from 'lib/history';
+import router from 'lib/router';
 
 // tabs切换
 @observer
@@ -35,7 +35,7 @@ class PageTab extends React.Component {
 
 	handleSelect(data) {
 		this.store.selectItem(data.code);
-		history.setURL(data.url);
+		router.setURL(data.url);
 	}
 
 	// 关闭
@@ -49,7 +49,7 @@ class PageTab extends React.Component {
 				this.store.items[ n ].active = true;
 				url = this.store.items[ n ].url;
 			}
-			history.setURL(url);
+			router.setURL(url);
 		}
 	}
 

@@ -1,0 +1,10 @@
+{
+	"web组件": "web components",
+	"弹窗": "Dialog",
+	"消息": "Message",
+	"标签页": "Tabs",
+	"表格": "Table",
+	"分页": "Pagination",
+	"按钮": "Button",
+	"加载中": "Spin"
+}

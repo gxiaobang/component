@@ -6,7 +6,7 @@ const path = require('path');
 
 const ROOT_PATH = path.resolve(__dirname);
 const NODE_MODULES_PATH = path.resolve(ROOT_PATH, './node_modules');
-const ASSETS_PATH = path.resolve(ROOT_PATH, './assets');
+const SRC_PATH = path.resolve(ROOT_PATH, './src');
 const DIST_PATH = path.resolve(ROOT_PATH, './dist');
 const PUBLIC_PATH = 'http://cdn.xxx.com';
 
@@ -21,7 +21,7 @@ module.exports = {
 	// node_modules
 	NODE_MODULES_PATH,
 	// 资源路径
-	ASSETS_PATH,
+	SRC_PATH,
 	// 编译路径
 	DIST_PATH,
 

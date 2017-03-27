@@ -6,16 +6,18 @@
 + 项目热更新，实时反馈到浏览器
 
 ### 项目结构
-* assets 工作目录
-	* utils 基础工具类
+* src 源目录
+	* lib 工具类
 	* components 基础组件
 	* images 图片
 	* fonts 字体图标
 	* styles 样式
-	* include 页面段
+	* includes 页面段
 	* pages 页面
 	
 * dist 上线打包编译
+
+* i18n 国际化
 
 
 ### 开发环境执行下面命令

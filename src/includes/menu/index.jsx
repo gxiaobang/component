@@ -5,7 +5,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import { Todo } from 'store/home';
-import history from 'lib/history';
+import router from 'lib/router';
 
 // 菜单
 @observer
@@ -29,7 +29,7 @@ class Menu extends React.Component {
 			
 		}
 
-		history.setURL(data.url);
+		router.setURL(data.url);
 	}
 
 	render() {

@@ -8,7 +8,7 @@ import PageTab from 'includes/page-tab';
 import Header from 'includes/header';
 import { observer } from 'mobx-react';
 import { Todo } from 'store/home';
-import history from 'lib/history';
+import router from 'lib/router';
 import 'styles/home';
 
 
@@ -28,7 +28,7 @@ class Home extends React.Component {
 
 	// 初始化路由页面
 	initPage() {
-		let url = history.getURL();
+		let url = router.getURL();
 		for (let i = 0; i < this.store.all.length; i++) {
 			if (this.store.all[i].url == url) {
 				this.store.addItem(this.store.all[i]);

@@ -51,6 +51,7 @@
     "gulp": "^3.9.1",
     "gulp-clean": "^0.3.2",
     "html-webpack-plugin": "^2.24.0",
+    "i18n-webpack-plugin": "^0.3.0",
     "node-sass": "^3.10.1",
     "open-browser-webpack-plugin": "^0.0.5",
     "opn": "^4.0.2",

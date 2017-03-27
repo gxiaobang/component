@@ -41,25 +41,25 @@ class TodoList {
 	// 所有的菜单
 	@observable all = [
 		{
-			title: '弹窗', url: 'dialog/index', code: 'dialog'
+			title: __('弹窗'), url: 'dialog/index', code: 'dialog'
 		},
 		{
-			title: '消息', url: 'message/index', code: 'message'
+			title: __('消息'), url: 'message/index', code: 'message'
 		},
 		{
-			title: '标签页', url: 'tabs/index', code: 'tabs'
+			title: __('标签页'), url: 'tabs/index', code: 'tabs'
 		},
 		{
-			title: '表格', url: 'table/index', code: 'table'
+			title: __('表格'), url: 'table/index', code: 'table'
 		},
 		{
-			title: '分页', url: 'pagination/index', code: 'pagination'
+			title: __('分页'), url: 'pagination/index', code: 'pagination'
 		},
 		{
-			title: '按钮', url: 'button/index', code: 'button'
+			title: __('按钮'), url: 'button/index', code: 'button'
 		},
 		{
-			title: '加载中', url: 'spin/index', code: 'spin'
+			title: __('加载中'), url: 'spin/index', code: 'spin'
 		}
 	];
 
