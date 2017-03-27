@@ -64,7 +64,7 @@ module.exports = {
 			{ 
 				test: /\.(js|jsx)$/,
 				exclude: /node_modules/,
-				use: ['react-hot-loader', 'babel-loader']
+				use: ['babel-loader']
 			},
 			{
 				test: /\.scss$/,
@@ -118,7 +118,10 @@ module.exports = {
 		proxy: {
 			'/api': {
 				target: 'http://xxx',
-				secure: false
+				secure: false,
+				pathRewrite: {
+					'^/api': ''
+				}
 			}
 		}
 	}
