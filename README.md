@@ -14,6 +14,7 @@
 	* styles 样式
 	* includes 页面段
 	* pages 页面
+	* stores 数据存贮
 	
 * dist 上线打包编译
 

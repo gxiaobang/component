@@ -4,7 +4,6 @@
 
 import React from 'react';
 import { observer } from 'mobx-react';
-import { Todo } from 'store/home';
 import router from 'lib/router';
 
 // 菜单

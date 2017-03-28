@@ -47,7 +47,7 @@ module.exports = {
 		// 简称
 		alias: {
 			lib: path.resolve(SRC_PATH, './lib'),
-			store: path.resolve(SRC_PATH, './store'),
+			stores: path.resolve(SRC_PATH, './stores'),
 			pages: path.resolve(SRC_PATH, './pages'),
 			includes: path.resolve(SRC_PATH, './includes'),
 			styles: path.resolve(SRC_PATH, './styles'),

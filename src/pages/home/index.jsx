@@ -7,7 +7,6 @@ import Menu from 'includes/menu';
 import PageTab from 'includes/page-tab';
 import Header from 'includes/header';
 import { observer } from 'mobx-react';
-import { Todo } from 'store/home';
 import router from 'lib/router';
 import 'styles/home';
 

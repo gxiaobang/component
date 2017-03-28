@@ -6,7 +6,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Home from 'pages/home';
-import { TodoList } from 'store/home';
+import { TodoList } from 'stores/home';
 
 const store = new TodoList;
 
