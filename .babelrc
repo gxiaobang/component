@@ -7,7 +7,14 @@
 	"env": {
 		"development": {
 			// "presets": ["react-hmre"],
-			"plugins": ["react-hot-loader/babel"]
+			// "plugins": ["react-hot-loader/babel"]
+			"plugins": [["react-transform", {
+				"transforms": [{
+					"transform": "react-transform-hmr",
+					"imports": ["react"],
+					"locals": ["module"]
+				}]
+			}]]
 		}
 	},
 	"plugins": [
