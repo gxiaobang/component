@@ -37,7 +37,7 @@ app.get('*', (req, res) => {
 });
 
 
-// 监听3000端口
+// 监听port端口
 app.listen(port, host, (err) => {
 	if (err) throw err;
 	console.log(`Listening at http://localhost:${port}`);

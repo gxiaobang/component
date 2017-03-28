@@ -31,7 +31,7 @@ $npm run dev
 $npm run build
 ```
 
-### 线上node请求代理
+### 请求代理
 ```bash
 $npm run server
 ```
