@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { observer } from 'mobx-react';
-import router from 'lib/router';
+import router from '@lib/router';
 
 // tabs切换
 @observer
@@ -50,16 +50,6 @@ class PageTab extends React.Component {
 			}
 			router.setURL(url);
 		}
-	}
-
-	// 导入页面
-	importPage(data) {
-		System.import('pages/dialog/index')
-			.then(module => {
-				// console.log(module)
-				const Page = module.default;
-				this.renderPage(Page, data);
-			});
 	}
 
 	// 渲染页面

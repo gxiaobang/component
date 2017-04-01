@@ -6,7 +6,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'styles/tabs';
+import '@styles/tabs';
 
 
 function getCls(...cls) {

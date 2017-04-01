@@ -9,11 +9,11 @@
 * src 源目录
 	* lib 工具类
 	* components 基础组件
+	* containers 业务组件
 	* images 图片
 	* fonts 字体图标
 	* styles 样式
-	* includes 页面段
-	* pages 页面
+	* views 视图
 	* stores 数据存贮
 	
 * dist 上线打包编译

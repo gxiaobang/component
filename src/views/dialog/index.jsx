@@ -1,15 +1,14 @@
 /**
- * 消息测试
+ * 弹窗测试
  */
 
 import React from 'react';
-import message from 'components/message';
+import dialog from '@components/dialog';
 
 class Page extends React.Component {
 
 	handleClick() {
-		// Dialog.alert('测试弹窗', 'warn');
-		message.show('消息测试', 'warn');
+		dialog.alert('测试弹窗', 'warn');
 	}
 
 	render() {
@@ -17,7 +16,7 @@ class Page extends React.Component {
 				<div className="page">
 					<h3>{this.props.data.title}组件</h3>
 					<div>
-						<button onClick={this.handleClick}>消息测试</button>
+						<button onClick={this.handleClick}>弹窗测试</button>
 					</div>
 				</div>
 			)

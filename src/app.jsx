@@ -5,8 +5,8 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Home from 'pages/home';
-import { TodoList } from 'stores/home';
+import Home from '@views/home';
+import { TodoList } from '@stores/home';
 
 const store = new TodoList;
 

@@ -3,12 +3,13 @@
  */
 
 import React from 'react';
-import Menu from 'includes/menu';
-import PageTab from 'includes/page-tab';
-import Header from 'includes/header';
 import { observer } from 'mobx-react';
-import router from 'lib/router';
-import 'styles/home';
+
+import Menu from '@containers/menu';
+import PageTab from '@containers/page-tab';
+import Header from '@containers/header';
+import router from '@lib/router';
+import '@styles/home';
 
 
 @observer
