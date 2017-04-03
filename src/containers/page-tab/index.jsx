@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { observer } from 'mobx-react';
-import router from '@lib/router';
+import router from 'lib/router';
 
 // tabs切换
 @observer

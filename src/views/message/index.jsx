@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import message from '@components/message';
+import message from 'components/message';
 
 class Page extends React.Component {
 

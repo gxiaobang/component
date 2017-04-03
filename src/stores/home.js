@@ -24,14 +24,19 @@ class Todo {
 	// 导入页面
 	importPage(data) {
 		let url = data.url.replace(/^\//, '').replace(/\?(\w|\/|=){0,}/, '');
-		System.import('@views/' + url + '.jsx')
+		System.import('views/' + url + '.jsx')
 			.then(module => {
 				// console.log(module)
 				const Page = module.default;
 				this.PageNode = <Page data={data} />;
 			})
 			.catch(err => {
-				console.log('加载失败');
+				console.warn('加载失败');
+				System.import('views/404')
+					.then(module => {
+						const Page = module.default;
+						this.PageNode = <Page data={data} />;
+					})
 			});
 	}
 }

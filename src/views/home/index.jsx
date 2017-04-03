@@ -5,11 +5,11 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 
-import Menu from '@containers/menu';
-import PageTab from '@containers/page-tab';
-import Header from '@containers/header';
-import router from '@lib/router';
-import '@styles/home';
+import Menu from 'containers/menu';
+import PageTab from 'containers/page-tab';
+import Header from 'containers/header';
+import router from 'lib/router';
+import 'styles/home';
 
 router.listen(event => {
 	console.log(event);

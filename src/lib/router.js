@@ -3,7 +3,7 @@
  */
 
 import querystring from 'querystring';
-import { addEvent } from '@lib/utils';
+import { addEvent } from 'lib/utils';
 
 const location = global.location;
 const history = global.history;

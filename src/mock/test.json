@@ -1,0 +1,10 @@
+{
+	"code": "ok",
+	"message": "成功",
+	"data": [],
+	"page": {
+		"total": 100,
+		"index": 1,
+		"count": 10
+	}
+}

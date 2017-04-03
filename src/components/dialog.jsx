@@ -7,9 +7,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 // import depend from 'base/depend';
-import { addEvent } from '@lib/utils';
+import { addEvent } from 'lib/utils';
 // 引入样式
-import '@styles/dialog';
+import 'styles/dialog';
 
 // 创建遮罩层
 function createMask() {

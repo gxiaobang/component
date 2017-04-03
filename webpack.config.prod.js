@@ -41,12 +41,13 @@ module.exports = {
 		extensions: ['.js', '.jsx', '.sass', '.scss'],
 		// 简称
 		alias: {
-			'@lib': path.resolve(SRC_PATH, './lib'),
-			'@stores': path.resolve(SRC_PATH, './stores'),
-			'@views': path.resolve(SRC_PATH, './views'),
-			'@components': path.resolve(SRC_PATH, './components'),
-			'@containers': path.resolve(SRC_PATH, './containers'),
-			'@styles': path.resolve(SRC_PATH, './styles')
+			'lib': path.resolve(SRC_PATH, './lib'),
+			'stores': path.resolve(SRC_PATH, './stores'),
+			'views': path.resolve(SRC_PATH, './views'),
+			'components': path.resolve(SRC_PATH, './components'),
+			'containers': path.resolve(SRC_PATH, './containers'),
+			'styles': path.resolve(SRC_PATH, './styles'),
+			'mock': path.resolve(SRC_PATH, './mock')
 		}
 	},
 	module: {	
