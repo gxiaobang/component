@@ -17,6 +17,8 @@ const languages = {
 	'zh-cn': require('./i18n/zh-cn.json')
 };
 
+process.env.NODE_ENV = 'production';
+
 module.exports = {
 	name: 'zh-cn',
 	entry: {

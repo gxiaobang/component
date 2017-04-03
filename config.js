@@ -11,11 +11,14 @@ const DIST_PATH = path.resolve(ROOT_PATH, './dist');
 const PUBLIC_PATH = 'http://cdn.xxx.com';
 
 module.exports = {
-	version: '1.0.0',
+	// 版本号
+	VERSION: '1.0.0',
 	// 本地地址
-	host: '0.0.0.0',
+	HOST: '0.0.0.0',
 	// 端口号
-	port: 8000,
+	PORT: 8000,
+	// 开发端口号
+	DEV_PORT: 3000,
 	// 根路径
 	ROOT_PATH,
 	// node_modules
@@ -24,26 +27,4 @@ module.exports = {
 	SRC_PATH,
 	// 编译路径
 	DIST_PATH,
-
-	path: {
-		baseurl: './assets',
-		dev: {
-			src: './assets',
-			dest: './dev'
-		},
-		build: {
-			src: './assets',
-			dest: './build'
-		},
-		page: {
-			src: './assets/views',
-			dest: './assets/page'
-		},
-		base: {
-			src: './assets/base'
-		},
-		components: {
-			src: './assets/components'
-		}
-	}
 };

@@ -11,6 +11,10 @@ import Header from '@containers/header';
 import router from '@lib/router';
 import '@styles/home';
 
+router.listen(event => {
+	console.log(event);
+});
+
 
 @observer
 class Home extends React.Component {

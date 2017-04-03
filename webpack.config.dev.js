@@ -10,7 +10,7 @@ const I18nPlugin = require("i18n-webpack-plugin");
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
 const path = require('path');
-const { version, host, port, SRC_PATH, DIST_PATH, PUBLIC_PATH } = require('./config');
+const { VERSION, HOST, DEV_PORT, SRC_PATH, DIST_PATH, PUBLIC_PATH } = require('./config');
 
 // 国际化
 const languages = {
@@ -24,7 +24,7 @@ module.exports = {
 	name: 'zh-cn',
 	entry: {
 		/*reload: [
-			`webpack-dev-server/client?http://${host}:${port}`,
+			`webpack-dev-server/client?http://${host}:${devPort}`,
 			'webpack/hot/only-dev-server',
 		],*/
 		app: [
@@ -39,7 +39,7 @@ module.exports = {
 	output: {
 		path: DIST_PATH,
 		filename: '[name].js',
-		publicPath: PUBLIC_PATH,
+		publicPath: '/',
 		// chunkFilename: '[name].[chunkhash:5].js'
 	},
 	resolve: {
@@ -93,7 +93,7 @@ module.exports = {
 
 		// 浏览器打开地址
 		new OpenBrowserPlugin({
-			url: `http://localhost:${port}`
+			url: `http://localhost:${DEV_PORT}`
 		}),
 
 		new I18nPlugin(languages['en'])
@@ -102,8 +102,8 @@ module.exports = {
 	// 代理服务器
 	devServer: {
 		contentBase: SRC_PATH,
-		host: host,
-		port: port,
+		host: HOST,
+		port: DEV_PORT,
 		hot: true,
 		inline: true,
 		compress: true,
