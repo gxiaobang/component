@@ -8,7 +8,7 @@ const opn = require('opn');
 
 const app = express();
 const path = require('path');
-const { VERSION, HOST, PORT, SRC_PATH, DIST_PATH, PUBLIC_PATH } = require('./config');
+const { version, host, port, srcPath, distPath, publicPath } = require('./config');
 
 // 真实服务器
 app.use('/api', proxy({
@@ -29,17 +29,17 @@ app.use('/mock', proxy({
 }));
 
 // 静态文件
-app.use(express.static(DIST_PATH));
+app.use(express.static(distPath));
 
 // 重定向到主页
 app.get('*', (req, res) => {
-	res.sendFile(`${DIST_PATH}/index.${VERSION}.html`);
+	res.sendFile(`${distPath}/index.${version}.html`);
 });
 
 
-// 监听PORT端口
-app.listen(PORT, HOST, (err) => {
+// 监听port端口
+app.listen(port, host, (err) => {
 	if (err) throw err;
-	console.log(`Listening at http://localhost:${PORT}`);
-	opn(`http://localhost:${PORT}`);
+	console.log(`Listening at http://localhost:${port}`);
+	opn(`http://localhost:${port}`);
 });

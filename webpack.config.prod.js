@@ -9,7 +9,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const I18nPlugin = require("i18n-webpack-plugin");
 
 const path = require('path');
-const { version, host, port, SRC_PATH, DIST_PATH, PUBLIC_PATH } = require('./config');
+const { version, host, port, srcPath, distPath, publicPath } = require('./config');
 
 // 国际化
 const languages = {
@@ -23,7 +23,7 @@ module.exports = {
 	name: 'zh-cn',
 	entry: {
 		app: [
-			path.resolve(SRC_PATH, './app')
+			path.resolve(srcPath, './app')
 		],
 		// 第三方
 		vendor: [
@@ -32,22 +32,22 @@ module.exports = {
 		]
 	},
 	output: {
-		path: DIST_PATH,
+		path: distPath,
 		filename: '[name].[chunkhash:5].js',
-		publicPath: PUBLIC_PATH,
+		publicPath: publicPath,
 		chunkFilename: '[name].[chunkhash:5].js'
 	},
 	resolve: {
 		extensions: ['.js', '.jsx', '.sass', '.scss'],
 		// 简称
 		alias: {
-			'lib': path.resolve(SRC_PATH, './lib'),
-			'stores': path.resolve(SRC_PATH, './stores'),
-			'views': path.resolve(SRC_PATH, './views'),
-			'components': path.resolve(SRC_PATH, './components'),
-			'containers': path.resolve(SRC_PATH, './containers'),
-			'styles': path.resolve(SRC_PATH, './styles'),
-			'mock': path.resolve(SRC_PATH, './mock')
+			'lib': path.resolve(srcPath, './lib'),
+			'stores': path.resolve(srcPath, './stores'),
+			'views': path.resolve(srcPath, './views'),
+			'components': path.resolve(srcPath, './components'),
+			'containers': path.resolve(srcPath, './containers'),
+			'styles': path.resolve(srcPath, './styles'),
+			'mock': path.resolve(srcPath, './mock')
 		}
 	},
 	module: {	
@@ -76,7 +76,7 @@ module.exports = {
 		// 修改页面静态文件路径
 		new HtmlWebpackPlugin({
 			title: 'web组件',
-			template: path.resolve(SRC_PATH, './tpl.hbs'),
+			template: path.resolve(srcPath, './tpl.hbs'),
 			filename: `index.${version}.html`
 		}),
 

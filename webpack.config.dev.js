@@ -10,7 +10,7 @@ const I18nPlugin = require("i18n-webpack-plugin");
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
 const path = require('path');
-const { VERSION, HOST, DEV_PORT, SRC_PATH, DIST_PATH, PUBLIC_PATH } = require('./config');
+const { version, host, devPort, srcPath, distPath, publicPath } = require('./config');
 
 // 国际化
 const languages = {
@@ -28,7 +28,7 @@ module.exports = {
 			'webpack/hot/only-dev-server',
 		],*/
 		app: [
-			path.resolve(SRC_PATH, './app')
+			path.resolve(srcPath, './app')
 		],
 		// 第三方
 		vendor: [
@@ -37,7 +37,7 @@ module.exports = {
 		]
 	},
 	output: {
-		path: DIST_PATH,
+		path: distPath,
 		filename: '[name].js',
 		publicPath: '/',
 		// chunkFilename: '[name].[chunkhash:5].js'
@@ -46,13 +46,13 @@ module.exports = {
 		extensions: ['.js', '.jsx', '.sass', '.scss'],
 		// 简称
 		alias: {
-			'lib': path.resolve(SRC_PATH, './lib'),
-			'stores': path.resolve(SRC_PATH, './stores'),
-			'views': path.resolve(SRC_PATH, './views'),
-			'components': path.resolve(SRC_PATH, './components'),
-			'containers': path.resolve(SRC_PATH, './containers'),
-			'styles': path.resolve(SRC_PATH, './styles'),
-			'mock': path.resolve(SRC_PATH, './mock')
+			'lib': path.resolve(srcPath, './lib'),
+			'stores': path.resolve(srcPath, './stores'),
+			'views': path.resolve(srcPath, './views'),
+			'components': path.resolve(srcPath, './components'),
+			'containers': path.resolve(srcPath, './containers'),
+			'styles': path.resolve(srcPath, './styles'),
+			'mock': path.resolve(srcPath, './mock')
 		}
 	},
 	/*externals: {
@@ -96,12 +96,12 @@ module.exports = {
 		// 修改页面静态文件路径
 		new HtmlWebpackPlugin({
 			title: 'web组件',
-			template: path.resolve(SRC_PATH, './tpl.hbs')
+			template: path.resolve(srcPath, './tpl.hbs')
 		}),
 
 		// 浏览器打开地址
 		new OpenBrowserPlugin({
-			url: `http://localhost:${DEV_PORT}`
+			url: `http://localhost:${devPort}`
 		}),
 
 		new I18nPlugin(languages['en'])
@@ -109,9 +109,9 @@ module.exports = {
 
 	// 代理服务器
 	devServer: {
-		contentBase: SRC_PATH,
-		host: HOST,
-		port: DEV_PORT,
+		contentBase: srcPath,
+		host: host,
+		port: devPort,
 		hot: true,
 		inline: true,
 		compress: true,
