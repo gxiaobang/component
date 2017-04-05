@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --config webpack.config.dev.js --progress --colors",
-    "build": "webpack -p --config webpack.config.prod.js --progress --colors",
+    "build": "webpack --config webpack.config.prod.js --progress --colors",
     "server": "node server.js",
     "clean": "rm dist -rf"
   },

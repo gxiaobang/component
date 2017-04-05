@@ -8,7 +8,7 @@ const rootPath = path.resolve(__dirname);
 const nodeModulesPath = path.resolve(rootPath, './node_modules');
 const srcPath = path.resolve(rootPath, './src');
 const distPath = path.resolve(rootPath, './dist');
-const publicPath = 'http://cdn.xxx.com';
+const publicPath = '/';
 
 module.exports = {
 	// 版本号
