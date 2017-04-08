@@ -43,7 +43,7 @@ class PageTab extends React.Component {
 		if (index > -1 && data.active) {
 			// 重置上一个为选中
 			let n = Math.min(index, this.store.items.length - 1);
-			let url = '';
+			let url = '/';
 			if (this.store.items[ n ]) {
 				this.store.items[ n ].active = true;
 				url = this.store.items[ n ].url;

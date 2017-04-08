@@ -8,6 +8,10 @@ import ReactDOM from 'react-dom';
 import Home from 'views/home';
 import { TodoList } from 'stores/home';
 
+import * as utils from 'lib/utils';
+
+console.log(utils);
+
 const store = new TodoList;
 
 // 包装接口
