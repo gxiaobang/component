@@ -76,7 +76,7 @@ module.exports = {
 		// 修改页面静态文件路径
 		new HtmlWebpackPlugin({
 			title: 'web组件',
-			template: path.resolve(srcPath, './tpl.hbs'),
+			template: path.resolve(srcPath, './index.html'),
 			filename: `index.${version}.html`
 		}),
 
