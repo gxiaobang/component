@@ -5,9 +5,9 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 
-import Menu from 'containers/menu';
-import PageTab from 'containers/page-tab';
-import Header from 'containers/header';
+import Menu from 'layouts/menu';
+import PageTab from 'layouts/page-tab';
+import Header from 'layouts/header';
 import router from 'lib/router';
 import 'styles/home';
 

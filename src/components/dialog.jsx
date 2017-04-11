@@ -32,6 +32,7 @@ class Dialog extends React.Component {
 				mask
 			);
 	}
+
 	// 询问框
 	static confirm(msg, icon = 'inquiry') {
 		var mask = createMask();
@@ -154,6 +155,27 @@ class Dialog extends React.Component {
 }
 
 export default Dialog;
+
+
+/*import Checkbox from 'components/checkbox';
+import Select from 'components/select';
+import Input from 'components/input';
+
+Dialog.warn('hello world')
+Dialog.info('hello world')
+Dialog.success('hello world')
+Dialog.error('hello world')
+const param = {};
+Dialog.open('views/abc/index', [
+	// 保存
+	() => {
+
+	},
+	// 取消
+	() => {
+
+	}
+])*/
 
 
 /*dialog.alert('警告框', 'warn');

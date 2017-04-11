@@ -4,7 +4,7 @@
 
 const express = require('express');
 const proxy = require('http-proxy-middleware');
-const opn = require('opn');
+// const opn = require('opn');
 
 const app = express();
 const path = require('path');
@@ -41,5 +41,5 @@ app.get('*', (req, res) => {
 app.listen(port, host, (err) => {
 	if (err) throw err;
 	console.log(`Listening at http://localhost:${port}`);
-	opn(`http://localhost:${port}`);
+	// opn(`http://localhost:${port}`);
 });

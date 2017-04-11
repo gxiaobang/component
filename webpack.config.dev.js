@@ -50,7 +50,7 @@ module.exports = {
 			'stores': path.resolve(srcPath, './stores'),
 			'views': path.resolve(srcPath, './views'),
 			'components': path.resolve(srcPath, './components'),
-			'containers': path.resolve(srcPath, './containers'),
+			'layouts': path.resolve(srcPath, './layouts'),
 			'styles': path.resolve(srcPath, './styles'),
 			'mock': path.resolve(srcPath, './mock')
 		}
