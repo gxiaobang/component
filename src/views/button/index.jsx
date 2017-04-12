@@ -3,6 +3,7 @@
  */
 
 import React from 'react';
+import { Button } from 'components';
 
 class Page extends React.Component {
 
@@ -15,9 +16,9 @@ class Page extends React.Component {
 				<div className="page">
 					<h3>{this.props.data.title}组件</h3>
 					<div>
-						<button type="buton" onClick={
+						<Button onClick={
 							() => { this.handleClick(); }
-						}>按钮</button>
+						}>按钮</Button>
 					</div>
 				</div>
 			)

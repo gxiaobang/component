@@ -6,6 +6,10 @@ import Validator from 'validatorjs';
 import classnames from 'classnames';
 import './style';
 
+Validator.useLang('zh');
+/*const messages = Validator.getMessages('zh');
+console.log(messages)*/
+
 class Input extends React.Component {
 
   state = {
@@ -17,11 +21,11 @@ class Input extends React.Component {
     const { rules } = this.props;
     let val = e.target.value;
     // 校验规则
-    var validation = new Validator({ n: val }, { n: rules });
+    var validation = new Validator({ '': val }, { '': rules });
 
     let error = null;
     if (validation.fails()) {
-      error = validation.errors.first('n');
+      error = validation.errors.first('');
     }
     
     this.setState({
@@ -30,7 +34,7 @@ class Input extends React.Component {
   }
   render() {
     const { rules, type, name, className, placeholder } = this.props;
-    let cls = classnames('rc-smart-input', className);
+    let cls = classnames('rc-smart-input', className, this.state.error && 'rc-smart-input-error');
 
     const props = { type, placeholder, name };
     if (this.props.hasOwnProperty('value')) {

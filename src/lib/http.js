@@ -16,7 +16,7 @@ const http = (options = {}) => {
 		return new Promise((resolve, reject) => {
 			setTimeout(() => {
 				resolve({ data: mock[url] || null })
-			}, 2000);		// 2s后返回数据
+			}, 1000);		// 1s后返回数据
 		});
 	}
 	else {

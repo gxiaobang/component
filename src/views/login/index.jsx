@@ -6,11 +6,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Button, Input, Form, Select, Message } from 'components';
 import { getFormParam, http } from 'lib/utils';
-import 'styles/login';
+import router from 'lib/router';
+import './style';
 
 const { FormItem } = Form;
  
 class Login extends React.Component {
+
+  componentDidMount() {
+    // router.setURL('/login');
+  }
 
   handleClick() {
     const form = ReactDOM.findDOMNode(this.refs.form);
@@ -33,19 +38,20 @@ class Login extends React.Component {
               // console.log(response);
               const { data } = response;
 
-              Message.success(data.message);
+              // Message.success(data.message);
+              window.location = '/';
             });
           }
         }>
           <FormItem label="用户名">
-            <Input type="text" name="user" placeholder="请输入用户名" rules="required|email" />
+            <Input type="text" name="user" placeholder="请输入用户名" rules="required|min:2|max:20" />
           </FormItem>
 
           <FormItem label="密码">
             <Input type="password" name="pwd" placeholder="请输入密码" rules="required|numeric" />
           </FormItem>
 
-          <FormItem>
+          <FormItem className="text-center">
             <Button submit>登录</Button>
           </FormItem>
 

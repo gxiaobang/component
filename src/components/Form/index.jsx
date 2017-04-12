@@ -10,8 +10,9 @@ import './style';
 
 class FormItem extends React.Component {
   render() {
+    const cls = classnames('rc-smart-form-item', this.props.className);
     return (
-      <div className="rc-smart-form-item">
+      <div className={cls}>
         {
           this.props.hasOwnProperty('label') &&
             <div className="rc-smart-form-item-label">{this.props.label}</div>

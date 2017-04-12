@@ -10,17 +10,18 @@ import { TodoList } from 'stores/home';
 import Home from 'views/home';
 import Login from 'views/login';
 
+import router from 'lib/router';
 
-if (!global.token) {
-  const store = new TodoList;
+if (router.getURL() == '/login') {
   ReactDOM.render(
-    <Home store={store} />,
+    <Login />,
     document.querySelector('#app')
   );
 }
 else {
+  const store = new TodoList;
   ReactDOM.render(
-    <Login />,
+    <Home store={store} />,
     document.querySelector('#app')
   );
 }

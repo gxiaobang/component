@@ -11,4 +11,8 @@
   .rc-smart-error {
     color: $red;
   }
+
+  .rc-smart-input-error {
+    border: 1px solid $red;
+  }
 }

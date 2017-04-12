@@ -99,7 +99,7 @@ class Dialog extends React.Component {
 				<div className="dialog" ref="dialog">
 					<header>
 						{this.props.title}
-						<span className="close" onClick={this.close.bind(this)}>&times;</span>
+						<span className="close" onClick={this.handleClose.bind(this)}>&times;</span>
 					</header>
 					<section ref="content">
 						{
@@ -123,7 +123,12 @@ class Dialog extends React.Component {
 											key={index}
 											type="button"
 											className={item.cls} 
-											onClick={item.handler ? item.handler.bind(this) : null}>
+											onClick={
+												() => {
+													this.handleClose();
+													item.handler && item.handler.bind(this);
+												}
+											}>
 											{item.text}
 										</button>
 									)
@@ -135,7 +140,7 @@ class Dialog extends React.Component {
 	}
 
 	// 关闭弹窗
-	close() {
+	handleClose() {
 		document.body.removeChild(
 				this.refs.dialog.parentNode
 			);
