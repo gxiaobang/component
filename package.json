@@ -1,8 +1,8 @@
 {
-  "name": "react-component",
+  "name": "rc-smart",
   "version": "1.0.0",
   "description": "react component",
-  "main": "index.js",
+  "main": "rc-smart.js",
   "scripts": {
     "dev": "webpack-dev-server --config webpack.config.dev.js --progress --colors",
     "build": "webpack --config webpack.config.prod.js --progress --colors",
