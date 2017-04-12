@@ -1,25 +1,26 @@
 /**
  * 主页
- * @author gxiaobang
+ * by gxiaobang
  */
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Home from 'views/home';
 import { TodoList } from 'stores/home';
 
-import * as utils from 'lib/utils';
+import Home from 'views/home';
+import Login from 'views/login';
 
-console.log(utils);
 
-const store = new TodoList;
-
-// 包装接口
-ReactDOM.render(
-	<Home store={store} />,
-	document.querySelector('#app')
-);
-
-/*if (module.hot) {
-	module.hot.accept();
-}*/
+if (!global.token) {
+  const store = new TodoList;
+  ReactDOM.render(
+    <Home store={store} />,
+    document.querySelector('#app')
+  );
+}
+else {
+  ReactDOM.render(
+    <Login />,
+    document.querySelector('#app')
+  );
+}

@@ -3,12 +3,12 @@
  */
 
 import React from 'react';
-import dialog from 'components/dialog';
+import { Dialog } from 'components';
 
 class Page extends React.Component {
 
 	handleClick() {
-		dialog.alert('测试弹窗', 'warn');
+		Dialog.alert('测试弹窗', 'warn');
 	}
 
 	render() {

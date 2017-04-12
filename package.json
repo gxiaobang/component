@@ -11,18 +11,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gxiaobang/react-component.git"
+    "url": "git+https://github.com/gxiaobang/rc-smart.git"
   },
   "keywords": [
     "react",
     "component"
   ],
   "author": "gxiaobang",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gxiaobang/react-component/issues"
+    "url": "https://github.com/gxiaobang/rc-smart/issues"
   },
-  "homepage": "https://github.com/gxiaobang/react-component#readme",
+  "homepage": "https://github.com/gxiaobang/rc-smart#readme",
   "dependencies": {
     "axios": "^0.15.3",
     "classnames": "^2.2.5",
@@ -33,7 +33,8 @@
     "normalize.css": "^6.0.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
-    "react-router": "^3.0.0"
+    "react-router": "^3.0.0",
+    "validatorjs": "^3.12.0"
   },
   "devDependencies": {
     "assets-webpack-plugin": "^3.5.0",

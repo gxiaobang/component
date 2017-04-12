@@ -5,20 +5,25 @@
 import axios from 'axios';
 import mock from 'mock';
 
-const http = (option = {}) => {
-
+const http = (options = {}) => {
+	const { baseURL = '/api', url } = options;
 	// mock请求
-	if (option.baseURL == '/mock') {
-		return Promise.resolve({
-			data: mock[option.url] || null
+	if (baseURL == '/mock') {
+		/*return Promise.resolve({
+			data: mock[url] || null
+		});*/
+
+		return new Promise((resolve, reject) => {
+			setTimeout(() => {
+				resolve({ data: mock[url] || null })
+			}, 2000);		// 2s后返回数据
 		});
 	}
 	else {
 		let instance = axios.create({
-			baseURL: baseURL || '/api',
-			timeout: 1000
+			baseURL, url
 		});
-		return instance.request(option);
+		return instance.request(options);
 	}
 };
 

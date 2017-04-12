@@ -9,7 +9,7 @@ import ReactDOM from 'react-dom';
 // import depend from 'base/depend';
 import { addEvent } from 'lib/event';
 // 引入样式
-import 'styles/dialog';
+import './style';
 
 // 创建遮罩层
 function createMask() {
@@ -57,9 +57,21 @@ class Dialog extends React.Component {
 	static insert(page, title) {
 		var mask = createMask();
 		return ReactDOM.render(
-				<Dialog type="insert" page={page} title={title} />,
+				<Dialog type="insert" page={page}  title={title} />,
 				mask
 			);
+	}
+
+	// 打开一个页面
+	static open(url, data, title) {
+		System.import('views/' + url + '.jsx')
+			.then(module => {
+				const Page = module.default;
+				this.insert(<Page data={data} />, title);
+			})
+			.catch(err => {
+				Dialog.alert('页面找不到啦！');
+			});
 	}
 
 	componentWillMount() {

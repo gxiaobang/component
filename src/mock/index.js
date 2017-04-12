@@ -2,14 +2,16 @@
  * mock数据
  * @example
 			http({
-				url: '/test/list',
+				url: '/test',
 				baseURL: '/mock',
 			}).then(response => {
 				console.log(response);
 			})
  */
 import test from './test.json';
+import login from './login.json';
 
 export default {
-	'/test/list':  test
+	'/test':  test,
+  '/login': login
 };

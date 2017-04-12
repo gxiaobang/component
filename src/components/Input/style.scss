@@ -1,0 +1,14 @@
+@import "~styles/utils";
+
+.rc-smart-input-wrap {
+  @extend %form-element;
+
+  .rc-smart-input {
+    padding: 4px;
+    border-radius: 4px;
+  }
+
+  .rc-smart-error {
+    color: $red;
+  }
+}

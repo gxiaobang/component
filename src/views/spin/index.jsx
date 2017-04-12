@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import Spin from 'components/spin';
+import { Spin } from 'components';
 
 class Page extends React.Component {
 

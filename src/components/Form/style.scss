@@ -1,0 +1,22 @@
+/**
+ * 表单
+ */
+
+@import "~styles/utils";
+
+.rc-smart-form {
+  &.rc-smart-form-inline {
+    .rc-smart-form-item {
+      display: inline-block;
+    }
+  }
+  
+  // 表单元素
+  .rc-smart-form-item {
+    padding: 10px;
+
+    .rc-smart-form-item-label {
+      line-height: 24px;
+    }
+  }
+}
