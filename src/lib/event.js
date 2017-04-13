@@ -26,7 +26,7 @@ const removeEvent = (el, type, fn) => {
 }
 
 // 触发事件
-const triggerEvent = (el, type, fn) => {
+const fixEvent = (el, type, fn) => {
   event = event || window.event;
 
   if (!event.target) {
@@ -53,4 +53,4 @@ const delegate = () => {
 
 }
 
-export { addEvent, removeEvent, triggerEvent };
+export { addEvent, removeEvent, fixEvent };

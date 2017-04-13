@@ -66,6 +66,9 @@ class TodoList {
 		},
 		{
 			title: __('加载中'), url: '/spin/index', code: 'spin'
+		},
+		{
+			title: __('日期'), url: '/calendar/index', code: 'calendar'
 		}
 	];
 

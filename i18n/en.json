@@ -6,5 +6,6 @@
 	"表格": "Table",
 	"分页": "Pagination",
 	"按钮": "Button",
-	"加载中": "Spin"
+	"加载中": "Spin",
+  "日历": "Calendar"
 }

@@ -3,13 +3,13 @@
  */
 
 import React from 'react';
-import { Message } from 'components';
+import { Message, Button } from 'components';
 
 class Page extends React.Component {
 
 	handleClick() {
 		// Dialog.alert('测试弹窗', 'warn');
-		Message.show('消息测试', 'warn');
+		Message.warn('消息测试', 'warn');
 	}
 
 	render() {
@@ -17,7 +17,7 @@ class Page extends React.Component {
 				<div className="page">
 					<h3>{this.props.data.title}组件</h3>
 					<div>
-						<button onClick={this.handleClick}>消息测试</button>
+						<Button onClick={this.handleClick}>消息测试</Button>
 					</div>
 				</div>
 			)

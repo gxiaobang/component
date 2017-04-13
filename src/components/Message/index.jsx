@@ -33,8 +33,8 @@ class Message extends React.Component {
     }
   }
 
-  static warn() {
-
+  static warn(content) {
+    console.warn(content);
   }
 
   static success() {

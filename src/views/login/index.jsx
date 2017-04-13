@@ -33,7 +33,8 @@ class Login extends React.Component {
             http({
               baseURL: '/mock',
               // url: '/login'
-              url: '/login'
+              url: '/login',
+              data: param,
             }).then((response) => {
               // console.log(response);
               const { data } = response;

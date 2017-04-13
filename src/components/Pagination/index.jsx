@@ -1,14 +1,75 @@
 /**
  * 分页组件
+ * @example
+ // 总数count, 页码index, 每页显示数size
+    <Pagination data={{ count: 100, index: 1, size: 100 }}></Pagination>
  */
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import classnames from 'classnames';
+import './style';
 
 class Pagination extends React.Component {
+
+  state = {
+    index: this.props.data.index,
+    size: this.props.data.size,
+    total: this.props.data.total
+  };
+
+  handleClick(command) {
+    let { index } = this.state;
+
+    switch (command) {
+      case 'prev':
+        index = Math.max(index - 1, 1);
+        break;
+      case 'next':
+        index = Math.min(index + 1, this.count);
+        break;
+      default:
+        index = command;
+    }
+
+    if (this.state.index != index) {
+      this.setState({
+        index
+      });
+      this.props.onChange && this.props.onChange(index, this.state);
+    }
+  }
+  
+  // 渲染条数
+  renderRecord() {
+    const { total = 0, index = 1, size = 10 } = this.state || {};
+    this.count = Math.ceil(total / size);
+
+    const n = 5;
+    const p = (n - 1) / 2;
+
+    const node = [];
+    node.push(<li key="prev" onClick={this.handleClick.bind(this, 'prev')}>&laquo;</li>);
+    for (let i = 1; i <= this.count; i++) {
+      if (i >= index - p && i <= index + p) {
+        node.push(<li className={classnames(i == index ? 'active' : null)} key={i} onClick={this.handleClick.bind(this, i)}>{i}</li>);
+      }
+    } 
+    node.push(<li key="next" onClick={this.handleClick.bind(this, 'next')}>&raquo;</li>);
+    return node;
+  }
+  
   render() {
+    
     return (
-      <div>分页</div>
+      <div className="rc-smart-pagination">
+        <div className="rc-smart-pagination-total">
+          总纪录数 {this.state.total} 条
+        </div>
+        <ul className="rc-smart-pagination-main">
+          {this.renderRecord()}
+        </ul>
+      </div>
     );
   }
 }

@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import { Dialog } from 'components';
+import { Dialog, Button } from 'components';
 
 class Page extends React.Component {
 
@@ -16,7 +16,7 @@ class Page extends React.Component {
 				<div className="page">
 					<h3>{this.props.data.title}组件</h3>
 					<div>
-						<button onClick={this.handleClick}>弹窗测试</button>
+						<Button onClick={this.handleClick}>弹窗测试</Button>
 					</div>
 				</div>
 			)

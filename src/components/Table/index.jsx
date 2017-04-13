@@ -4,20 +4,59 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import _ from 'lodash';
+import './style';
 
 class Table extends React.Component {
+
+  renderColumns() {
+    const { columns = [] } = this.props;
+    return (
+      <tr>
+        {
+          columns.map((item, index) => {
+            return <th key={index}>{item.title}</th>
+          })
+        }
+      </tr>
+    );
+  }
+
+  renderData() {
+    const { columns = [], data = [] } = this.props;
+
+    return (
+      data.map((item, index) => {
+        return (
+          <tr key={index}>
+          {
+            columns.map((item2, index2) => {
+              let { key, title } = item2;
+              if (_.isFunction(item2.render)) {
+                title = item2.render(title, item2);
+              }
+              return <td key={key}>{title}</td>
+            })
+          }
+          </tr>
+        )
+      })
+    )
+  }
+
   render() {
     return (
-        <table>
+      <div className="rc-smart-table-wrap">
+        <table className="rc-smart-table">
           <thead>
-            <tr>
-              <th>标题1</th>
-              <th>标题2</th>
-            </tr>
+            {this.renderColumns()}
           </thead>
-          <tbody></tbody>
+          <tbody>
+            {this.renderData()}
+          </tbody>
         </table>
-      )
+      </div>
+    )
   }
 }
 

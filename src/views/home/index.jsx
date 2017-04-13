@@ -9,7 +9,7 @@ import Menu from 'layouts/menu';
 import PageTab from 'layouts/page-tab';
 import Header from 'layouts/header';
 import router from 'lib/router';
-import 'styles/home';
+import './style';
 
 router.listen(event => {
 	console.log(event);

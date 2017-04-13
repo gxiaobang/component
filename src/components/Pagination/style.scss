@@ -1,0 +1,30 @@
+/**
+ * 分页栏
+ */
+
+.rc-smart-pagination {
+  
+  .rc-smart-pagination-total,
+  .rc-smart-pagination-main {
+    display: inline-block;
+  }
+
+  .rc-smart-pagination-total {
+    line-height: 32px;
+  }
+
+  .rc-smart-pagination-main {
+    float: right;
+    li {
+      display: inline-block;
+      padding: 6px 12px;
+      border: 1px solid #ccc;
+      cursor: pointer;
+
+      &.active {
+        color: #fff;
+        background-color: #337ab7;
+      }
+    }
+  }
+}

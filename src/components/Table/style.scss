@@ -1,0 +1,15 @@
+/**
+ * 表格样式
+ */
+
+.rc-smart-table-wrap {
+  overflow: auto;
+
+  .rc-smart-table {
+    width: 100%;
+    th, td {
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
+  }
+}
