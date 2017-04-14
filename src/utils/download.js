@@ -2,7 +2,7 @@
  * 文件下载
  */
 
-import http from 'lib/http';
+import http from 'utils/http';
 
 const download = (url, data = null, mine = 'xxx') => {
 	return http({

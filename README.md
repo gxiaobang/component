@@ -7,7 +7,7 @@
 
 ### 项目结构
 * src 源目录
-	* lib 函数库
+	* utils 工具函数
 	* components 基础组件
 	* containers 业务组件
 	* images 图片

@@ -5,10 +5,10 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 
-import Menu from 'layouts/menu';
-import PageTab from 'layouts/page-tab';
-import Header from 'layouts/header';
-import router from 'lib/router';
+import Menu from 'layouts/Menu';
+import PageTab from 'layouts/PageTab';
+import Header from 'layouts/Header';
+import router from 'utils/router';
 import './style';
 
 router.listen(event => {

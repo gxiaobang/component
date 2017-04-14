@@ -37,9 +37,10 @@
 	.content-header {
 		> div {
 			display: inline-block;
+      padding: 4px;
+      margin: 2px;
 		  border: 1px solid #ccc;
-		  padding: 4px;
-		  margin: 2px;
+      border-radius: 4px;
 		}
 
 		.selected {

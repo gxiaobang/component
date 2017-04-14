@@ -9,7 +9,7 @@ class Page extends React.Component {
 
 	handleClick() {
 		// Dialog.alert('测试弹窗', 'warn');
-		Message.warn('消息测试', 'warn');
+		Message.warn('消息测试' + new Date);
 	}
 
 	render() {

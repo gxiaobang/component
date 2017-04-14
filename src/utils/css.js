@@ -2,7 +2,7 @@
  * 样式操作
  */
 
-import suports from 'lib/suports';
+import suports from 'utils/suports';
 
 const getCss = (el, prop) => {
   // 标准

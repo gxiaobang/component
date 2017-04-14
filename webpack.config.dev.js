@@ -46,7 +46,7 @@ module.exports = {
 		extensions: ['.js', '.jsx', '.sass', '.scss'],
 		// 简称
 		alias: {
-			'lib': path.resolve(srcPath, './lib'),
+			'utils': path.resolve(srcPath, './utils'),
 			'stores': path.resolve(srcPath, './stores'),
 			'views': path.resolve(srcPath, './views'),
 			'components': path.resolve(srcPath, './components'),

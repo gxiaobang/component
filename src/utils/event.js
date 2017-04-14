@@ -2,8 +2,8 @@
  * 事件
  */
 
-import suports from 'lib/suports';
-import { getDOM, parseDOM } from 'lib/dom';
+import suports from 'utils/suports';
+import { getDOM, parseDOM } from 'utils/dom';
 
 // 绑定事件
 const addEvent = (el, type, fn) => {

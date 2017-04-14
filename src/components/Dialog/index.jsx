@@ -7,7 +7,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 // import depend from 'base/depend';
-import { addEvent, removeEvent, fixEvent } from 'lib/event';
+import { addEvent, removeEvent, fixEvent } from 'utils/event';
 // 引入样式
 import './style';
 

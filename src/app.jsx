@@ -10,7 +10,7 @@ import { TodoList } from 'stores/home';
 import Home from 'views/home';
 import Login from 'views/login';
 
-import router from 'lib/router';
+import router from 'utils/router';
 
 if (router.getURL() == '/login') {
   ReactDOM.render(

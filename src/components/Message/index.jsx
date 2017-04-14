@@ -5,60 +5,84 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import wrapper from 'utils/wrapper';
 import './style';
 
+let wrap;
+const showMessage = (options) => {
+  if (!wrap) {
+    wrap = wrapper(<Container />);
+  }
 
-class Message extends React.Component {
-  show(msg, icon) {
+  const { data } = wrap.state;
+  data.unshift(options);
+  wrap.setState({ data });
+}
 
-    this.hide();
-    if (!this.element) {
-      this.element = document.createElement('div');
-      ReactDOM.render(
-          <Message msg={msg} icon={icon} />,
-          Message.element
-        );
-      document.body.appendChild(Message.element);
+class Container extends React.Component {
+
+  state = {
+    data: []
+  };
+
+  removeItem(item) {
+    const { data } = this.state;
+    let index = data.indexOf(item);
+    if (index > -1) {
+      data.splice(index, 1);
+      this.setState({ data });
     }
-    Message.element.style.display = '';
-    Message.timer = setTimeout(() => {
-      this.hide();
-    }, 2000);
-  }
-
-  hide() {
-    if (Message.element) {
-      clearTimeout(Message.timer);
-      Message.element.style.display = 'none';
-    }
-  }
-
-  static warn(content) {
-    console.warn(content);
-  }
-
-  static success() {
-
-  }
-
-  static info() {
-
-  }
-
-  static error() {
-
-  }
-
-  static loading() {
-
   }
 
   render() {
     return (
-        <div className="message">
-          {this.props.msg}
+      <div className="rc-smart-message-container">
+        {
+          this.state.data.map((item, index) => {
+            if (!item.rendered) {
+              item.rendered = true;
+              item.timer = setTimeout(() => {
+                this.removeItem(item);
+              }, item.duration);
+            }
+            return <Message key={index}>{item.content}</Message>
+          })
+        }
+      </div>
+    );
+  }
+}
+
+class Message extends React.Component {
+
+  static warn(content, duration = 3000, onClose) {    
+    showMessage({ content, duration, onClose, icon: 'warn' });
+  }
+
+  static success(content, duration = 3000, onClose) {
+    showMessage({ content, duration, onClose, icon: 'success' });
+  }
+
+  static info(content, duration = 3000, onClose) {
+    showMessage({ content, duration, onClose, icon: 'info' });
+  }
+
+  static error(content, duration = 3000, onClose) {
+    showMessage({ content, duration, onClose, icon: 'error' });
+  }
+
+  static loading(content, duration = 3000, onClose) {
+    showMessage({ content, duration, onClose, icon: 'loading' });
+  }
+
+  render() {
+    return (
+      <div className="rc-smart-message">
+        <div className="rc-smart-message-content">
+          {this.props.children}
         </div>
-      )
+      </div>
+    )
   }
 }
 

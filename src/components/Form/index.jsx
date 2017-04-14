@@ -4,7 +4,7 @@
 
 import React from 'react';
 import classnames from 'classnames';
-import { getFormParam } from 'lib/utils';
+import { getFormParam } from 'utils';
 import './style';
 
 
