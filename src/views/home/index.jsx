@@ -11,9 +11,9 @@ import Header from 'layouts/Header';
 import router from 'utils/router';
 import './style';
 
-router.listen(event => {
+/*router.listen(event => {
 	console.log(event);
-});
+});*/
 
 
 @observer

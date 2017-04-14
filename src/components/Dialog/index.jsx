@@ -103,6 +103,12 @@ class Dialog extends React.Component {
     this.rebuild();
   }
 
+  // 组件卸载
+  componentWillUnmount() {
+    // console.log(this.unbind);
+    this.unbind();
+  }
+
   // 拖动事件
   handleDragable(e) {
 
@@ -181,7 +187,7 @@ class Dialog extends React.Component {
   }
 
   events() {
-    addEvent(window, 'resize', () => {
+    this.unbind = addEvent(window, 'resize', () => {
       this.reflow();
     });
   }

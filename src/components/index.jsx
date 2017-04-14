@@ -11,4 +11,5 @@ export { default as Form } from './Form';
 export { default as Checkbox } from './Checkbox';
 export { default as Radio } from './Radio';
 export { default as Calendar } from './Calendar';
+export { default as Icon } from './Icon';
 export * from './Grid';

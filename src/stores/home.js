@@ -4,6 +4,7 @@
 
 import React from 'react';
 import { observable, computed } from 'mobx';
+import redirect from 'utils/redirect';
 // import {observer} from 'mobx-react';
 
 class Todo {
@@ -31,12 +32,9 @@ class Todo {
 				this.PageNode = <Page data={data} />;
 			})
 			.catch(err => {
-				console.warn('加载失败');
-				System.import('views/404')
-					.then(module => {
-						const Page = module.default;
-						this.PageNode = <Page data={data} />;
-					})
+				redirect('error', err, (Page) => {
+					this.PageNode = <Page data={data} />;
+				});
 			});
 	}
 }

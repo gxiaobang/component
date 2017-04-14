@@ -13,6 +13,10 @@ const addEvent = (el, type, fn) => {
   else {
     el.attachEvent('on' + type, fn);
   }
+
+  return () => {
+    removeEvent(el, type, fn);
+  };
 }
 
 // 删除事件
