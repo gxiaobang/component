@@ -1,4 +1,4 @@
-/**
+/*
  * 弹框
  * @author gxiaobang
  * @version 0.1.0
@@ -6,87 +6,96 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import depend from 'base/depend';
 import { addEvent, removeEvent, fixEvent } from 'utils/event';
+import { Button } from 'components';
+import wrapper from 'utils/wrapper';
 // 引入样式
 import './style';
 
-// 创建遮罩层
-function createMask() {
-  var mask = document.createElement('div');
-  mask.className = 'mask';
-  document.body.appendChild(mask);
-  return mask;
+let wrap;
+const addDialog = (options) => {
+  if (!wrap) {
+    wrap = wrapper(<Mask />);
+  }
+
+  const { data } = wrap.state;
+  data.push(options);
+  wrap.setState({ data });
+  return wrap;
+}
+
+// 遮罩
+class Mask extends React.Component {
+
+  state = {
+    data: []
+  };
+
+  removeItem(item) {
+    const { data } = this.state;
+    let index = data.indexOf(item);
+    if (index > -1) {
+      data.splice(index, 1);
+      this.setState({ data });
+    }
+  }
+  
+  render() {
+    if (this.state.data.length) {
+      return (
+        <div className="rc-smart-mask">
+        {
+          this.state.data.map((item, index) => {
+            if (!item.sequel) {
+              item.sequel = Math.random();
+            }
+
+            return (
+              <Dialog key={item.sequel} type={item.type} title={item.title} buttons={item.buttons} onClose={this.removeItem.bind(this, item)}>
+                {item.content}
+              </Dialog>
+            );
+          })
+        }
+        </div>
+      );
+    }
+    else {
+      return null;
+    }
+  }
 }
 
 class Dialog extends React.Component {
   // 警告框
-  static alert(msg, icon = 'warn') {
-    var mask = createMask();
-    return ReactDOM.render(
-        <Dialog type="alert" msg={msg} icon={icon} title="提示框" 
-          btns={
-            [{ text: '确定', cls: '' }]
-          }
-        />,
-        mask
-      );
+  static alert(content, type = 'warn') {
+    const buttons = [{ text: '确定', type: 'primary' }];
+    const title = '提示框';
+    addDialog({ content, type, buttons, title });
   }
 
   // 询问框
-  static confirm(msg, icon = 'inquiry') {
-    var mask = createMask();
-    return ReactDOM.render(
-        <Dialog type="confirm" msg={msg} icon={icon} title="提示框" 
-          btns={
-            [{ text: '确定', cls: '' }, { text: '取消', cls: '' }]
-          }
-        />,
-        mask
-      );
+  static confirm(content, type = 'inquiry') {
+    const buttons = [{ text: '确定', type: 'primary' }, { text: '取消', type: '' }];
+    const title = '提示框';
+    addDialog({ content, type, buttons, title });
   }
-  // 页面加载
-  static load(url, param = null, title = '') {
-    var mask = createMask();
-    return ReactDOM.render(
-        <Dialog type="load" url={url} param={param} title={title} />,
-        mask
-      );
-  }
+
   // DOM插入
-  static insert(page, title) {
-    var mask = createMask();
-    return ReactDOM.render(
-        <Dialog type="insert" page={page}  title={title} />,
-        mask
-      );
+  static insert(content, title = '提示框', buttons = [{ text: '确定', type: 'primary' }, { text: '取消', type: '' }]) {
+    addDialog({ content, buttons, title });
   }
 
   // 打开一个页面
-  static open(url, data, title) {
+  static open(url, data, title, buttons) {
     System.import('views/' + url + '.jsx')
       .then(module => {
         const Page = module.default;
-        this.insert(<Page data={data} />, title);
+        Dialog.insert(<Page data={data} />, title);
       })
       .catch(err => {
         Dialog.alert('页面找不到啦！');
       });
-  }
-
-  componentWillMount() {
-    switch (this.props.type) {
-      case 'load':
-        this.props.page = '加载中...';
-
-        depend.require(this.props.url, (Page) => {
-          this.props.page = <Page param={this.props.param} />;
-          this.setState({
-            page: this.props.page
-          });
-        });
-        break;
-    }
   }
 
   componentDidMount() {
@@ -100,8 +109,6 @@ class Dialog extends React.Component {
     const elem = this.refs.dialog;
     let dx = e.clientX - elem.offsetLeft;
     let dy = e.clientY - elem.offsetTop;
-
-
 
     function _move(e) {
       e = fixEvent(e);
@@ -123,43 +130,44 @@ class Dialog extends React.Component {
   }
 
   render() {
+    const { type, buttons, title } = this.props;
+    const content = this.props.children;
     return (
-      <div className="dialog" ref="dialog">
+      <div className="rc-smart-dialog" ref="dialog">
         <header onMouseDown={this.handleDragable.bind(this)}>
-          {this.props.title}
+          {title}
           <span className="close" onClick={this.handleClose.bind(this)}>&times;</span>
         </header>
         <section ref="content">
           {
-            this.props.msg ? (
+            type ? (
               <div>
-                <i className={this.props.icon}></i>
-                <div className="dialog-message">
-                  {this.props.msg}
+                <i className={type}></i>
+                <div className="rc-smart-dialog-message">
+                  {content}
                 </div>
               </div>
             ) : (
-              <div>{this.props.page}</div>
+              <div>{content}</div>
             )
           }
         </section>
         <footer ref="footer">
           {
-            this.props.btns.map((item, index) => {
+            buttons.map((item, index) => {
               return (
-                  <button 
-                    key={index}
-                    type="button"
-                    className={item.cls} 
-                    onClick={
-                      () => {
-                        this.handleClose();
-                        item.handler && item.handler.bind(this);
-                      }
-                    }>
-                    {item.text}
-                  </button>
-                )
+                <Button 
+                  key={index}
+                  type={item.type}
+                  onClick={
+                    () => {
+                      this.handleClose();
+                      item.handler && item.handler.bind(this);
+                    }
+                  }>
+                  {item.text}
+                </Button>
+              )
             })
           }
         </footer>
@@ -169,9 +177,7 @@ class Dialog extends React.Component {
 
   // 关闭弹窗
   handleClose() {
-    document.body.removeChild(
-        this.refs.dialog.parentNode
-      );
+    this.props.onClose && this.props.onClose();
   }
 
   events() {

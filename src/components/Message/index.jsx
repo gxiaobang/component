@@ -9,7 +9,7 @@ import wrapper from 'utils/wrapper';
 import './style';
 
 let wrap;
-const showMessage = (options) => {
+const addMessage = (options) => {
   if (!wrap) {
     wrap = wrapper(<Container />);
   }
@@ -45,7 +45,7 @@ class Container extends React.Component {
                 this.removeItem(item);
               }, item.duration);
             }
-            return <Message key={index}>{item.content}</Message>
+            return <Message key={index} type={item.type}>{item.content}</Message>
           })
         }
       </div>
@@ -56,23 +56,23 @@ class Container extends React.Component {
 class Message extends React.Component {
 
   static warn(content, duration = 3000, onClose) {    
-    showMessage({ content, duration, onClose, icon: 'warn' });
+    addMessage({ content, duration, onClose, type: 'warn' });
   }
 
   static success(content, duration = 3000, onClose) {
-    showMessage({ content, duration, onClose, icon: 'success' });
+    addMessage({ content, duration, onClose, type: 'success' });
   }
 
   static info(content, duration = 3000, onClose) {
-    showMessage({ content, duration, onClose, icon: 'info' });
+    addMessage({ content, duration, onClose, type: 'info' });
   }
 
   static error(content, duration = 3000, onClose) {
-    showMessage({ content, duration, onClose, icon: 'error' });
+    addMessage({ content, duration, onClose, type: 'error' });
   }
 
   static loading(content, duration = 3000, onClose) {
-    showMessage({ content, duration, onClose, icon: 'loading' });
+    addMessage({ content, duration, onClose, type: 'loading' });
   }
 
   render() {
