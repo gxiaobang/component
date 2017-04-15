@@ -1,6 +1,6 @@
 /**
  * webpack打包配置（生产环境）
- * @author gxiaobang
+ * by gxiaobang
  */
 
 const webpack = require('webpack');
@@ -89,6 +89,13 @@ module.exports = {
       compress: {
         warnings: false,
         drop_console: false
+      }
+    }),
+
+    // 自定义参数
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
       }
     })
   ]

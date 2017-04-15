@@ -47,11 +47,14 @@ class Pagination extends React.Component {
 
     const n = 5;
     const p = (n - 1) / 2;
+    // 补够位
+    const fixnumStart = Math.max(0, p - (this.count - index));
+    const fixnumEnd = Math.max(0, p + 1 - index);
 
     const node = [];
     node.push(<li key="prev" onClick={this.handleClick.bind(this, 'prev')}>&laquo;</li>);
     for (let i = 1; i <= this.count; i++) {
-      if (i >= index - p && i <= index + p) {
+      if (i >= index - p - fixnumStart && i <= index + p + fixnumEnd) {
         node.push(<li className={classnames(i == index ? 'active' : null)} key={i} onClick={this.handleClick.bind(this, i)}>{i}</li>);
       }
     } 

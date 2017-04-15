@@ -1,6 +1,6 @@
 /**
  * webpack打包配置（开发环境）
- * @author gxiaobang
+ * by gxiaobang
  */
 
 const webpack = require('webpack');
