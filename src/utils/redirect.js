@@ -2,23 +2,18 @@
  * 页面重定向
  */
 
-const redirect = (status, err, onReady) => {
+const redirect = async (status, err, onReady) => {
   if (status == 'error') {
     console.error(err);
+    let module;
     if (err.message.indexOf('Cannot find module') > -1) {
-      System.import('views/404')
-        .then(module => {
-          const Page = module.default;
-          onReady && onReady(Page);
-        });
+      module = await System.import('views/404');
     }
     else {
-      System.import('views/error')
-        .then(module => {
-          const Page = module.default;
-          onReady && onReady(Page);
-        });
+      module = await System.import('views/error');
     }
+
+    return module.default;
   }
 }
 

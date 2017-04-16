@@ -7,6 +7,8 @@ import ReactDOM from 'react-dom';
 import _ from 'lodash';
 import './style';
 
+// <colgroup><col style="width: 360px;"></colgroup>
+
 class Table extends React.Component {
 
   renderColumns() {

@@ -32,7 +32,7 @@ class Todo {
 				this.PageNode = <Page data={data} />;
 			})
 			.catch(err => {
-				redirect('error', err, (Page) => {
+				redirect('error', err).then(Page => {
 					this.PageNode = <Page data={data} />;
 				});
 			});
