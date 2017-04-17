@@ -102,7 +102,7 @@ module.exports = {
     ]
   },
   plugins: [
-
+    // 独立css文件
     new ExtractTextPlugin({
       filename: 'styles.css',
       disable: false,

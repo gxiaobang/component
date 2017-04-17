@@ -24,6 +24,7 @@ class Page extends React.Component {
 					</div>
 					<div style={{ lineHeight: 2 }}>
 						<Button onClick={this.handleConfirm}>confirm测试</Button>
+						{/*<Icon type="spinner2"></Icon>*/}
 					</div>
 				</div>
 			)

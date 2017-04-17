@@ -71,27 +71,17 @@ module.exports = {
         use: [
           'style-loader', 
           'css-loader?sourceMap', 
-          {
-            loader: 'postcss-loader',
-            options: {
-              plugins: () => {
-                return [
-                  autoprefixer({ browsers: ['last 10 version'] })
-                ]
-              }
-            }
-          },
           'sass-loader?sourceMap'
         ]
       },
-      /*{
+      {
         test: /\.(png|jpg)$/,
         use: ['url-loader?limit=25000']
       },
       {
         test: /\.(woff|woff2|eot|ttf|svg)$/,
         use: ['url-loader?limit=100000']
-      }*/
+      }
     ]
   },
   plugins: [

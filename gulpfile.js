@@ -1,16 +1,16 @@
 /**
  * 服务器部署
- * @author gxiaobang
+ * by gxiaobang
  */
 
 const gulp = require('gulp');
 const sftp = require('gulp-sftp');
 
-const { DIST_PATH } = require('./config');		
+const { distPath } = require('./config');
 
 // 部署
 gulp.task('deploy', () => {
-	gulp.src(DIST_PATH)
+	gulp.src(distPath)
 			.pipe(sftp({
 				host: 'xxx',
 				user: 'xxx',
