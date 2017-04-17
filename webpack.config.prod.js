@@ -7,14 +7,15 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const I18nPlugin = require("i18n-webpack-plugin");
+const autoprefixer = require('autoprefixer');
 
 const path = require('path');
 const { version, host, port, srcPath, distPath, publicPath } = require('./config');
 
 // 国际化
 const languages = {
-  'en': require('./i18n/en.json'),
-  'zh-cn': require('./i18n/zh-cn.json')
+  'zh-cn': null,
+  'en': require('./i18n/en'),
 };
 
 process.env.NODE_ENV = 'production';
@@ -59,13 +60,54 @@ module.exports = {
       },
       {
         test: /\.(css|scss)$/,
-        use: ['style-loader', 'css-loader', 'sass-loader']
+        /*use: [
+          'style-loader', 
+          'css-loader', 
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: () => {
+                return [
+                  autoprefixer({ browsers: ['last 10 version'] })
+                ]
+              }
+            }
+          },
+          'sass-loader'
+        ]*/
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                minimize: true
+              }
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                plugins: () => {
+                  return [
+                    autoprefixer({ browsers: ['last 10 version'] })
+                  ]
+                }
+              }
+            },
+            'sass-loader'
+          ],
+          // publicPath: publicPath
+        })
       }
     ]
   },
   plugins: [
 
-    // new ExtractTextPlugin('styles.css'),
+    new ExtractTextPlugin({
+      filename: 'styles.css',
+      disable: false,
+      allChunks: true
+    }),
 
     // 提取相同的文件
     new webpack.optimize.CommonsChunkPlugin({
@@ -80,7 +122,7 @@ module.exports = {
       filename: `index.${version}.html`
     }),
 
-    new I18nPlugin(languages['en']),
+    new I18nPlugin(languages['zh-cn']),
 
     // 压缩
     new webpack.optimize.UglifyJsPlugin({

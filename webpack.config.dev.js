@@ -8,14 +8,15 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const I18nPlugin = require("i18n-webpack-plugin");
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
+const autoprefixer = require('autoprefixer');
 
 const path = require('path');
 const { version, host, devPort, srcPath, distPath, publicPath } = require('./config');
 
 // 国际化
 const languages = {
-  'en': require('./i18n/en.json'),
-  'zh-cn': require('./i18n/zh-cn.json')
+  'zh-cn': null,
+  'en': require('./i18n/en'),
 };
 
 module.exports = {
@@ -67,9 +68,23 @@ module.exports = {
       },
       {
         test: /\.(css|scss)$/,
-        use: ['style-loader', 'css-loader?sourceMap', 'sass-loader?sourceMap']
-      }/*,
-      {
+        use: [
+          'style-loader', 
+          'css-loader?sourceMap', 
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: () => {
+                return [
+                  autoprefixer({ browsers: ['last 10 version'] })
+                ]
+              }
+            }
+          },
+          'sass-loader?sourceMap'
+        ]
+      },
+      /*{
         test: /\.(png|jpg)$/,
         use: ['url-loader?limit=25000']
       },
@@ -104,7 +119,14 @@ module.exports = {
       url: `http://localhost:${devPort}`
     }),
 
-    new I18nPlugin(languages['en'])
+    new I18nPlugin(languages['zh-cn']),
+
+    /*new webpack.LoaderOptionsPlugin({
+      test: /\.scss$/,
+      options: {
+        postcss: [ autoprefixer() ]
+      }
+    })*/
   ],
 
   // 代理服务器
