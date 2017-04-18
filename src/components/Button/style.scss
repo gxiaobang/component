@@ -4,11 +4,74 @@
 @import "~styles/utils";
 
 .rc-smart-btn {
-  padding: 4px 8px;
-  border: none;
+  padding: 4px 10px;
+  border: $border;
+  border-radius: 4px;
   outline: none;
+
   line-height: 1.5;
+  white-space: nowrap;
 
   // color: $white;
-  border-radius: 2px;
+  cursor: pointer;
+
+  &.rc-smart-btn-default   {
+    // color: #fff;
+    background-color: #fff;
+    border-color: #ccc;
+
+    &:hover {
+      background-color: darken(#fff, 10%);
+    }
+  }
+
+  &.rc-smart-btn-primary {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+
+    &:hover {
+      background-color: darken(#337ab7, 10%);
+    }
+  }
+
+  &.rc-smart-btn-success {
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+
+    &:hover {
+      background-color: darken(#5cb85c, 10%);
+    }
+  }
+
+  &.rc-smart-btn-info {
+    color: #fff;
+    background-color: #5bc0de;
+    border-color: #46b8da;
+
+    &:hover {
+      background-color: darken(#5bc0de, 10%);
+    }
+  }
+
+  &.rc-smart-btn-warn {
+    color: #fff;
+    background-color: #f0ad4e;
+    border-color: #eea236;
+
+    &:hover {
+      background-color: darken(#f0ad4e, 10%);
+    }
+  }
+
+  &.rc-smart-btn-danger {
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+
+    &:hover {
+      background-color: darken(#d9534f, 10%);
+    }
+  }
 }

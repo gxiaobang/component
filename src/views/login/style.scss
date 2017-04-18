@@ -7,7 +7,13 @@
 .login {
   width: 200px;
   margin: 100px auto;
+  padding: 20px;
+  border: 1px solid #bbb;
   border-radius: 4px;
 
-  background-color: #7a8da7;
+  // background-color: #7a8da7;
+
+  button {
+    width: 100%;
+  }
 }

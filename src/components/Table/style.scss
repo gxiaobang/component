@@ -7,9 +7,12 @@
 
   .rc-smart-table {
     width: 100%;
+
     th, td {
       padding: 10px;
       border: 1px solid #ddd;
+      text-align: left;
+      white-space: nowrap;
     }
   }
 }

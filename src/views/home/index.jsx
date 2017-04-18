@@ -6,7 +6,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 
 import Menu from 'layouts/Menu';
-import PageTab from 'layouts/PageTab';
+import PageTabs from 'layouts/PageTabs';
 import Header from 'layouts/Header';
 import router from 'utils/router';
 import './style';
@@ -47,7 +47,7 @@ class Home extends React.Component {
 					<Header />
 					<section>
 						<Menu store={this.store} />
-						<PageTab store={this.store} />
+						<PageTabs store={this.store} />
 					</section>
 				</div>
 			);

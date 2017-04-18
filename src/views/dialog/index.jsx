@@ -19,13 +19,12 @@ class Page extends React.Component {
 		return (
 				<div className="page">
 					<h3>{this.props.data.title}组件</h3>
-					<div style={{ lineHeight: 2 }}>
-						<Button onClick={this.handleAlert}>alert测试</Button>
-					</div>
-					<div style={{ lineHeight: 2 }}>
-						<Button onClick={this.handleConfirm}>confirm测试</Button>
-						{/*<Icon type="spinner2"></Icon>*/}
-					</div>
+					<p>
+						<Button onClick={this.handleAlert} type="default">alert</Button>
+					</p>
+					<p>
+						<Button onClick={this.handleConfirm} type="default">confirm</Button>
+					</p>
 				</div>
 			)
 	}

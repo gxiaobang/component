@@ -8,8 +8,8 @@ import './style';
 
 class Icon extends React.Component {
   render() {
-    const { type } = this.props;
-    return <i className={classnames('rc-smart-icon', `rc-smart-icon-${type}`)}></i>
+    const { type, className } = this.props;
+    return <i className={classnames('rc-smart-icon', `rc-smart-icon-${type}`, className)}></i>
   }
 }
 

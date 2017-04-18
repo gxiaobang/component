@@ -1,0 +1,14 @@
+
+@import "~styles/animation";
+
+.rc-smart-spin-wrap {
+  .spin {
+    display: inline-block;
+    margin-right: 6px;
+    font-size: 0;
+
+    &:before {
+      font-size: 15px;
+    }
+  }
+}

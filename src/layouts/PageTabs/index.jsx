@@ -4,10 +4,11 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import router from 'utils/router';
+import './style';
 
 // tabs切换
 @observer
-class PageTab extends React.Component {
+class PageTabs extends React.Component {
 
 	store = this.props.store;
 
@@ -62,15 +63,15 @@ class PageTab extends React.Component {
 
 	render() {
 		return (
-				<div className="content">
-					<div className="content-header">
+				<div className="page-tabs">
+					<div className="page-tabs-header">
 					{
 						this.store.items.map((data, index) => {
 							return (
 									<div key={index} className={
 										data.active ? 'selected' : ''
 									}>
-										<div className="content-header-title" onClick={this.handleSelect.bind(this, data)}>
+										<div className="page-tabs-header-title" onClick={this.handleSelect.bind(this, data)}>
 											{data.title}
 										</div>
 										<span className="close" onClick={this.handleClose.bind(this, data)}>&times;</span>
@@ -79,7 +80,7 @@ class PageTab extends React.Component {
 						})
 					}
 					</div>
-					<div className="content-body">
+					<div className="page-tabs-body">
 					{
 						this.store.items.map((item, index) => {
 							return (
@@ -97,4 +98,4 @@ class PageTab extends React.Component {
 	}
 }
 
-export default PageTab;
+export default PageTabs;

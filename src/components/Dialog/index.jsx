@@ -76,7 +76,7 @@ class Dialog extends React.Component {
 
   // 询问框
   static confirm(content, type = 'inquiry') {
-    const buttons = [{ text: '确定', type: 'primary' }, { text: '取消', type: '' }];
+    const buttons = [{ text: '确定', type: 'primary' }, { text: '取消', type: 'default' }];
     const title = '提示框';
     addDialog({ content, type, buttons, title });
   }

@@ -1,0 +1,9 @@
+/**
+ * 动画
+ */
+
+@import "keyframes";
+
+.spin {
+  animation: spin 1s linear infinite;
+}

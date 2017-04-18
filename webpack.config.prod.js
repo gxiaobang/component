@@ -98,6 +98,14 @@ module.exports = {
           ],
           // publicPath: publicPath
         })
+      },
+      {
+        test: /\.(png|jpg)$/,
+        use: ['url-loader?limit=25000']
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|svg)$/,
+        use: ['url-loader?limit=100000']
       }
     ]
   },

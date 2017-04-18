@@ -1,12 +1,28 @@
+/**
+ * 单选框
+ */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './style';
 
-class Radio extends React.Component {
+class Checkbox extends React.Component {
+  
+  handleChnage(...args) {
+    const { onChange } = this.props;
+
+    onChange && onChange(...args);
+  }
+
   render() {
+    const { name, checked, value } = this.props;
     return (
-      <div className="rc-smart-radio"></div>
+      <label className="rc-smart-radio">
+        <input type="radio" name={name} defaultChecked={checked} onChange={this.handleChnage.bind(this)} />
+        {this.props.children}
+      </label>
     );
   }
 }
 
-export default Radio;
+export default Checkbox;

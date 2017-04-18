@@ -7,6 +7,8 @@
     url("<%= fontPath %><%= fontName %>.svg#<%= fontName %>") format("svg");
 }
 
+
+
 .rc-smart-icon:before {
   font-family: "<%= fontName %>";
   -webkit-font-smoothing: antialiased;
@@ -14,7 +16,9 @@
   font-style: normal;
   font-variant: normal;
   font-weight: normal;
-  /* speak: none; only necessary if not using the private unicode range (firstGlyph option) */
+  line-height: 1;
+  /* only necessary if not using the private unicode range (firstGlyph option) */
+  speak: none; 
   text-decoration: none;
   text-transform: none;
 }

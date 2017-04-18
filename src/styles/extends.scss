@@ -1,3 +1,10 @@
+
+
 %form-element {
   display: inline-block;
+}
+
+
+.clearfix {
+  @include clearfix;
 }

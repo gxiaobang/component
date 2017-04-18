@@ -1,9 +1,9 @@
 @import "~styles/utils";
 
-.rc-smart-checkbox {
+.rc-smart-radio {
   @extend %form-element;
 
-  input[type="checkbox"] {
+  input[type="radio"] {
     margin-right: 4px;
   }
 }

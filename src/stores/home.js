@@ -5,6 +5,7 @@
 import React from 'react';
 import { observable, computed } from 'mobx';
 import redirect from 'utils/redirect';
+import { Spin } from 'components';
 // import {observer} from 'mobx-react';
 
 class Todo {
@@ -14,7 +15,7 @@ class Todo {
 	@observable url = '';
 	@observable code = '';
 	@observable active = false;
-	@observable PageNode = <div>加载中...</div>;
+	@observable PageNode = <Spin />;
 	constructor({ title, url, code, active = false }) {
 
 		const data = { title, url, code, active };
@@ -67,7 +68,10 @@ class TodoList {
 		},
 		{
 			title: __('日历'), url: '/calendar/index', code: 'calendar'
-		}
+		},
+		{
+			title: __('表单'), url: '/form/index', code: 'form'
+		},
 	];
 
 	@computed get currentCode() {

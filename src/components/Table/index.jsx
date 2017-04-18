@@ -5,6 +5,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'lodash';
+import { Pagination } from 'components';
 import './style';
 
 // <colgroup><col style="width: 360px;"></colgroup>
@@ -15,11 +16,11 @@ class Table extends React.Component {
     const { columns = [] } = this.props;
     return (
       <tr>
-        {
-          columns.map((item, index) => {
-            return <th key={index}>{item.title}</th>
-          })
-        }
+      {
+        columns.map((item, index) => {
+          return <th key={index}>{item.title}</th>
+        })
+      }
       </tr>
     );
   }
@@ -34,10 +35,11 @@ class Table extends React.Component {
           {
             columns.map((item2, index2) => {
               let { key, title } = item2;
+              let text = item[ key ];
               if (_.isFunction(item2.render)) {
-                title = item2.render(title, item2);
+                text = item2.render(text, item2);
               }
-              return <td key={key}>{title}</td>
+              return <td key={key}>{text}</td>
             })
           }
           </tr>
@@ -57,6 +59,7 @@ class Table extends React.Component {
             {this.renderData()}
           </tbody>
         </table>
+        <Pagination data={{ index: 1, size: 20, total: 200 }} />
       </div>
     )
   }

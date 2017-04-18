@@ -53,7 +53,7 @@ class Login extends React.Component {
           </FormItem>
 
           <FormItem className="text-center">
-            <Button submit>登录</Button>
+            <Button type="primary" submit>登录</Button>
           </FormItem>
 
           {/*<FormItem>
