@@ -1,0 +1,17 @@
+@import "~styles/utils";
+
+.rc-smart-validate {
+  @extend %form-element;
+
+  &.error {
+    input, select {
+      border: 1px solid $red;
+    }
+  }
+
+  .rc-smart-validate-error {
+    font-size: 14px;
+    line-height: 1.5;
+    color: $red;
+  }
+}

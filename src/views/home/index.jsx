@@ -6,7 +6,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 
 import Menu from 'layouts/Menu';
-import PageTabs from 'layouts/PageTabs';
+import Content from 'layouts/Content';
 import Header from 'layouts/Header';
 import router from 'utils/router';
 import './style';
@@ -43,11 +43,11 @@ class Home extends React.Component {
 
 	render() {
 		return (
-				<div>
+				<div className="home">
 					<Header />
 					<section>
 						<Menu store={this.store} />
-						<PageTabs store={this.store} />
+						<Content store={this.store} />
 					</section>
 				</div>
 			);

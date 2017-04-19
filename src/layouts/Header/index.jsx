@@ -12,16 +12,14 @@ class Header extends React.Component {
 
 	render() {
 		return (
-			<div className="banner">
-        <div className="banner-header">
-          <div className="banner-logo">
-            {__('web组件')}
-          </div>
-
-          <a href="javascript:;" onClick={this.handleLogout.bind(this)} className="banner-user-info">
-            注销
-          </a>
+      <div className="header">
+        <div className="header-logo">
+          {__('web组件')}
         </div>
+
+        <a href="javascript:;" onClick={this.handleLogout.bind(this)} className="header-user-info">
+          {__('注销')}
+        </a>
       </div>
 		);
 	}

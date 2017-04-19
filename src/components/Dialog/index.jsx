@@ -6,7 +6,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { addEvent, removeEvent, fixEvent } from 'utils/event';
+import { addEvent, removeEvent, fixEvent, noop } from 'utils';
 import { Button } from 'components';
 import wrapper from 'utils/wrapper';
 // 引入样式
@@ -51,7 +51,7 @@ class Mask extends React.Component {
             }
 
             return (
-              <Dialog key={item.sequel} type={item.type} title={item.title} buttons={item.buttons} onClose={this.removeItem.bind(this, item)}>
+              <Dialog key={item.sequel} type={item.type} title={item.title} btns={item.btns} onClose={this.removeItem.bind(this, item)}>
                 {item.content}
               </Dialog>
             );
@@ -68,26 +68,26 @@ class Mask extends React.Component {
 
 class Dialog extends React.Component {
   // 警告框
-  static alert(content, type = 'warn') {
-    const buttons = [{ text: '确定', type: 'primary' }];
+  static alert(content, type = 'warn', onOk = noop) {
+    const btns = [{ text: '确定', type: 'primary', onOk }];
     const title = '提示框';
-    addDialog({ content, type, buttons, title });
+    addDialog({ content, type, btns, title });
   }
 
   // 询问框
-  static confirm(content, type = 'inquiry') {
-    const buttons = [{ text: '确定', type: 'primary' }, { text: '取消', type: 'default' }];
+  static confirm(content, type = 'inquiry', onOk = noop) {
+    const btns = [{ text: '确定', type: 'primary' }, { text: '取消', type: 'default' }];
     const title = '提示框';
-    addDialog({ content, type, buttons, title });
+    addDialog({ content, type, btns, title });
   }
 
   // DOM插入
-  static insert(content, title = '提示框', buttons = [{ text: '确定', type: 'primary' }, { text: '取消', type: '' }]) {
-    addDialog({ content, buttons, title });
+  static insert(content, title = '提示框', btns = [{ text: '确定', type: 'primary' }, { text: '取消', type: '' }]) {
+    addDialog({ content, btns, title });
   }
 
   // 打开一个页面
-  static open(url, data, title, buttons) {
+  static open(url, data, title, btns) {
     System.import('views/' + url + '.jsx')
       .then(module => {
         const Page = module.default;
@@ -136,7 +136,7 @@ class Dialog extends React.Component {
   }
 
   render() {
-    const { type, buttons, title } = this.props;
+    const { type, btns, title } = this.props;
     const content = this.props.children;
     return (
       <div className="rc-smart-dialog" ref="dialog">
@@ -160,7 +160,7 @@ class Dialog extends React.Component {
         </section>
         <footer ref="footer">
           {
-            buttons.map((item, index) => {
+            btns.map((item, index) => {
               return (
                 <Button 
                   key={index}

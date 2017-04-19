@@ -17,10 +17,10 @@ class Checkbox extends React.Component {
   render() {
     const { name, checked, value } = this.props;
     return (
-      <lable className="rc-smart-checkbox">
+      <label className="rc-smart-checkbox">
         <input type="checkbox" name={name} defaultChecked={checked} onChange={this.handleChnage.bind(this)} />
         {this.props.children}
-      </lable>
+      </label>
     );
   }
 }

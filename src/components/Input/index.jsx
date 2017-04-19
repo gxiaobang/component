@@ -2,34 +2,27 @@
  * 按钮
  */
 import React from 'react';
-import Validator from 'validatorjs';
 import classnames from 'classnames';
+import Validate from 'components/Validate';
 import './style';
 
-Validator.useLang('zh');
+const { Validator } = Validate;
+
 /*const messages = Validator.getMessages('zh');
 console.log(messages)*/
 
 class Input extends React.Component {
 
   state = {
-    error: ''
+    value: this.props.value
   };
 
   // 输入变化
   handleChange(e) {
-    const { rules } = this.props;
-    let val = e.target.value;
+    let value = e.target.value;
     // 校验规则
-    var validation = new Validator({ '': val }, { '': rules });
-
-    let error = null;
-    if (validation.fails()) {
-      error = validation.errors.first('');
-    }
-    
     this.setState({
-      error
+      value
     });
   }
   render() {
@@ -45,15 +38,11 @@ class Input extends React.Component {
     }
 
     if (rules) {
-      return (
-        <div className="rc-smart-input-wrap">
-          <input className={cls} {...props} onChange={this.handleChange.bind(this)} />
-          {
-            this.state.error &&
-              <div className="rc-smart-error">{this.state.error}</div>
-          }
-        </div>
-      );
+        return (
+          <Validate rules={rules} value={this.state.value}>
+            <input className={cls} {...props} onChange={this.handleChange.bind(this)} />
+          </Validate>
+        );
     }
     else {
       return (

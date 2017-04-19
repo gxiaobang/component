@@ -59,7 +59,7 @@ class Table extends React.Component {
             {this.renderData()}
           </tbody>
         </table>
-        <Pagination data={{ index: 1, size: 20, total: 200 }} />
+        <Pagination data={this.props.pagination || {}} />
       </div>
     )
   }

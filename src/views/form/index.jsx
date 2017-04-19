@@ -8,7 +8,7 @@ import { Button, Input, Form, Checkbox, Radio, Select } from 'components';
 const { FormItem } = Form;
 const { Option } = Select;
 
-console.log(Option)
+// console.log(Option)
 
 class Page extends React.Component {
 
@@ -22,7 +22,7 @@ class Page extends React.Component {
           <h3>{this.props.data.title}组件</h3>
           <Form>
             <FormItem>
-              <Input placeholder="请输入用户名" />
+              <Input placeholder="请输入用户名" rules="required" />
             </FormItem>
 
             <FormItem>

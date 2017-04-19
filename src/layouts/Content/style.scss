@@ -2,16 +2,17 @@
  * 页面标签
  */
 
-.page-tabs {
+.content {
   // float: left;
 
   // min-width: 500px;
-  min-height: 500px;
+  // min-height: 500px;
+  height: calc(100vh - 80px);
   padding: 10px;
   margin-left: 230px;
   border: 1px solid #ccc;
 
-  .page-tabs-header {
+  .content-header {
     > div {
       display: inline-block;
       padding: 4px;
@@ -20,7 +21,7 @@
       border-radius: 4px;
     }
 
-    .selected {
+    .active {
       background: #00BCD4;
       color: white;
     }
@@ -32,9 +33,13 @@
       // vertical-align: middle;
     }
 
-    .page-tabs-header-title {
+    .content-header-title {
       display: inline-block;
       cursor: pointer;
     }
+  }
+
+  .content-body {
+    overflow: auto;
   }
 }

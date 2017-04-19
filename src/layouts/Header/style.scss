@@ -2,16 +2,17 @@
  * 主页头部
  */
 
-.banner {
+.header {
   
-  .banner-header {
+  .header-logo {
     padding: 10px;
     font-size: 18px;
   }
 
-  .banner-user-info {
+  .header-user-info {
     float: right;
+    margin-top: -34px;
+    margin-right: 10px;
     font-size: 14px;
-    margin-top: -24px;
   }
 }

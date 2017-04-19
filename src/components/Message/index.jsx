@@ -34,6 +34,15 @@ class Container extends React.Component {
     }
   }
 
+  // 清空数据
+  empty() {
+    const { data } = this.state;
+    if (data.length) {
+      data.length = 0;
+      this.setState({ data });
+    }
+  }
+
   render() {
     return (
       <div className="rc-smart-message-container">
@@ -73,6 +82,11 @@ class Message extends React.Component {
 
   static loading(content, duration = 3000, onClose) {
     addMessage({ content, duration, onClose, type: 'loading' });
+  }
+
+  // 销毁
+  static destroy() {
+    wrap.empty();
   }
 
   render() {

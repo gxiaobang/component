@@ -1,5 +1,5 @@
 /**
- * tabs页
+ * 内容区域
  */
 import React from 'react';
 import { observer } from 'mobx-react';
@@ -63,15 +63,15 @@ class PageTabs extends React.Component {
 
 	render() {
 		return (
-				<div className="page-tabs">
-					<div className="page-tabs-header">
+				<div className="content">
+					<div className="content-header">
 					{
 						this.store.items.map((data, index) => {
 							return (
 									<div key={index} className={
-										data.active ? 'selected' : ''
+										data.active ? 'active' : ''
 									}>
-										<div className="page-tabs-header-title" onClick={this.handleSelect.bind(this, data)}>
+										<div className="content-header-title" onClick={this.handleSelect.bind(this, data)}>
 											{data.title}
 										</div>
 										<span className="close" onClick={this.handleClose.bind(this, data)}>&times;</span>
@@ -80,7 +80,7 @@ class PageTabs extends React.Component {
 						})
 					}
 					</div>
-					<div className="page-tabs-body">
+					<div className="content-body">
 					{
 						this.store.items.map((item, index) => {
 							return (

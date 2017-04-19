@@ -50,7 +50,7 @@ class Page extends React.Component {
 				<div className="page">
 					<h3>{this.props.data.title}组件</h3>
 					<div>
-						<Table columns={columns} data={data} />
+						<Table columns={columns} data={data} pagination={{ index: 1, size: 20, total: 200 }} />
 					</div>
 				</div>
 			)

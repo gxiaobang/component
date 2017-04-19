@@ -19,7 +19,7 @@ class Pagination extends React.Component {
   };
 
   handleClick(command) {
-    let { index } = this.state;
+    let { index, size } = this.state;
 
     switch (command) {
       case 'prev':
@@ -36,7 +36,7 @@ class Pagination extends React.Component {
       this.setState({
         index
       });
-      this.props.onChange && this.props.onChange(index, this.state);
+      this.props.onChange && this.props.onChange(index, size);
     }
   }
   
