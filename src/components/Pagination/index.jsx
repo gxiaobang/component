@@ -39,6 +39,20 @@ class Pagination extends React.Component {
       this.props.onChange && this.props.onChange(index, size);
     }
   }
+
+  // props更新
+  componentWillReceiveProps(nextProps) {
+    if (this.props.data !== nextProps.data) {
+      // this.verify(nextProps);
+      const { data } = nextProps;
+      this.setState({
+        index: data.index,
+        size: data.size,
+        total: data.total
+      });
+    }
+  }
+
   
   // 渲染条数
   renderRecord() {

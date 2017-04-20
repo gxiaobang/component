@@ -12,7 +12,7 @@ class Pagination extends React.Component {
     return (
       <div className="rc-smart-spin-wrap">
         <Icon type="spinner" className="spin" />
-        <span>加载中...</span>
+        <span>{this.props.children || '加载中...'}</span>
       </div>
     );
   }

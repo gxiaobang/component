@@ -3,20 +3,20 @@
  */
 
 import axios from 'axios';
-import mock from 'mock';
+import mocks from 'mocks';
 
 const http = (options = {}) => {
 	const { baseURL = '/api', url } = options;
 	// mock请求
 	if (baseURL == '/mock') {
 		/*return Promise.resolve({
-			data: mock[url] || null
+			data: mocks[url] || null
 		});*/
 
 		return new Promise((resolve, reject) => {
 			setTimeout(() => {
-				resolve({ data: mock[url] || null })
-			}, 1000);		// 1s后返回数据
+				resolve({ data: mocks[url] || null })
+			}, 500);		// 500ms后返回数据
 		});
 	}
 	else {

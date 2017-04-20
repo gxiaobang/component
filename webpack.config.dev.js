@@ -53,7 +53,7 @@ module.exports = {
       'components': path.resolve(srcPath, './components'),
       'layouts': path.resolve(srcPath, './layouts'),
       'styles': path.resolve(srcPath, './styles'),
-      'mock': path.resolve(srcPath, './mock')
+      'mocks': path.resolve(srcPath, './mocks')
     }
   },
   /*externals: {

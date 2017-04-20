@@ -1,0 +1,41 @@
+{
+	"code": "ok",
+	"message": "成功",
+	"data": [
+    {
+      "filmName": "影片1",
+      "duration": "100",
+      "date": "09:10"
+    },
+    {
+      "filmName": "影片2",
+      "duration": "100",
+      "date": "09:20"
+    },
+    {
+      "filmName": "影片3",
+      "duration": "100",
+      "date": "09:30"
+    },
+    {
+      "filmName": "影片4",
+      "duration": "100",
+      "date": "10:00"
+    },
+    {
+      "filmName": "影片6",
+      "duration": "100",
+      "date": "09:10"
+    },
+    {
+      "filmName": "影片6",
+      "duration": "100",
+      "date": "11:20"
+    }
+  ],
+	"page": {
+		"index": 1,
+    "total": 100,
+		"size": 10
+	}
+}

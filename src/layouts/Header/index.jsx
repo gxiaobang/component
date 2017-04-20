@@ -2,6 +2,7 @@
  * 主页头部
  */
 import React from 'react';
+import { Link } from 'components';
 import './style';
 
 class Header extends React.Component {
@@ -17,9 +18,7 @@ class Header extends React.Component {
           {__('web组件')}
         </div>
 
-        <a href="javascript:;" onClick={this.handleLogout.bind(this)} className="header-user-info">
-          {__('注销')}
-        </a>
+        <Link href="/login" className="header-user-info">{__('注销')}</Link>
       </div>
 		);
 	}

@@ -27,7 +27,7 @@ class Home extends React.Component {
 
 	// 组件周期（完成）
 	componentDidMount() {
-		this.initPage();
+		// this.initPage();
 	}
 
 	// 初始化路由页面

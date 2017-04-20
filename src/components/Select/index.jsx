@@ -26,6 +26,7 @@ class Select extends React.Component {
   render() {
     const { data = [], name, value, className } = this.props;
     let cls = classnames('rc-smart-select', className);
+    // console.log(this.props.children)
     return (
       <select className={cls} name={name} value={value} onChange={this.handleChange.bind(this)}>
         {this.props.children}

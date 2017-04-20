@@ -3,7 +3,12 @@
  */
 
 .rc-smart-table-wrap {
-  overflow: auto;
+  // overflow: auto;
+
+  .rc-smart-table-main {
+    position: relative;
+    overflow: auto;
+  }
 
   .rc-smart-table {
     width: 100%;
@@ -13,6 +18,21 @@
       border: 1px solid #ddd;
       text-align: left;
       white-space: nowrap;
+    }
+  }
+
+  .rc-smart-table-loading {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255,255,255,.5);
+
+    .rc-smart-spin-wrap {
+      position: absolute;
+      left: 40%;
+      top: 40%;
     }
   }
 }

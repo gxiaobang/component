@@ -7,6 +7,7 @@ export { default as Dialog } from './Dialog';
 export { default as Message } from './Message';
 export { default as Spin } from './Spin';
 export { default as Pagination } from './Pagination';
+export { default as Link } from './Link';
 
 export { default as Form } from './Form';
 export { default as Checkbox } from './Checkbox';

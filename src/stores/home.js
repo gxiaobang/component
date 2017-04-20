@@ -44,35 +44,7 @@ class TodoList {
 	// 打开的菜单
 	@observable items = [];
 	// 所有的菜单
-	@observable all = [
-		{
-			title: __('弹窗'), url: '/dialog/index', code: 'dialog'
-		},
-		{
-			title: __('消息'), url: '/message/index', code: 'message'
-		},
-		{
-			title: __('标签页'), url: '/tabs/index', code: 'tabs'
-		},
-		{
-			title: __('表格'), url: '/table/index', code: 'table'
-		},
-		{
-			title: __('分页'), url: '/pagination/index', code: 'pagination'
-		},
-		{
-			title: __('按钮'), url: '/button/index', code: 'button'
-		},
-		{
-			title: __('加载中'), url: '/spin/index', code: 'spin'
-		},
-		{
-			title: __('日历'), url: '/calendar/index', code: 'calendar'
-		},
-		{
-			title: __('表单'), url: '/form/index', code: 'form'
-		},
-	];
+	@observable all = [];
 
 	@computed get currentCode() {
 		for (let i = 0; i < this.items.length; i++) {
@@ -147,6 +119,11 @@ class TodoList {
 			}
 		}
 		return -1;
+	}
+
+	// 更新菜单
+	updateList(items) {
+		this.all.push(...items);
 	}
 }
 

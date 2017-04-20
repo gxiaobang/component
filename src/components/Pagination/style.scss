@@ -28,6 +28,10 @@
       background-color: $white;
       cursor: pointer;
 
+      &:hover {
+        background-color: darken($white, 5%);
+      }
+
       &.active {
         color: #fff;
         background-color: #00bcd4;

@@ -8,10 +8,13 @@
 				console.log(response);
 			})
  */
+
 import test from './test.json';
 import login from './login.json';
+import menu from './menu.json';
 
 export default {
 	'/test':  test,
-  '/login': login
+  '/login': login,
+  '/menu': menu
 };

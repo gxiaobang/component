@@ -5,6 +5,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import router from 'utils/router';
+import http from 'utils/http';
 import './style';
 
 // 菜单
@@ -15,6 +16,17 @@ class Menu extends React.Component {
 
 	constructor(props) {
 		super(props);
+	}
+
+	componentDidMount() {
+		http({
+			baseURL: '/mock',
+			url: '/menu'
+		}).then(response => {
+			// console.log(data);
+
+			this.store.updateList(response.data.data);
+		});
 	}
 
 	handleClick(data) {
@@ -32,17 +44,28 @@ class Menu extends React.Component {
 		router.setURL(data.url);
 	}
 
+	// 渲染左侧菜单
+	renderList() {
+		let url = router.getURL();
+		return this.store.all.map((item, index) => {
+			if (!this.rendered && item.url == url) {
+				this.rendered = true;
+				// console.log(item)
+				setTimeout(() => {
+					this.store.addItem(item);
+				})
+			}
+			return <li key={index} className={
+					this.store.currentCode == item.code ? 'active' : ''
+				} onClick={this.handleClick.bind(this, item)}>{item.title}</li>
+		});
+	}
+
 	render() {
 		return (
 				<section className="menu">
 					<ul>
-					{
-						this.store.all.map((item, index) => {
-							return <li key={index} className={
-									this.store.currentCode == item.code ? 'active' : ''
-								} onClick={this.handleClick.bind(this, item)}>{item.title}</li>
-						})
-					}
+					{this.renderList()}
 					</ul>
 				</section>
 			)

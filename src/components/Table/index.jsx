@@ -5,7 +5,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'lodash';
-import { Pagination } from 'components';
+import { Pagination, Spin } from 'components';
 import './style';
 
 // <colgroup><col style="width: 360px;"></colgroup>
@@ -49,17 +49,26 @@ class Table extends React.Component {
   }
 
   render() {
+    const { pagination = {}, onChange, loading } = this.props;
+
     return (
       <div className="rc-smart-table-wrap">
-        <table className="rc-smart-table">
-          <thead>
-            {this.renderColumns()}
-          </thead>
-          <tbody>
-            {this.renderData()}
-          </tbody>
-        </table>
-        <Pagination data={this.props.pagination || {}} />
+        <div className="rc-smart-table-main">
+          <table className="rc-smart-table">
+            <thead>
+              {this.renderColumns()}
+            </thead>
+            <tbody>
+              {this.renderData()}
+            </tbody>
+          </table>
+
+          {
+            loading && 
+              <div className="rc-smart-table-loading"><Spin /></div>
+          }
+        </div>
+        <Pagination data={pagination} onChange={onChange} />
       </div>
     )
   }

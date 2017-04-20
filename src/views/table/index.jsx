@@ -13,6 +13,7 @@ class Page extends React.Component {
 			{ title: '影片长度', key: 'duration' },
 			{ title: '时间', key: 'date' }
 		];
+		
 		const data = [
 			{
 				filmName: '影片1',
