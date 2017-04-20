@@ -2,6 +2,10 @@
  * 重置默认样式
  */
 
+* {
+  box-sizing: border-box;
+}
+
 html,body,ul {
 	padding: 0;
 	margin: 0;

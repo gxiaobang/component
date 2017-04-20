@@ -43,7 +43,6 @@ class Pagination extends React.Component {
   // props更新
   componentWillReceiveProps(nextProps) {
     if (this.props.data !== nextProps.data) {
-      // this.verify(nextProps);
       const { data } = nextProps;
       this.setState({
         index: data.index,

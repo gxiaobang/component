@@ -7,12 +7,13 @@
 
   // min-width: 500px;
   // min-height: 500px;
-  height: calc(100vh - 80px);
-  padding: 10px;
-  margin-left: 230px;
-  border: 1px solid #ccc;
+  height: calc(100vh - 46px);
+  // padding: 10px;
+  margin-left: 220px;
+  // border: 1px solid #ccc;
 
   .content-header {
+    padding: 4px;
     > div {
       display: inline-block;
       padding: 4px;
@@ -22,7 +23,7 @@
     }
 
     .active {
-      background: #00BCD4;
+      background: #1d2224;
       color: white;
     }
 
@@ -41,5 +42,6 @@
 
   .content-body {
     overflow: auto;
+    padding: 6px;
   }
 }

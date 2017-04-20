@@ -1,12 +1,16 @@
 /**
  * 主页头部
  */
+@import "~styles/utils";
 
 .header {
-  
+  background-color: #141e2d;
+
   .header-logo {
     padding: 10px;
     font-size: 18px;
+    // border-bottom: $border;
+    color: $white;
   }
 
   .header-user-info {
@@ -14,5 +18,6 @@
     margin-top: -34px;
     margin-right: 10px;
     font-size: 14px;
+    color: $white;
   }
 }

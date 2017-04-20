@@ -42,10 +42,10 @@ class Page extends React.Component {
       url: '/test',
       param: { ...param, ...param2 }
     }).then(response => {
-      console.log(response)
+      // console.log(response)
       this.setState({
         data: response.data.data,
-        pagination: response.data.page,
+        pagination: { ...response.data.page },
         loading: false
       });
     });
