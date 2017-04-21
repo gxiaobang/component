@@ -8,7 +8,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { addEvent, removeEvent, fixEvent, noop } from 'utils';
 import { Button } from 'components';
+import router from 'utils/router';
 import wrapper from 'utils/wrapper';
+import classnames from 'classnames';
+
 // 引入样式
 import './style';
 
@@ -51,7 +54,7 @@ class Mask extends React.Component {
             }
 
             return (
-              <Dialog key={item.sequel} type={item.type} title={item.title} btns={item.btns} onClose={this.removeItem.bind(this, item)}>
+              <Dialog disabled={index < this.state.data.length - 1} key={item.sequel} type={item.type} title={item.title} btns={item.btns} onClose={this.removeItem.bind(this, item)}>
                 {item.content}
               </Dialog>
             );
@@ -76,22 +79,22 @@ class Dialog extends React.Component {
 
   // 询问框
   static confirm(content, type = 'inquiry', onOk = noop) {
-    const btns = [{ text: '确定', type: 'primary' }, { text: '取消', type: 'default' }];
+    const btns = [{ text: '确定', type: 'primary' }, { text: '取消' }];
     const title = '提示框';
     addDialog({ content, type, btns, title });
   }
 
   // DOM插入
-  static insert(content, title = '提示框', btns = [{ text: '确定', type: 'primary' }, { text: '取消', type: '' }]) {
+  static insert(content, title = '提示框', btns = [{ text: '确定', type: 'primary' }, { text: '取消' }]) {
     addDialog({ content, btns, title });
   }
 
   // 打开一个页面
   static open(url, data, title, btns) {
-    System.import('views/' + url + '.jsx')
+    System.import('views/' + router.getPageURL(url) + '.jsx')
       .then(module => {
         const Page = module.default;
-        Dialog.insert(<Page data={data} />, title);
+        Dialog.insert(<Page data={data} />, title, btns);
       })
       .catch(err => {
         Dialog.alert('页面找不到啦！');
@@ -136,10 +139,10 @@ class Dialog extends React.Component {
   }
 
   render() {
-    const { type, btns, title } = this.props;
+    const { type, btns, title, disabled } = this.props;
     const content = this.props.children;
     return (
-      <div className="rc-smart-dialog" ref="dialog">
+      <div className={classnames('rc-smart-dialog', disabled && 'rc-smart-dialog-disabled')} ref="dialog">
         <header onMouseDown={this.handleDragable.bind(this)}>
           {title}
           <span className="close" onClick={this.handleClose.bind(this)}>&times;</span>

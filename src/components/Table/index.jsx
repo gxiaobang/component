@@ -37,7 +37,7 @@ class Table extends React.Component {
               let { key, title } = item2;
               let text = item[ key ];
               if (_.isFunction(item2.render)) {
-                text = item2.render(text, item2);
+                text = item2.render(text, item);
               }
               return <td key={key}>{text}</td>
             })

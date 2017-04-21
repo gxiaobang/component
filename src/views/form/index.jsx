@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import { Button, Input, Form, Checkbox, Radio, Select } from 'components';
+import { Button, Input, Form, Checkbox, Radio, Select, Message } from 'components';
 
 const { FormItem } = Form;
 const { Option } = Select;
@@ -12,15 +12,16 @@ const { Option } = Select;
 
 class Page extends React.Component {
 
-  handleClick() {
-    console.log('我被点击了');
-  }
-
   render() {
     return (
         <div className="page">
           <h3>{this.props.data.title}组件</h3>
-          <Form>
+          <Form onSubmit={
+            (param) => {
+              console.log('表单参数：', param);
+              Message.warn('保存成功');
+            }
+          }>
             <FormItem>
               <Input placeholder="请输入用户名" rules="required" />
             </FormItem>
@@ -40,7 +41,7 @@ class Page extends React.Component {
             </FormItem>
 
             <FormItem>
-              <Button>确定</Button>
+              <Button submit type="primary">保存</Button>
             </FormItem>
           </Form>
         </div>

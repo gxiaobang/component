@@ -1,0 +1,68 @@
+/**
+ * 按钮切换
+ */
+
+@import "~styles/main";
+
+.rc-smart-switch {
+  cursor: pointer;
+
+  input[type="checkbox"] {
+    display: none !important;
+
+    &:checked + .rc-smart-switch-inner {
+      border-color: #567b8b;
+      background-color: #567b8b;
+
+      &:after {
+        left: auto;
+        right: 0;
+      }
+
+      .rc-smart-switch-unchecked {
+        display: none;
+      }
+    }
+  }
+
+  .rc-smart-switch-inner {
+    display: inline-block;
+    position: relative;
+    min-width: 40px;
+    height: 20px;
+    border: $border;
+    border-radius: 10px;
+    background-color: #c0c0c0;
+
+    overflow: hidden;
+
+    &:after {
+      content: "";
+
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: auto;
+
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+
+      background-color: $white;
+    }
+
+    .rc-smart-switch-checked,
+    .rc-smart-switch-unchecked {
+      font-size: 12px;
+      color: $white;
+      padding: 2px 4px;
+      text-align: center;
+    }
+    .rc-smart-switch-checked {
+      margin-right: 16px;
+    }
+    .rc-smart-switch-unchecked {
+      margin-left: 16px;
+    }
+  }
+}

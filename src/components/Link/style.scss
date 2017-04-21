@@ -2,6 +2,13 @@
  * 链接
  */
 
+@import "~styles/main";
+
 .rc-smart-link {
+  margin: 2px;
   color: #337ab7;
+
+  &.rc-smart-link-danger {
+    color: $red;
+  }
 }

@@ -36,7 +36,7 @@ class Input extends React.Component {
     if (this.props.hasOwnProperty('defaultValue')) {
       props.defaultValue = this.props.defaultValue;
     }
-
+    
     if (rules) {
         return (
           <Validate rules={rules} value={this.state.value}>

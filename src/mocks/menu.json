@@ -27,6 +27,9 @@
       "title": "表单", "url": "/form/index", "code": "form"
     },
     {
+      "title": "开关", "url": "/switch/index", "code": "switch"
+    },
+    {
       "title": "查询布局", "url": "/query/index", "code": "query"
     }]
 }

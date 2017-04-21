@@ -1,6 +1,12 @@
 /**
  * 工具库
  */
-@import "variables";
-@import "./mixins";
-@import "./extends";
+
+%form-element {
+  display: inline-block;
+}
+
+
+.clearfix {
+  @include clearfix;
+}

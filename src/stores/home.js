@@ -5,6 +5,7 @@
 import React from 'react';
 import { observable, computed } from 'mobx';
 import redirect from 'utils/redirect';
+import router from 'utils/router';
 import { Spin } from 'components';
 // import {observer} from 'mobx-react';
 
@@ -25,8 +26,8 @@ class Todo {
 
 	// 导入页面
 	importPage(data) {
-		let url = data.url.replace(/^\//, '').replace(/\?(\w|\/|=){0,}/, '');
-		System.import('views/' + url + '.jsx')
+		// let url = data.url.replace(/^\//, '').replace(/\?(\w|\/|=){0,}/, '');
+		System.import('views/' + router.getPageURL(data.url) + '.jsx')
 			.then(module => {
 				// console.log(module)
 				const Page = module.default;

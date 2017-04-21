@@ -66,15 +66,15 @@ class PageTabs extends React.Component {
 				<div className="content">
 					<div className="content-header">
 					{
-						this.store.items.map((data, index) => {
+						this.store.items.map((item, index) => {
 							return (
-									<div key={index} className={
-										data.active ? 'active' : ''
+									<div key={item.code} className={
+										item.active ? 'active' : ''
 									}>
-										<div className="content-header-title" onClick={this.handleSelect.bind(this, data)}>
-											{data.title}
+										<div className="content-header-title" onClick={this.handleSelect.bind(this, item)}>
+											{item.title}
 										</div>
-										<span className="close" onClick={this.handleClose.bind(this, data)}>&times;</span>
+										<span className="close" onClick={this.handleClose.bind(this, item)}>&times;</span>
 									</div>
 								)
 						})
@@ -84,7 +84,7 @@ class PageTabs extends React.Component {
 					{
 						this.store.items.map((item, index) => {
 							return (
-									<div key={index} style={
+									<div key={item.code} style={
 										{ display: item.active ? '' : 'none' }
 									}>
 										{item.PageNode}

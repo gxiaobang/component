@@ -3,17 +3,31 @@
  */
 
 import React from 'react';
-import { Table } from 'components';
+import { Table, Link } from 'components';
 
 class Page extends React.Component {
+
+	handleClick(record) {
+		console.log(record);
+	}
 
 	render() {
 		const columns = [
 			{ title: '影片', key: 'filmName' },
 			{ title: '影片长度', key: 'duration' },
-			{ title: '时间', key: 'date' }
+			{ title: '时间', key: 'date' },
+			{ title: '操作', key: 'action', 
+				render: (text, record) => {
+					return (
+						<div>
+							<Link onClick={this.handleClick.bind(this, record)}>修改</Link>
+							<Link type="danger">删除</Link>
+						</div>
+					);
+				}
+			}
 		];
-		
+
 		const data = [
 			{
 				filmName: '影片1',

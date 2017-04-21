@@ -32,6 +32,11 @@ const router = {
 		return url;
 	},
 
+	// 获取views路径
+	getPageURL(url) {
+		return url.replace(/^\//, '').replace(/\?(\w|\/|=){0,}/, '');
+	},
+
 	// 获取路径参数
 	getQuery() {
 		let param;
