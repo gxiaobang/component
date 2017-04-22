@@ -1,5 +1,7 @@
 /**
- * 分页组件
+ * 加载中
+ * @example
+ *   <Spin></Spin>
  */
 
 import React from 'react';

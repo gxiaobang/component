@@ -1,8 +1,7 @@
 /**
  * 分页组件
  * @example
- // 总数count, 页码index, 每页显示数size
-    <Pagination data={{ count: 100, index: 1, size: 100 }}></Pagination>
+ *   <Pagination data={{ count: 100, index: 1, size: 100 }}></Pagination>
  */
 
 import React from 'react';
@@ -11,7 +10,8 @@ import classnames from 'classnames';
 import './style';
 
 class Pagination extends React.Component {
-
+  
+  // 总数count, 页码index, 每页显示数size
   state = {
     index: this.props.data.index,
     size: this.props.data.size,

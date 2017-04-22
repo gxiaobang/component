@@ -2,6 +2,9 @@
  * 弹框
  * @author gxiaobang
  * @version 0.1.0
+ * @example
+ *   Dialog.alert('内容123', 'warn');
+ *   Dialog.confirm('内容123？');
  */
 
 import React from 'react';

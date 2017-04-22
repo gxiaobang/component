@@ -9,7 +9,7 @@ import router from 'utils/router';
 import { Spin } from 'components';
 // import {observer} from 'mobx-react';
 
-class Todo {
+class MenuItem {
 	id = Math.random();
 
 	@observable title = '';
@@ -41,7 +41,7 @@ class Todo {
 	}
 }
 
-class TodoList {
+class MenuList {
 	// 打开的菜单
 	@observable items = [];
 	// 所有的菜单
@@ -83,7 +83,7 @@ class TodoList {
 			if (isClear) this.clearSelect();
 
 			this.items.push(
-				new Todo({
+				new MenuItem({
 					...item,
 					active: true
 				})
@@ -128,8 +128,4 @@ class TodoList {
 	}
 }
 
-// const store = new TodoList;
-
-// store.pus(new Todo);
-
-export { Todo, TodoList };
+export { MenuItem, MenuList };

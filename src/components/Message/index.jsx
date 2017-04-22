@@ -1,6 +1,8 @@
 /**
  * 信息提示
- * by gxiaobang
+ * @author gxiaobang
+ * @example
+ *   Message.success('成功');
  */
 
 import React from 'react';

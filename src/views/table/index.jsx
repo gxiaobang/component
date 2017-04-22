@@ -11,6 +11,10 @@ class Page extends React.Component {
 		console.log(record);
 	}
 
+	handleDelete() {
+		
+	}
+
 	render() {
 		const columns = [
 			{ title: '影片', key: 'filmName' },
@@ -21,7 +25,7 @@ class Page extends React.Component {
 					return (
 						<div>
 							<Link onClick={this.handleClick.bind(this, record)}>修改</Link>
-							<Link type="danger">删除</Link>
+							<Link type="danger" onClick={this.handleDelete.bind(this)}>删除</Link>
 						</div>
 					);
 				}

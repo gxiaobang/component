@@ -13,7 +13,7 @@ class Page extends React.Component {
         <div className="page">
           <h3>{this.props.data.title}组件</h3>
           <div>
-            <Calendar format="YYYY-MM-DD HH:mm" />
+            <Calendar format="YYYY-MM-DD" />
           </div>
         </div>
       )

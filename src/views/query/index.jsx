@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import { Form, Input, Select, Button } from 'components';
+import { Form, Input, Select, Button, Link, Dialog } from 'components';
 import http from 'utils/http';
 import Query from 'layouts/Query';
 
@@ -29,7 +29,20 @@ class Page extends React.Component {
   columns = [
     { title: '影片', key: 'filmName' },
     { title: '影片长度', key: 'duration', render: (text) => `${text}分钟` },
-    { title: '时间', key: 'date' }
+    { title: '时间', key: 'date' },
+    { title: '操作', key: 'action',
+      render: () => {
+        return (
+          <div>
+            <Link onClick={
+              () => {
+                Dialog.open('/query/index')
+              }
+            }>修改</Link>
+          </div>
+        );
+      }
+    }
   ];
 
   handleSubmit(param, param2) {

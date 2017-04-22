@@ -1,5 +1,8 @@
 /**
  * 单选框
+ * @example
+ *   <Radio name="opt">选项一</Radio>
+ *   <Radio name="opt">选项二</Radio>
  */
 
 import React from 'react';

@@ -1,5 +1,8 @@
 /**
- * 按钮
+ * 表格
+ * @author gxiaobang
+ * @example
+ *   <Table data={data} columns={columns} onChange={fn}></Table>
  */
 
 import React from 'react';

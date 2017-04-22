@@ -1,6 +1,10 @@
 /**
- * 按钮
+ * 文本输入
+ * @author gxiaobang
+ * @example
+ *   <Input name="user" defaultValue="admin" />
  */
+
 import React from 'react';
 import classnames from 'classnames';
 import Validate from 'components/Validate';

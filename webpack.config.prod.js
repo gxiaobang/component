@@ -1,6 +1,6 @@
 /**
  * webpack打包配置（生产环境）
- * by gxiaobang
+ * @author gxiaobang
  */
 
 const webpack = require('webpack');

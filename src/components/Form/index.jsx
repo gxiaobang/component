@@ -1,5 +1,11 @@
 /**
  * 表单
+ * @example
+ *   <Form>
+ *     <FormItem label="名称">
+ *       <Input />
+ *     </FormItem>
+ *   </Form>
  */
 
 import React from 'react';
