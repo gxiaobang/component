@@ -1,36 +1,11 @@
 {
 	"code": "ok",
 	"message": "成功",
-	"data": [
+	"data|1-10": [
     {
-      "filmName": "影片1",
-      "duration": "100",
-      "date": "09:10"
-    },
-    {
-      "filmName": "影片2",
-      "duration": "100",
-      "date": "09:20"
-    },
-    {
-      "filmName": "影片3",
-      "duration": "100",
-      "date": "09:30"
-    },
-    {
-      "filmName": "影片4",
-      "duration": "100",
-      "date": "10:00"
-    },
-    {
-      "filmName": "影片6",
-      "duration": "100",
-      "date": "09:10"
-    },
-    {
-      "filmName": "影片6",
-      "duration": "100",
-      "date": "11:20"
+      "filmName": "@string(lower, 5)",
+      "duration|80-120": 120,
+      "date": "@time(HH:mm)"
     }
   ],
 	"page": {

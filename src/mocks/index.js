@@ -1,20 +1,23 @@
 /**
  * mock数据
- * @example
-			http({
-				url: '/test',
-				baseURL: '/mock',
-			}).then(response => {
-				console.log(response);
-			})
  */
 
-import test from './test.json';
-import login from './login.json';
-import menu from './menu.json';
+import Mock from 'mockjs';
 
-export default {
-	'/test':  test,
-  '/login': login,
-  '/menu': menu
-};
+const mocks = (url) => {
+  url = url.replace(/^\//, '');
+
+  return new Promise((resolve, reject) => {
+    if (process.env.NODE_ENV !== 'production') {
+      setTimeout(() => {
+        System.import('mocks/' + url + '.json')
+          .then(json => {
+            json = Mock.mock(json);
+            resolve({ data: json });
+          });
+      }, 500);  // 500ms后返回数据
+    }
+  });
+}
+
+export default mocks;
