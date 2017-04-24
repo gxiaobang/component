@@ -14,7 +14,8 @@
 
   .content-header {
     padding: 4px;
-    > div {
+    
+    > .content-header-item {
       display: inline-block;
       padding: 4px;
       margin: 2px;
@@ -30,7 +31,8 @@
     .close {
       // font-weight: bold;
       margin-left: 4px;
-      cursor: pointer;
+      margin-right: 2px;
+      // cursor: pointer;
       // vertical-align: middle;
     }
 
@@ -41,7 +43,11 @@
   }
 
   .content-body {
-    overflow: auto;
-    padding: 6px;
+    // overflow: auto;
+    .content-body-item {
+      padding: 6px;
+      height: calc(100vh - 99px);
+      overflow: auto;
+    }
   }
 }

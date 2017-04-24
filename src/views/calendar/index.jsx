@@ -3,20 +3,27 @@
  */
 
 import React from 'react';
-import { Button, Calendar } from 'components';
+import { Button, DatePicker, TimePicker, Form } from 'components';
 // import Calendar from 'rc-calendar';
+const { FormItem } = Form;
 
 class Page extends React.Component {
 
   render() {
     return (
-        <div className="page">
-          <h3>{this.props.data.title}组件</h3>
-          <div>
-            <Calendar format="YYYY-MM-DD" />
-          </div>
-        </div>
-      )
+      <div className="page">
+        <h3>{this.props.data.title}组件</h3>
+        <Form>
+          <FormItem>
+            <DatePicker format="YYYY-MM-DD HH:mm:ss" />
+          </FormItem>
+
+          <FormItem>
+            <TimePicker />
+          </FormItem>
+        </Form>
+      </div>
+    )
   }
 }
 
