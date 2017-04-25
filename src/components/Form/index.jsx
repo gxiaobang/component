@@ -11,7 +11,11 @@
 import React from 'react';
 import classnames from 'classnames';
 import { getFormParam } from 'utils';
+import Validate from 'components/Validate';
+import _ from 'lodash';
 import './style';
+
+const { Validator } = Validate;
 
 
 class FormItem extends React.Component {
@@ -50,7 +54,26 @@ class Form extends React.Component {
     const form = this.refs.form;
     const param = getFormParam(form);
 
-    this.props.onSubmit && this.props.onSubmit(param);
+    const rules = {};
+    _.forEach(form.elements, element => {
+      // console.log(element)
+      const name = element.name;
+      const rule = element.getAttribute('data-rules');
+      if (name && rule) {
+        rules[ name ] = rule;
+      }
+    });
+
+    const validation = new Validator(param, rules);
+    if (validation.passes()) {
+      console.log('验证通过');
+      this.props.onSubmit && this.props.onSubmit(param);
+    }
+    else {
+      console.log('验证不通过');
+    }
+
+    // this.props.onSubmit && this.props.onSubmit(param);
   }
 } 
 

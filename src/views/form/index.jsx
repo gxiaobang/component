@@ -23,7 +23,7 @@ class Page extends React.Component {
             }
           }>
             <FormItem>
-              <Input placeholder="请输入用户名" rules="required" />
+              <Input placeholder="请输入用户名" name="user" rules="required" />
             </FormItem>
 
             <FormItem>

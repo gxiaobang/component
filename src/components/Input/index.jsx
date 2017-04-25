@@ -44,7 +44,7 @@ class Input extends React.Component {
     if (rules) {
         return (
           <Validate rules={rules} value={this.state.value}>
-            <input className={cls} {...props} onChange={this.handleChange.bind(this)} />
+            <input className={cls} {...props} onChange={this.handleChange.bind(this)} data-rules={rules} />
           </Validate>
         );
     }
