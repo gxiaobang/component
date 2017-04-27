@@ -3,10 +3,10 @@
  */
 
 .rc-smart-row {
-  $width: 100% / 24;
+  $width: 100% / 12;
   width: 100%;
 
-  @for $i from 1 through 24 {
+  @for $i from 1 through 12 {
     .col-#{$i} {
       width: $width * $i;
     }

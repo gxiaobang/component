@@ -45,11 +45,11 @@ class Login extends React.Component {
           }
         }>
           <FormItem label="用户名">
-            <Input type="text" name="user" placeholder="请输入用户名" rules="required|min:2|max:20" />
+            <Input type="text" name="user" placeholder="请输入用户名" rules="required|min:2|max:20" style={{ width: 178 }} />
           </FormItem>
 
           <FormItem label="密码">
-            <Input type="password" name="pwd" placeholder="请输入密码" rules="required|numeric" />
+            <Input type="password" name="pwd" placeholder="请输入密码" rules="required|numeric" style={{ width: 178 }}  />
           </FormItem>
 
           <FormItem className="text-center">

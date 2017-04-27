@@ -5,8 +5,12 @@
 @import "~styles/main";
 
 .rc-smart-select {
-  width: 180px;
-  padding: 4px;
+  height: 28px;
+  min-width: 162px;
+  padding: 4px 7px;
   border: $border;
-  border-radius: 4px;
+  border-radius: 6px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #666;
 }

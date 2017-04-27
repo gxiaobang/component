@@ -15,7 +15,7 @@ class Page extends React.Component {
         <h3>{this.props.data.title}组件</h3>
         <Form>
           <FormItem>
-            <DatePicker format="YYYY-MM-DD HH:mm:ss" />
+            <DatePicker showTime format="YYYY-MM-DD" />
           </FormItem>
 
           <FormItem>

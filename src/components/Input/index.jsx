@@ -30,10 +30,10 @@ class Input extends React.Component {
     });
   }
   render() {
-    const { rules, type, name, className, placeholder } = this.props;
+    const { rules, type, name, className, placeholder, style } = this.props;
     let cls = classnames('rc-smart-input', className, this.state.error && 'rc-smart-input-error');
 
-    const props = { type, placeholder, name };
+    const props = { type, placeholder, name, style };
     if (this.props.hasOwnProperty('value')) {
       props.value = this.props.value;
     }
