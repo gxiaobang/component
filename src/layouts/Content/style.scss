@@ -13,32 +13,50 @@
   // border: 1px solid #ccc;
 
   .content-header {
-    padding: 4px;
+    // padding: 4px;
     
     > .content-header-item {
       display: inline-block;
+      width: 30%;
+      max-width: 160px;
       padding: 4px;
-      margin: 2px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
+      margin: 1px;
+      // border: 1px solid #ccc;
+      // border-radius: 4px;
+      background-color: #d7dce4;
+      
+      color: #6a7379;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #bdddf6;
+      }
     }
 
     .active {
-      background: #567b8b;
+      background: #0cadff !important;
       color: white;
     }
 
     .close {
       // font-weight: bold;
-      margin-left: 4px;
-      margin-right: 2px;
+      float: right;
+      // margin-left: 4px;
+      // margin-right: 2px;
       // cursor: pointer;
       // vertical-align: middle;
+
+      margin: -20px 2px 0 4px;
     }
 
     .content-header-title {
-      display: inline-block;
-      cursor: pointer;
+      // display: inline-block;
+      // cursor: pointer;
+      width: calc(100% - 10px);
+      padding-left: 8%;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
   }
 

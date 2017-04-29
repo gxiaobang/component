@@ -64,16 +64,26 @@ class PageTabs extends React.Component {
   }
 
   render() {
+    let w = `calc(${100 / this.store.items.length}% - 2px)`;
     return (
         <div className="content">
           <div className="content-header">
           {
             this.store.items.map((item, index) => {
               return (
-                  <div key={item.code} className={
-                    classnames('content-header-item', item.active ? 'active' : '')
-                  }>
-                    <div className="content-header-title" onClick={this.handleSelect.bind(this, item)}>
+                  <div key={item.code} 
+                    className={
+                      classnames('content-header-item', item.active ? 'active' : '')
+                    }
+                    style={{
+                      width: w
+                    }}
+                  >
+                    <div 
+                      className="content-header-title" 
+                      onClick={this.handleSelect.bind(this, item)}
+                      title={item.title}
+                    >
                       {item.title}
                     </div>
                     <Close onClick={this.handleClose.bind(this, item)}></Close>
