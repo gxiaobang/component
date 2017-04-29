@@ -33,6 +33,17 @@ class Page extends React.Component {
             </FormItem>
 
             <FormItem>
+              <Select http={
+                {
+                  mock: true,
+                  url: '/select'
+                }
+              } keys={[ 'code', 'name' ]} name="item2">
+                <Option>请选择</Option>
+              </Select>
+            </FormItem>
+
+            <FormItem>
               <Checkbox name="checkbox">多选框</Checkbox>
             </FormItem>
 

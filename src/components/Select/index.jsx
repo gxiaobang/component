@@ -5,6 +5,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import classnames from 'classnames';
+import http from 'utils/http';
 import './style';
 
 class Option extends React.Component {
@@ -18,23 +19,44 @@ class Select extends React.Component {
 
   static Option = Option;
 
-  // 
-  handleChange() {
+  state = {
+    data: this.props.data || []
+  };
 
+  // change 事件
+  handleChange = this.props.onChange;
+
+  componentDidMount() {
+    if (this.props.http) {
+      this.request(this.props.http);
+    }
+  }
+
+  request(options) {
+    http({
+      ...options,
+      onSuccess: (data) => {
+        this.setState({
+          data: data.data
+        });
+      }
+    });
   }
 
   render() {
-    const { data = [], name, value, className } = this.props;
+    const { name, value, className, keys = ['value', 'desc'] } = this.props;
+    const { data } = this.state;
+
     let cls = classnames('rc-smart-select', className);
     // console.log(this.props.children)
     return (
-      <select className={cls} name={name} value={value} onChange={this.handleChange.bind(this)}>
+      <select className={cls} name={name} value={value} onChange={this.handleChange}>
         {this.props.children}
         {
-          data.map((item) => {
-            let value = item.value;
-            let desc = item.desc;
-            return <option value={value}>{desc}</option>;
+          data.map((item, index) => {
+            let value = item[ keys[0] ];
+            let desc = item[ keys[1] ];
+            return <option key={index} value={value}>{desc}</option>;
           })
         }
       </select>
