@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "webpack-dev-server --config webpack.config.dev.js --progress --colors",
     "build": "webpack --config webpack.config.prod.js --progress --colors",
+    "example": "webpack --config webpack.config.example.js --progress --colors",
     "server": "nodemon server.js",
     "clean": "rm dist -rf"
   },

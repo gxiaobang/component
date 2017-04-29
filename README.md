@@ -43,3 +43,6 @@ $npm run server
 + Select下拉框
 + Checkout勾选框
 + Spin加载中
+
+
+打开 [http://gxiaobang.github.io/rc-smart/example/](http://gxiaobang.github.io/rc-smart/example/)

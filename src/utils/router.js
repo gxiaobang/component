@@ -69,7 +69,7 @@ const router = {
 
 	// 支持h5 history
 	isSuport() {
-		return 'state' in history;
+		return !'state' in history;
 	}
 };
 
