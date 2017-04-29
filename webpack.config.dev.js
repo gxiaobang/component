@@ -15,14 +15,14 @@ const { version, host, devPort, srcPath, distPath, publicPath } = require('./con
 
 // 国际化
 const languages = {
-  'zh-cn': null,
+  'zh-CN': null,
   'en': require('./i18n/en'),
 };
 
 module.exports = {
   // 调试map
   devtool: 'eval-source-map',
-  name: 'zh-cn',
+  name: 'zh-CN',
   entry: {
     /*reload: [
       `webpack-dev-server/client?http://${host}:${devPort}`,
@@ -134,6 +134,13 @@ module.exports = {
         secure: false,
         pathRewrite: {
           '^/api': ''
+        }
+      },
+      '/proxy-01': {
+        target: 'http://xxx',
+        secure: false,
+        pathRewrite: {
+          '^/proxy-01': ''
         }
       }
     }

@@ -20,8 +20,8 @@ class Menu extends React.Component {
 
 	componentDidMount() {
 		http({
-			baseURL: '/mock',
-			url: '/menu'
+			url: '/menu',
+			mock: true,
 		}).then(response => {
 			// console.log(data);
 

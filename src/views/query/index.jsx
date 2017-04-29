@@ -51,16 +51,20 @@ class Page extends React.Component {
     // this.loading = true;
     this.setState({ loading: true });
     http({
-      baseURL: '/mock',
+      target: 'basedata',
       url: '/test',
-      param: { ...param, ...param2 }
-    }).then(response => {
-      // console.log(response)
-      this.setState({
-        data: response.data.data,
-        pagination: { ...response.data.page },
-        loading: false
-      });
+      mock: true,
+      param: { ...param, ...param2 },
+      onSuccess: (data) => {
+        this.setState({
+          data: data.data,
+          pagination: { ...data.page },
+          loading: false
+        });
+      },
+      onComplete: () => {
+        console.log('ready');
+      }
     });
   }
 
