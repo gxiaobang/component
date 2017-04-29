@@ -35,7 +35,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, './example'),
     filename: '[name].js',
-    publicPath: 'https://gxiaobang.github.io/blog/example/',
+    publicPath: 'https://gxiaobang.github.io/rc-smart/example/',
     chunkFilename: '[name].js'
   },
   resolve: {
@@ -145,7 +145,7 @@ module.exports = {
     // 自定义参数
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify('production')
+        NODE_ENV: JSON.stringify('example')
       }
     })
   ]
