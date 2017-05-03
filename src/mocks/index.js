@@ -10,7 +10,7 @@ const mocks = (url) => {
   return new Promise((resolve, reject) => {
     if (process.env.NODE_ENV !== 'production') {
       setTimeout(() => {
-        System.import('mocks/' + url + '.json')
+        import('mocks/' + url + '.json')
           .then(json => {
             json = Mock.mock(json);
             resolve({ data: json });

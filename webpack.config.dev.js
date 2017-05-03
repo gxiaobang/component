@@ -11,7 +11,7 @@ const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 
 const path = require('path');
-const { version, host, devPort, srcPath, distPath, publicPath } = require('./config');
+const { version, host, devPort, srcPath, distPath, publicPath, api } = require('./config');
 
 // 国际化
 const languages = {
@@ -129,15 +129,8 @@ module.exports = {
     compress: true,
     historyApiFallback: true,
     proxy: {
-      '/api': {
-        target: 'http://xxx',
-        secure: false,
-        pathRewrite: {
-          '^/api': ''
-        }
-      },
       '/proxy-01': {
-        target: 'http://xxx',
+        target: api.dev.basedata,
         secure: false,
         pathRewrite: {
           '^/proxy-01': ''

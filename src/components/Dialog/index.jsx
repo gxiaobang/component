@@ -14,6 +14,7 @@ import { Button } from 'components';
 import router from 'utils/router';
 import wrapper from 'utils/wrapper';
 import classnames from 'classnames';
+import { EventEmitter } from 'events';
 
 // 引入样式
 import './style';
@@ -57,7 +58,7 @@ class Mask extends React.Component {
             }
 
             return (
-              <Dialog disabled={index < this.state.data.length - 1} key={item.sequel} type={item.type} title={item.title} btns={item.btns} onClose={this.removeItem.bind(this, item)}>
+              <Dialog disabled={index < this.state.data.length - 1} key={item.sequel} type={item.type} title={item.title} btns={item.btns} eventEmitter={item.eventEmitter} onClose={this.removeItem.bind(this, item)}>
                 {item.content}
               </Dialog>
             );
@@ -75,38 +76,42 @@ class Mask extends React.Component {
 class Dialog extends React.Component {
   // 警告框
   static alert(content, type = 'warn', onOk = noop) {
-    const btns = [{ text: '确定', type: 'primary', onOk }];
+    const btns = [{ text: '确定', type: 'primary', key: 'ok', onOk }];
     const title = '提示框';
     addDialog({ content, type, btns, title });
   }
 
   // 询问框
   static confirm(content, type = 'inquiry', onOk = noop) {
-    const btns = [{ text: '确定', type: 'primary' }, { text: '取消' }];
+    const btns = [{ text: '确定', type: 'primary', key: 'ok' }, { text: '取消', key: 'cancel' }];
     const title = '提示框';
     addDialog({ content, type, btns, title });
   }
 
   // DOM插入
-  static insert(content, title = '提示框', btns = [{ text: '确定', type: 'primary' }, { text: '取消' }]) {
-    addDialog({ content, btns, title });
+  static insert(content, title = '提示框', btns = [{ text: '确定', type: 'primary', key: 'ok' }, { text: '取消', key: 'cancel' }], eventEmitter = new EventEmitter) {
+    addDialog({ content, btns, title, eventEmitter });
+    return eventEmitter;
   }
 
   // 打开一个页面
   static open(url, data, title, btns) {
-    System.import('views/' + router.getPageURL(url) + '.jsx')
+    const eventEmitter = new EventEmitter;
+    import('views/' + router.getPageURL(url) + '.jsx')
       .then(module => {
         const Page = module.default;
-        Dialog.insert(<Page data={data} />, title, btns);
+        Dialog.insert(<Page data={data} />, title, btns, eventEmitter);
       })
       .catch(err => {
         Dialog.alert('页面找不到啦！');
       });
+
+    return eventEmitter;
   }
 
   componentDidMount() {
     this.events();
-    this.rebuild();
+    this.reflow();
   }
 
   // 组件卸载
@@ -142,8 +147,9 @@ class Dialog extends React.Component {
   }
 
   render() {
-    const { type, btns, title, disabled } = this.props;
+    const { type, btns, title, disabled, eventEmitter } = this.props;
     const content = this.props.children;
+
     return (
       <div className={classnames('rc-smart-dialog', disabled && 'rc-smart-dialog-disabled')} ref="dialog">
         <header onMouseDown={this.handleDragable.bind(this)}>
@@ -174,7 +180,10 @@ class Dialog extends React.Component {
                   onClick={
                     () => {
                       this.handleClose();
-                      item.handler && item.handler.bind(this);
+                      item.handler && item.handler.call(this);
+                      
+                      eventEmitter._events[item.key] &&
+                        eventEmitter._events[item.key].call(this);
                     }
                   }>
                   {item.text}
@@ -256,4 +265,4 @@ message.show('', 'warn');
 message.show('', 'success');
 
 // 表格组件
-<Table data={data} />*/
+<Table data={data} />*/ 

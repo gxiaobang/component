@@ -17,26 +17,24 @@ class Page extends React.Component {
 
   // 状态
   state = {
-    data: []
+    refreshIndex: 0
   };
 
-  page = {
-    index: 1,
-    size: 20
-  };
-
-  // 表格列
+  // 表头
   columns = [
-    { title: '影片', key: 'filmName' },
-    { title: '影片长度', key: 'duration', render: (text) => `${text}分钟` },
-    { title: '时间', key: 'date' },
+    { title: '编码', key: 'code' },
+    { title: '编号', key: 'id' },
+    { title: '名称', key: 'name' },
     { title: '操作', key: 'action',
       render: () => {
         return (
           <div>
             <Link onClick={
               () => {
-                Dialog.open('/query/index')
+                Dialog.open('/query/info')
+                  .on('ok', () => {
+                    this.refresh();
+                  })
               }
             }>修改</Link>
           </div>
@@ -45,26 +43,19 @@ class Page extends React.Component {
     }
   ];
 
-  handleSubmit(param, param2) {
-    // 保存查询参数
-    this.param = param;
-    // this.loading = true;
-    this.setState({ loading: true });
-    http({
-      target: 'basedata',
-      url: '/test',
-      mock: true,
-      param: { ...param, ...param2 },
-      onSuccess: (data) => {
-        this.setState({
-          data: data.data,
-          pagination: { ...data.page },
-          loading: false
-        });
-      },
-      onComplete: () => {
-        console.log('ready');
-      }
+  // 列表请求配置
+  http = {
+    target: 'basedata',
+    url: '/hotel/pageList',
+    // mock: true,
+    param: {}
+  };
+
+  // 刷新数据
+  refresh(param) {
+    this.http.param = { ...param };
+    this.setState({
+      refreshIndex: ++this.state.refreshIndex
     });
   }
 
@@ -73,7 +64,8 @@ class Page extends React.Component {
       <Query>
         {/* 查询表单 */}
         <QueryForm onSubmit={
-          (param) => this.handleSubmit(param, this.page)
+          // (param) => this.handleSubmit(param, this.page)
+          (param) => this.refresh(param)
         }>
           <FormItem label="编码">
             <Input name="code" />
@@ -93,11 +85,7 @@ class Page extends React.Component {
         </QueryBtns>
 
         {/* 查询列表 */}
-        <QueryList columns={this.columns} data={this.state.data} pagination={this.state.pagination} loading={this.state.loading} onChange={
-          (index, size) => {
-            this.handleSubmit(this.param, { index, size });
-          }
-        }>
+        <QueryList columns={this.columns} http={this.http} refreshIndex={this.state.refreshIndex}>
         </QueryList>
       </Query>
     );

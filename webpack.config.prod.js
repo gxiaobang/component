@@ -11,6 +11,7 @@ const autoprefixer = require('autoprefixer');
 
 const path = require('path');
 const { version, host, port, srcPath, distPath, publicPath } = require('./config');
+const sitePath = path.resolve(distPath, version);
 
 // 国际化
 const languages = {
@@ -33,7 +34,7 @@ module.exports = {
     ]
   },
   output: {
-    path: distPath,
+    path: sitePath,
     filename: '[name].[chunkhash:5].js',
     publicPath: publicPath,
     chunkFilename: '[name].[chunkhash:5].js'
@@ -127,7 +128,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: 'web组件',
       template: path.resolve(srcPath, './index.html'),
-      filename: `index.${version}.html`
+      filename: 'index.html'
     }),
 
     new I18nPlugin(languages['zh-cn']),
