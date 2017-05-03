@@ -19,6 +19,18 @@ const languages = {
   'en': require('./i18n/en'),
 };
 
+const proxy = {};
+
+for (let key in api.dev) {
+  proxy[`/${key}`] = {
+    target: api.dev[key],
+    secure: false,
+    pathRewrite: {
+      [`^/${key}`]: ''
+    }
+  }
+}
+
 module.exports = {
   // 调试map
   devtool: 'eval-source-map',
@@ -128,14 +140,6 @@ module.exports = {
     inline: true,
     compress: true,
     historyApiFallback: true,
-    proxy: {
-      '/proxy-01': {
-        target: api.dev.basedata,
-        secure: false,
-        pathRewrite: {
-          '^/proxy-01': ''
-        }
-      }
-    }
+    proxy: proxy
   }
 };

@@ -8,12 +8,16 @@ import _ from 'lodash';
 
 // 参数配置
 const parameter = (options) => {
-  switch (options.target) {
-    // 基础数据
-    case 'basedata':
-      options.baseURL = '/proxy-01';
-      break;
-  }
+
+	if (process.env.NODE_ENV === 'production') {
+		let arr = options.url.split(/[^^]\//);
+	  switch (arr[0]) {
+	    // 基础数据
+	    case '/basedata':
+	      options.baseURL = 'http://basedata.xxx.com';
+	      break;
+	  }
+	}
 
   return options;
 };

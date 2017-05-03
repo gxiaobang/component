@@ -95,7 +95,7 @@ class Dialog extends React.Component {
   }
 
   // 打开一个页面
-  static open(url, data, title, btns) {
+  static open(url, title, data, btns) {
     const eventEmitter = new EventEmitter;
     import('views/' + router.getPageURL(url) + '.jsx')
       .then(module => {

@@ -31,7 +31,7 @@ class Page extends React.Component {
           <div>
             <Link onClick={
               () => {
-                Dialog.open('/query/info')
+                Dialog.open('/query/info', '详情')
                   .on('ok', () => {
                     this.refresh();
                   })
@@ -45,15 +45,14 @@ class Page extends React.Component {
 
   // 列表请求配置
   http = {
-    target: 'basedata',
-    url: '/hotel/pageList',
+    url: '/basedata/hotel/pageList',
     // mock: true,
-    param: {}
+    params: {}
   };
 
   // 刷新数据
   refresh(param) {
-    this.http.param = { ...param };
+    this.http.params = { ...param };
     this.setState({
       refreshIndex: ++this.state.refreshIndex
     });
@@ -81,7 +80,7 @@ class Page extends React.Component {
 
         {/* 功能按钮 */}
         <QueryBtns>
-          <Button>导出</Button>
+          <Button type="primary">新增</Button>
         </QueryBtns>
 
         {/* 查询列表 */}
