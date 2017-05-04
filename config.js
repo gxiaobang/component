@@ -14,7 +14,7 @@ const publicPath = '/';
 const api = {
 	// 开发环境
 	dev: {
-		basedata: 'http://10.0.31.72:8080/basedata',
+		basedata: 'http://10.0.31.72:8080',
 	},
 	// 测试环境
 	test: {

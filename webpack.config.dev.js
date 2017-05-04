@@ -24,10 +24,10 @@ const proxy = {};
 for (let key in api.dev) {
   proxy[`/${key}`] = {
     target: api.dev[key],
-    secure: false,
+    secure: false/*,
     pathRewrite: {
       [`^/${key}`]: ''
-    }
+    }*/
   }
 }
 
