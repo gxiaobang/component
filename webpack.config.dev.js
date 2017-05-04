@@ -22,14 +22,16 @@ const languages = {
 const proxy = {};
 
 for (let key in api.dev) {
-  proxy[`/${key}`] = {
+  proxy[`/proxy-${key}`] = {
     target: api.dev[key],
-    secure: false/*,
+    secure: false,
     pathRewrite: {
-      [`^/${key}`]: ''
-    }*/
+      '^/proxy-': '/'
+    }
   }
 }
+
+console.log(proxy)
 
 module.exports = {
   // 调试map
@@ -65,7 +67,8 @@ module.exports = {
       'components': path.resolve(srcPath, './components'),
       'layouts': path.resolve(srcPath, './layouts'),
       'styles': path.resolve(srcPath, './styles'),
-      'mocks': path.resolve(srcPath, './mocks')
+      'mocks': path.resolve(srcPath, './mocks'),
+      'api': path.resolve(srcPath, './api.config'),
     }
   },
   /*externals: {
@@ -121,7 +124,7 @@ module.exports = {
       url: `http://localhost:${devPort}`
     }),
 
-    new I18nPlugin(languages['zh-cn']),
+    new I18nPlugin(languages['zh-CN']),
 
     /*new webpack.LoaderOptionsPlugin({
       test: /\.scss$/,

@@ -42,17 +42,7 @@ class PageTabs extends React.Component {
 
   // 关闭
   handleClose(data) {
-    let index = this.store.removeItem(data.code);
-    if (index > -1 && data.active) {
-      // 重置上一个为选中
-      let n = Math.min(index, this.store.items.length - 1);
-      let url = '/';
-      if (this.store.items[ n ]) {
-        this.store.items[ n ].active = true;
-        url = this.store.items[ n ].url;
-      }
-      router.setURL(url);
-    }
+    this.store.close(data);
   }
 
   // 渲染页面

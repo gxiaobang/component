@@ -21,11 +21,12 @@ const { Validator } = Validate;
 class FormItem extends React.Component {
   render() {
     const cls = classnames('rc-smart-form-item', this.props.className);
+
     return (
       <div className={cls}>
         {
           this.props.hasOwnProperty('label') &&
-            <div className="rc-smart-form-item-label">{this.props.label}</div>
+            <label className="rc-smart-form-item-label">{this.props.label}</label>
         }
         {this.props.children}
       </div>

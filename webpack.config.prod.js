@@ -49,7 +49,8 @@ module.exports = {
       'components': path.resolve(srcPath, './components'),
       'layouts': path.resolve(srcPath, './layouts'),
       'styles': path.resolve(srcPath, './styles'),
-      'mocks': path.resolve(srcPath, './mocks')
+      'mocks': path.resolve(srcPath, './mocks'),
+      'api': path.resolve(srcPath, './api.config'),
     }
   },
   module: { 

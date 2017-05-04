@@ -46,7 +46,7 @@ class Login extends React.Component {
           }
         }>
           <FormItem label="用户名">
-            <Input type="text" name="user" placeholder="请输入用户名" rules="required|min:2|max:20" style={{ width: 178 }} />
+            <Input type="text" name="user" placeholder="请输入用户名" style={{ width: 178 }} />
           </FormItem>
 
           <FormItem label="密码">

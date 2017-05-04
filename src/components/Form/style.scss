@@ -8,6 +8,10 @@
   &.rc-smart-form-inline {
     .rc-smart-form-item {
       display: inline-block;
+
+      .rc-smart-form-item-label {
+        min-width: auto;
+      }
     }
   }
   
@@ -17,6 +21,11 @@
 
     .rc-smart-form-item-label {
       line-height: 24px;
+      display: inline-block;
+      min-width: 100px;
+      text-align: right;
+      padding-left: 8px;
+      padding-right: 8px;
     }
   }
 }

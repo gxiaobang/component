@@ -1,11 +1,13 @@
 /**
- * 查询布局
+ * 酒店管理
  */
 
 import React from 'react';
 import { Form, Input, Select, Button, Link, Dialog } from 'components';
 import http from 'utils/http';
 import Query from 'layouts/Query';
+
+import cache from 'stores/cache';
 
 
 const { QueryForm, QueryList, QueryBtns } = Query;
@@ -26,15 +28,12 @@ class Page extends React.Component {
     { title: '编号', key: 'id' },
     { title: '名称', key: 'name' },
     { title: '操作', key: 'action',
-      render: () => {
+      render: (text, item) => {
         return (
           <div>
             <Link onClick={
               () => {
-                Dialog.open('/query/info', '详情')
-                  .on('ok', () => {
-                    this.refresh();
-                  })
+                this.handleEdit(item);
               }
             }>修改</Link>
           </div>
@@ -58,6 +57,22 @@ class Page extends React.Component {
     });
   }
 
+  // 新增
+  handleAdd() {
+    cache.homeStore.open({
+      title: '新增酒店',
+      url: '/basedata/hotel/info'
+    });
+  }
+
+  // 修改
+  handleEdit(item) {
+    cache.homeStore.open({
+      title: `${item.code} - 编辑酒店`,
+      url: '/basedata/hotel/info?code=' + item.code
+    });
+  }
+
   render() {
     return (
       <Query>
@@ -66,21 +81,35 @@ class Page extends React.Component {
           // (param) => this.handleSubmit(param, this.page)
           (param) => this.refresh(param)
         }>
+          <FormItem label="品牌">
+            <Select>
+              <Option>请选择</Option>
+            </Select>
+          </FormItem>
+          
           <FormItem label="编码">
             <Input name="code" />
           </FormItem>
-          <FormItem label="选项">
+
+          <FormItem label="酒店名称">
+            <Input name="name" />
+          </FormItem>
+
+
+          <FormItem label="酒店状态">
             <Select name="option">
               <Option value="">请选择</Option>
-              <Option value="1">选项一</Option>
-              <Option value="2">选项二</Option>
             </Select>
           </FormItem>
         </QueryForm>
 
         {/* 功能按钮 */}
         <QueryBtns>
-          <Button type="primary">新增</Button>
+          <Button type="primary" onClick={
+            () => {
+              this.handleAdd();
+            }
+          }>新增</Button>
         </QueryBtns>
 
         {/* 查询列表 */}

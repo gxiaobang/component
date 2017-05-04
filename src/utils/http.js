@@ -4,19 +4,29 @@
 
 import axios from 'axios';
 import mocks from 'mocks';
+import api from 'api';
 import _ from 'lodash';
 
 // 参数配置
 const parameter = (options) => {
 
+	let arr = options.url.split('/');
+	let name = arr[0] || arr[1];
 	if (process.env.NODE_ENV === 'production') {
-		let arr = options.url.split(/[^^]\//);
-	  switch (arr[0]) {
+	  switch (name) {
 	    // 基础数据
-	    case '/basedata':
-	      options.baseURL = 'http://basedata.xxx.com';
+	    case 'basedata':
+	      options.baseURL = api.prod[ name ];
 	      break;
 	  }
+	}
+	else {
+		// console.log(name)
+		switch (name) {
+			case 'basedata':
+				options.url = options.url.replace(/^\//, '/proxy-');
+				break;
+		}
 	}
 
   return options;
