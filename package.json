@@ -1,28 +1,10 @@
 {
-  "name": "rc-smart",
-  "version": "1.0.0",
-  "description": "react component",
-  "main": "rc-smart.js",
   "scripts": {
     "dev": "webpack-dev-server --config webpack.config.dev.js --progress --colors",
     "build": "webpack --config webpack.config.prod.js --progress --colors",
-    "server": "nodemon server.js",
+    "server": "node server.js",
     "clean": "rm dist -rf"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/gxiaobang/rc-smart.git"
-  },
-  "keywords": [
-    "react",
-    "component"
-  ],
-  "author": "gxiaobang",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/gxiaobang/rc-smart/issues"
-  },
-  "homepage": "https://github.com/gxiaobang/rc-smart#readme",
   "dependencies": {
     "axios": "^0.15.3",
     "classnames": "^2.2.5",
@@ -32,7 +14,6 @@
     "mobx-react": "^4.1.3",
     "mockjs": "^1.0.1-beta3",
     "moment": "^2.18.1",
-    "nodemon": "^1.11.0",
     "normalize.css": "^6.0.0",
     "rc-calendar": "^8.1.0",
     "rc-time-picker": "^2.3.5",
