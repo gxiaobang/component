@@ -14,14 +14,13 @@ const { version, host, port, srcPath, distPath, publicPath } = require('./config
 
 // 国际化
 const languages = {
-  'zh-CN': null,
+  'zh-cn': require('./i18n/zh-cn'),
   'en': require('./i18n/en'),
 };
 
 process.env.NODE_ENV = 'production';
 
 module.exports = {
-  name: 'zh-CN',
   entry: {
     app: [
       path.resolve(srcPath, './app')

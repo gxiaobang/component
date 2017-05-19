@@ -15,14 +15,13 @@ const { version, host, devPort, srcPath, distPath, publicPath } = require('./con
 
 // 国际化
 const languages = {
-  'zh-CN': null,
+  'zh-cn': require('./i18n/zh-cn'),
   'en': require('./i18n/en'),
 };
 
 module.exports = {
   // 调试map
   devtool: 'eval-source-map',
-  name: 'zh-CN',
   entry: {
     /*reload: [
       `webpack-dev-server/client?http://${host}:${devPort}`,
