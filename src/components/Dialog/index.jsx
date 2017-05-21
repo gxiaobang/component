@@ -50,7 +50,7 @@ class Mask extends React.Component {
   render() {
     if (this.state.data.length) {
       return (
-        <div className="rc-smart-mask">
+        <div className="mask">
         {
           this.state.data.map((item, index) => {
             if (!item.sequel) {
@@ -58,7 +58,7 @@ class Mask extends React.Component {
             }
 
             return (
-              <Dialog disabled={index < this.state.data.length - 1} key={item.sequel} type={item.type} title={item.title} btns={item.btns} eventEmitter={item.eventEmitter} onClose={this.removeItem.bind(this, item)}>
+              <Dialog disabled={index < this.state.data.length - 1} key={item.sequel} type={item.type} title={item.title} btns={item.btns} onClose={this.removeItem.bind(this, item)}>
                 {item.content}
               </Dialog>
             );
@@ -89,24 +89,21 @@ class Dialog extends React.Component {
   }
 
   // DOM插入
-  static insert(content, title = '提示框', btns = [{ text: '确定', type: 'primary', key: 'ok' }, { text: '取消', key: 'cancel' }], eventEmitter = new EventEmitter) {
-    addDialog({ content, btns, title, eventEmitter });
-    return eventEmitter;
+  static insert(content, title = '提示框', btns = [{ text: '确定', type: 'primary', key: 'ok' }, { text: '取消', key: 'cancel' }]) {
+    addDialog({ content, btns, title });
   }
 
   // 打开一个页面
   static open(url, title, data, btns) {
-    const eventEmitter = new EventEmitter;
     import('views/' + router.getPageURL(url) + '.jsx')
       .then(module => {
         const Page = module.default;
-        Dialog.insert(<Page data={data} />, title, btns, eventEmitter);
+        console.log(Page)
+        Dialog.insert(<Page data={data} />, title, btns);
       })
       .catch(err => {
         Dialog.alert('页面找不到啦！');
       });
-
-    return eventEmitter;
   }
 
   componentDidMount() {
@@ -147,11 +144,11 @@ class Dialog extends React.Component {
   }
 
   render() {
-    const { type, btns, title, disabled, eventEmitter } = this.props;
+    const { type, btns, title, disabled } = this.props;
     const content = this.props.children;
 
     return (
-      <div className={classnames('rc-smart-dialog', 'animated fadeInDown',  disabled && 'rc-smart-dialog-disabled')} ref="dialog">
+      <div className={classnames('dialog', 'animated bounceInDown',  disabled && 'dialog-disabled')} ref="dialog">
         <header onMouseDown={this.handleDragable.bind(this)}>
           {title}
           <span className="close" onClick={this.handleClose.bind(this)}>&times;</span>
@@ -161,7 +158,7 @@ class Dialog extends React.Component {
             type ? (
               <div>
                 <i className={type}></i>
-                <div className="rc-smart-dialog-message">
+                <div className="dialog-message">
                   {content}
                 </div>
               </div>
@@ -181,9 +178,6 @@ class Dialog extends React.Component {
                     () => {
                       this.handleClose();
                       item.handler && item.handler.call(this);
-                      
-                      eventEmitter._events[item.key] &&
-                        eventEmitter._events[item.key].call(this);
                     }
                   }>
                   {item.text}
