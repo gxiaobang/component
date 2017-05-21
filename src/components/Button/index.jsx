@@ -15,7 +15,7 @@ class Button extends React.Component {
 
   render() {
     const { type = 'default' } = this.props;
-    const cls = classnames('rc-smart-btn', `rc-smart-btn-${type}`);
+    const cls = classnames('btn', `btn-${type}`);
     const btnType = this.props.hasOwnProperty('submit') ? 'submit' : 'button';
 
     return (
