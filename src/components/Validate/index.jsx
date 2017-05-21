@@ -47,7 +47,10 @@ class Validate extends React.Component {
       <div className={cls}>
         {this.props.children}
         {
-          errorMsg && <div className="rc-smart-validate-error">{errorMsg}</div>
+          errorMsg && 
+            <div className="rc-smart-validate-error">
+              <div style={{ display: 'inline-block' }} className="animated wobble">{errorMsg}</div>
+            </div>
         }
       </div>
     );

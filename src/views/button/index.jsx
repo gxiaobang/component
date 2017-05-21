@@ -16,7 +16,7 @@ class Page extends React.Component {
         <div className="page">
           <h3>{this.props.data.title}组件</h3>
           <p>
-            <Button type="default">Default</Button>
+            <Button type="default bounceIn">Default</Button>
           </p>
           <p>
             <Button type="primary">Primary</Button>

@@ -151,7 +151,7 @@ class Dialog extends React.Component {
     const content = this.props.children;
 
     return (
-      <div className={classnames('rc-smart-dialog', disabled && 'rc-smart-dialog-disabled')} ref="dialog">
+      <div className={classnames('rc-smart-dialog', 'animated fadeInDown',  disabled && 'rc-smart-dialog-disabled')} ref="dialog">
         <header onMouseDown={this.handleDragable.bind(this)}>
           {title}
           <span className="close" onClick={this.handleClose.bind(this)}>&times;</span>

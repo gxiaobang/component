@@ -6,6 +6,7 @@
     "clean": "rm dist -rf"
   },
   "dependencies": {
+    "animate.css": "^3.5.2",
     "axios": "^0.15.3",
     "classnames": "^2.2.5",
     "http-proxy-middleware": "^0.17.4",
