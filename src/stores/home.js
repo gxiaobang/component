@@ -27,7 +27,7 @@ class MenuItem {
 	// 导入页面
 	importPage(data) {
 		// let url = data.url.replace(/^\//, '').replace(/\?(\w|\/|=){0,}/, '');
-		System.import('views/' + router.getPageURL(data.url) + '.jsx')
+		import('views/' + router.getPageURL(data.url) + '.jsx')
 			.then(module => {
 				// console.log(module)
 				const Page = module.default;

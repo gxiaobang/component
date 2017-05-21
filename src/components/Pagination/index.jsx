@@ -80,7 +80,7 @@ class Pagination extends React.Component {
     return (
       <div className="rc-smart-pagination">
         <div className="rc-smart-pagination-total">
-          总纪录数 {this.state.total} 条
+          总纪录数 {this.state.total || 0} 条
         </div>
         <ul className="rc-smart-pagination-main">
           {this.renderRecord()}

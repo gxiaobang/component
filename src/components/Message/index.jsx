@@ -47,7 +47,7 @@ class Container extends React.Component {
 
   render() {
     return (
-      <div className="rc-smart-message-container">
+      <div className="message-container">
         {
           this.state.data.map((item, index) => {
             if (!item.rendered) {
@@ -93,8 +93,8 @@ class Message extends React.Component {
 
   render() {
     return (
-      <div className="rc-smart-message">
-        <div className="rc-smart-message-content">
+      <div className="message">
+        <div className="message-content">
           {this.props.children}
         </div>
       </div>

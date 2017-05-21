@@ -11,18 +11,29 @@ const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 
 const path = require('path');
-const { version, host, devPort, srcPath, distPath, publicPath } = require('./config');
+const { version, host, devPort, srcPath, distPath, publicPath, api } = require('./config');
 
 // 国际化
 const languages = {
-  'zh-CN': null,
+  'zh-cn': require('./i18n/zh-cn'),
   'en': require('./i18n/en'),
 };
+
+const proxy = {};
+
+for (let key in api.dev) {
+  proxy[`/${key}`] = {
+    target: api.dev[key],
+    secure: false/*,
+    pathRewrite: {
+      [`^/${key}`]: ''
+    }*/
+  }
+}
 
 module.exports = {
   // 调试map
   devtool: 'eval-source-map',
-  name: 'zh-CN',
   entry: {
     /*reload: [
       `webpack-dev-server/client?http://${host}:${devPort}`,
@@ -128,21 +139,6 @@ module.exports = {
     inline: true,
     compress: true,
     historyApiFallback: true,
-    proxy: {
-      '/api': {
-        target: 'http://xxx',
-        secure: false,
-        pathRewrite: {
-          '^/api': ''
-        }
-      },
-      '/proxy-01': {
-        target: 'http://xxx',
-        secure: false,
-        pathRewrite: {
-          '^/proxy-01': ''
-        }
-      }
-    }
+    proxy: proxy
   }
 };

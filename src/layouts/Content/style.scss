@@ -7,13 +7,14 @@
 
   // min-width: 500px;
   // min-height: 500px;
-  height: calc(100vh - 46px);
+  // height: calc(100vh - 46px);
   // padding: 10px;
   margin-left: 200px;
   // border: 1px solid #ccc;
 
   .content-header {
     // padding: 4px;
+    display: none;
     
     > .content-header-item {
       display: inline-block;
@@ -64,7 +65,7 @@
     // overflow: auto;
     .content-body-item {
       padding: 6px;
-      height: calc(100vh - 99px);
+      // height: calc(100vh - 75px);
       overflow: auto;
     }
   }

@@ -8,6 +8,7 @@ import { observer } from 'mobx-react';
 import Menu from 'layouts/Menu';
 import Content from 'layouts/Content';
 import Header from 'layouts/Header';
+import Main from 'layouts/Main';
 import router from 'utils/router';
 import './style';
 
@@ -45,10 +46,10 @@ class Home extends React.Component {
 		return (
 				<div className="home">
 					<Header />
-					<section>
+					<Main>
 						<Menu store={this.store} />
 						<Content store={this.store} />
-					</section>
+					</Main>
 				</div>
 			);
 	}

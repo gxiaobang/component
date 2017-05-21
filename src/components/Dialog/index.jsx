@@ -14,6 +14,7 @@ import { Button } from 'components';
 import router from 'utils/router';
 import wrapper from 'utils/wrapper';
 import classnames from 'classnames';
+import { EventEmitter } from 'events';
 
 // 引入样式
 import './style';
@@ -49,7 +50,7 @@ class Mask extends React.Component {
   render() {
     if (this.state.data.length) {
       return (
-        <div className="rc-smart-mask">
+        <div className="mask">
         {
           this.state.data.map((item, index) => {
             if (!item.sequel) {
@@ -75,28 +76,29 @@ class Mask extends React.Component {
 class Dialog extends React.Component {
   // 警告框
   static alert(content, type = 'warn', onOk = noop) {
-    const btns = [{ text: '确定', type: 'primary', onOk }];
+    const btns = [{ text: '确定', type: 'primary', key: 'ok', onOk }];
     const title = '提示框';
     addDialog({ content, type, btns, title });
   }
 
   // 询问框
   static confirm(content, type = 'inquiry', onOk = noop) {
-    const btns = [{ text: '确定', type: 'primary' }, { text: '取消' }];
+    const btns = [{ text: '确定', type: 'primary', key: 'ok' }, { text: '取消', key: 'cancel' }];
     const title = '提示框';
     addDialog({ content, type, btns, title });
   }
 
   // DOM插入
-  static insert(content, title = '提示框', btns = [{ text: '确定', type: 'primary' }, { text: '取消' }]) {
+  static insert(content, title = '提示框', btns = [{ text: '确定', type: 'primary', key: 'ok' }, { text: '取消', key: 'cancel' }]) {
     addDialog({ content, btns, title });
   }
 
   // 打开一个页面
-  static open(url, data, title, btns) {
-    System.import('views/' + router.getPageURL(url) + '.jsx')
+  static open(url, title, data, btns) {
+    import('views/' + router.getPageURL(url) + '.jsx')
       .then(module => {
         const Page = module.default;
+        console.log(Page)
         Dialog.insert(<Page data={data} />, title, btns);
       })
       .catch(err => {
@@ -106,7 +108,7 @@ class Dialog extends React.Component {
 
   componentDidMount() {
     this.events();
-    this.rebuild();
+    this.reflow();
   }
 
   // 组件卸载
@@ -144,8 +146,9 @@ class Dialog extends React.Component {
   render() {
     const { type, btns, title, disabled } = this.props;
     const content = this.props.children;
+
     return (
-      <div className={classnames('rc-smart-dialog', disabled && 'rc-smart-dialog-disabled')} ref="dialog">
+      <div className={classnames('dialog', 'animated bounceInDown',  disabled && 'dialog-disabled')} ref="dialog">
         <header onMouseDown={this.handleDragable.bind(this)}>
           {title}
           <span className="close" onClick={this.handleClose.bind(this)}>&times;</span>
@@ -155,7 +158,7 @@ class Dialog extends React.Component {
             type ? (
               <div>
                 <i className={type}></i>
-                <div className="rc-smart-dialog-message">
+                <div className="dialog-message">
                   {content}
                 </div>
               </div>
@@ -174,7 +177,7 @@ class Dialog extends React.Component {
                   onClick={
                     () => {
                       this.handleClose();
-                      item.handler && item.handler.bind(this);
+                      item.handler && item.handler.call(this);
                     }
                   }>
                   {item.text}
@@ -256,4 +259,4 @@ message.show('', 'warn');
 message.show('', 'success');
 
 // 表格组件
-<Table data={data} />*/
+<Table data={data} />*/ 

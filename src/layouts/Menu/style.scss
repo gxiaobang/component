@@ -7,28 +7,31 @@
 .menu {
   float: left;
   width: 200px;
-  height: calc(100vh - 46px);
+  // height: calc(100vh - 46px);
+  border-right: $border;
+  margin-top: 20px;
+  background-color: $white;
   // padding: 10px;
   // border-right: $border;
-  background-color: #39434d;
+  // background-color: #39434d;
 
   ul {
     li {
       padding: 8px 15px;
       border-radius: 2px;
-      color: $white;
+      // color: $white;
       cursor: pointer;
 
       &.active {
         position: relative;
-        background: #1d2224;
-        color: white;
+        background: #f5f5f5;
+        // color: white;
 
-        &:before {
+        &:after {
           content: "";
           position: absolute;
 
-          left: 0;
+          right: 0;
           top: 0;
 
           width: 3px;

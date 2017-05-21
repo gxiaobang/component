@@ -63,11 +63,11 @@ class Menu extends React.Component {
 
 	render() {
 		return (
-				<section className="menu">
+				<div className="menu">
 					<ul>
 					{this.renderList()}
 					</ul>
-				</section>
+				</div>
 			)
 	}
 }

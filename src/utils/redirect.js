@@ -7,10 +7,10 @@ const redirect = async (status, err, onReady) => {
     console.error(err);
     let module;
     if (err.message.indexOf('Cannot find module') > -1) {
-      module = await System.import('views/404');
+      module = await import('views/404');
     }
     else {
-      module = await System.import('views/error');
+      module = await import('views/error');
     }
 
     return module.default;
