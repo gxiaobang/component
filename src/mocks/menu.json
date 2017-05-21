@@ -1,5 +1,6 @@
 {
-  "data": [{
+  "data": [
+    {
       "title": "弹窗", "url": "/dialog/index", "code": "dialog"
     },
     {
@@ -28,8 +29,6 @@
     },
     {
       "title": "开关", "url": "/switch/index", "code": "switch"
-    },
-    {
-      "title": "查询布局", "url": "/query/index", "code": "query"
-    }]
+    }
+  ]
 }

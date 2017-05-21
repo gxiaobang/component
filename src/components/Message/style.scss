@@ -4,20 +4,20 @@
 
 @import "~styles/main";
 
-.rc-smart-message-container {
+.message-container {
   position: fixed;
   left: 0;
   top: 0;
   width: 100%;
   
 
-  .rc-smart-message {
+  .message {
     margin: 10px;
     text-align: center;
 
-    .rc-smart-message-content {
-      
+    .message-content {
       display: inline-block;
+      min-width: 120px;
       padding: 6px 12px;
       border: 1px solid #ccc;
       border-radius: 4px;
