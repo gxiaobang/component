@@ -6,7 +6,28 @@
   display: inline-block;
 }
 
+%form-disabled {
+  &[disabled],
+  &[readonly] {
+    background-color: #f3f3f3;
+    // cursor: not-allowed;
+  }
+}
+
 
 .clearfix {
   @include clearfix;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.hidden {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+.pull-right {
+  float: right !important;
 }

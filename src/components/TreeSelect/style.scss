@@ -1,0 +1,32 @@
+/**
+ * 树选择
+ */
+
+@import "~styles/main";
+
+.tree-select {
+  position: relative;
+
+  .tree-select-list {
+    display: none;
+    position: absolute;
+    background: white;
+    width: 200px;
+    max-height: 200px;
+    margin-top: 2px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: auto;
+    z-index: 8;
+  
+    &.open {
+      display: block;
+    }
+
+    ul {
+      li {
+        padding-left: 1em;
+      }
+    }
+  }
+}

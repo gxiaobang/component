@@ -4,35 +4,47 @@
 @import "~styles/main";
 
 .btn {
-  min-width: 70px;
-  padding: 4px 10px;
+  min-width: 60px;
+  padding: 6px 10px;
   border: $border;
-  border-radius: 4px;
+  border-radius: 6px;
+  font-size: 12px;
   outline: none;
 
-  line-height: 1.5;
+  // line-height: 1.5;
   white-space: nowrap;
-
+  background-color: transparent;
   // color: $white;
   cursor: pointer;
 
   &.btn-default   {
     // color: #fff;
-    background-color: #fff;
+    background-color: #f5f5f5;
     border-color: #ccc;
 
     &:hover {
-      background-color: darken(#fff, 10%);
+      background-color: darken(#f5f5f5, 6%);
     }
+  }
+
+  &.btn-ghost {
+    color: $primary-color;
+    border-color: $primary-color;
+    /* background-color: $primary-color;
+    // border-color: #2e6da4;
+
+    &:hover {
+      background-color: darken($primary-color, 6%);
+    } */
   }
 
   &.btn-primary {
     color: #fff;
-    background-color: #337ab7;
-    border-color: #2e6da4;
+    background-color: $primary-color;
+    // border-color: #2e6da4;
 
     &:hover {
-      background-color: darken(#337ab7, 10%);
+      background-color: darken($primary-color, 6%);
     }
   }
 
@@ -42,7 +54,7 @@
     border-color: #4cae4c;
 
     &:hover {
-      background-color: darken(#5cb85c, 10%);
+      background-color: darken(#5cb85c, 6%);
     }
   }
 
@@ -52,7 +64,7 @@
     border-color: #46b8da;
 
     &:hover {
-      background-color: darken(#5bc0de, 10%);
+      background-color: darken(#5bc0de, 6%);
     }
   }
 
@@ -62,7 +74,7 @@
     border-color: #eea236;
 
     &:hover {
-      background-color: darken(#f0ad4e, 10%);
+      background-color: darken(#f0ad4e, 6%);
     }
   }
 
@@ -72,7 +84,7 @@
     border-color: #d43f3a;
 
     &:hover {
-      background-color: darken(#d9534f, 10%);
+      background-color: darken(#d9534f, 6%);
     }
   }
 }

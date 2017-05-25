@@ -9,8 +9,5 @@
   line-height: 1.5;
   color: #666;
 
-  &[disabled] {
-    background-color: #f3f3f3;
-    cursor: not-allowed;
-  }
+  @extend %form-disabled;
 }

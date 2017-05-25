@@ -7,14 +7,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import classnames from 'classnames';
+import { Input } from 'components';
 import './style';
 
 class Pagination extends React.Component {
   
   // 总数count, 页码index, 每页显示数size
   state = {
-    index: this.props.data.index,
-    size: this.props.data.size,
+    index: this.props.data.index || 1,
+    size: this.props.data.size || 20,
     total: this.props.data.total
   };
 
@@ -31,6 +32,8 @@ class Pagination extends React.Component {
       default:
         index = command;
     }
+
+    index = index || 1;
 
     if (this.state.index != index) {
       this.setState({
@@ -74,17 +77,35 @@ class Pagination extends React.Component {
     node.push(<li key="next" onClick={this.handleClick.bind(this, 'next')}>&raquo;</li>);
     return node;
   }
+
+  handleKeyDown(e) {
+    if (e.keyCode == 13) {
+      let input = this.refs.input.getElement();
+      let num = parseInt(input.value);
+      input.value = '';
+
+      if (num > 0 && num <= this.count) {
+        this.handleClick(num);
+      }
+    }
+  }
   
   render() {
-    
     return (
-      <div className="rc-smart-pagination">
-        <div className="rc-smart-pagination-total">
-          总纪录数 {this.state.total || 0} 条
+      <div className="pagination">
+        <div className="pagination-record">
+          总记录数 {this.state.total || 0} 条
         </div>
-        <ul className="rc-smart-pagination-main">
-          {this.renderRecord()}
-        </ul>
+        <div className="pagination-main">
+          <ul className="pagination-num">
+            {this.renderRecord()}
+          </ul>
+          <div className="pagination-goto">
+            跳至 <Input ref="input" className="pagination-input" onKeyDown={
+              (e) => this.handleKeyDown(e)
+            } /> 页
+          </div>
+        </div>
       </div>
     );
   }

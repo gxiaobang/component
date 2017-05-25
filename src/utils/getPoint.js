@@ -1,4 +1,8 @@
-const getPoint = () => {
+/**
+ * 获取元素所在的位置
+ */
+
+const getPoint = (el) => {
   let x = 0;
   let y = 0;
   while (el) {

@@ -1,0 +1,12 @@
+@import "~styles/main";
+
+.tooltip {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  padding: 10px;
+  border-radius: 4px;
+  background-color: rgba(0,0,0,.6);
+  color: $white;
+}

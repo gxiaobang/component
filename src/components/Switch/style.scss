@@ -4,32 +4,43 @@
 
 @import "~styles/main";
 
-.rc-smart-switch {
+.switch {
+  display: inline-block;
+  margin: 2px;
   cursor: pointer;
 
   input[type="checkbox"] {
     display: none !important;
 
-    &:checked + .rc-smart-switch-inner {
-      border-color: #567b8b;
-      background-color: #567b8b;
+    &:checked + .switch-inner {
+      border-color: $primary-color;
+      background-color: $primary-color;
 
       &:after {
         left: auto;
         right: 0;
       }
-
-      .rc-smart-switch-unchecked {
+      
+      .switch-checked {
+        display: block;
+      }
+      .switch-unchecked {
         display: none;
       }
     }
+
+    &:disabled + .switch-inner {
+      background-color: #ccc;
+      border-color: #ccc;
+      cursor: default;
+    }
   }
 
-  .rc-smart-switch-inner {
+  .switch-inner {
     display: inline-block;
     position: relative;
-    min-width: 40px;
-    height: 20px;
+    min-width: 50px;
+    height: 22px;
     border: $border;
     border-radius: 10px;
     background-color: #c0c0c0;
@@ -44,24 +55,25 @@
       left: 0;
       right: auto;
 
-      width: 18px;
-      height: 18px;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
 
       background-color: $white;
     }
 
-    .rc-smart-switch-checked,
-    .rc-smart-switch-unchecked {
+    .switch-checked,
+    .switch-unchecked {
       font-size: 12px;
       color: $white;
-      padding: 2px 4px;
+      padding: 3px;
       text-align: center;
     }
-    .rc-smart-switch-checked {
+    .switch-checked {
+      display: none;
       margin-right: 16px;
     }
-    .rc-smart-switch-unchecked {
+    .switch-unchecked {
       margin-left: 16px;
     }
   }

@@ -12,7 +12,7 @@ import './style';
 class Pagination extends React.Component {
   render() {
     return (
-      <div className="rc-smart-spin-wrap">
+      <div className="spin-wrap">
         <Icon type="spinner" className="spin" />
         <span>{this.props.children || '加载中...'}</span>
       </div>

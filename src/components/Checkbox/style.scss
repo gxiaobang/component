@@ -1,9 +1,14 @@
 @import "~styles/main";
 
-.rc-smart-checkbox {
+.checkbox {
   @extend %form-element;
+  padding: 4px;
 
   input[type="checkbox"] {
     margin-right: 4px;
   }
+}
+
+.checkbox-group {
+  @extend %form-element;
 }

@@ -1,0 +1,13 @@
+/**
+ * 多行文本框
+ */
+@import "~styles/main";
+
+.textarea {
+  padding: 5px;
+  border: $border;
+  border-radius: 6px;
+  color: #666;
+
+  @extend %form-disabled;
+}

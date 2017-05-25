@@ -4,6 +4,7 @@
 
 import querystring from 'querystring';
 import { addEvent } from 'utils/event';
+import { parse as parseURL } from 'url';
 
 const location = global.location;
 const history = global.history;
@@ -20,41 +21,52 @@ const router = {
 	},
 
 	// 获取地址	
-	getURL() {
-		let url;
-		if (this.isSuport()) {
-			return location.pathname;
+	getURL(url) {
+		// let url;
+
+		if (url) {
+			return parseURL(url).pathname;
 		}
 		else {
-			return location.hash.replace(/^#!/, '');
+			if (this.isSuport()) {
+				return location.pathname;
+			}
+			else {
+				return location.hash.replace(/^#!/, '');
+			}
 		}
-
-		return url;
 	},
 
 	// 获取views路径
 	getPageURL(url) {
-		return url.replace(/^\//, '').replace(/\?(\w|\/|=){0,}/, '');
+		// return url.replace(/^\//, '').replace(/\?(\w|\/|=){0,}/, '');
+		return parseURL(url).pathname.replace(/^\//, '');
 	},
 
 	// 获取路径参数
-	getQuery() {
+	getQuery(url) {
 		let param;
-		if (this.isSuport()) {
-			param = location.search.replace(/^\?/, '');
+
+		if (url) {
+			param = (parseURL(url).search || '').replace(/^\?/, '');
 		}
 		else {
-			param = location.hash.replace(/^#!(\w|\/)+\??/, '');
+			if (this.isSuport()) {
+				param = location.search.replace(/^\?/, '');
+			}
+			else {
+				param = location.hash.replace(/^#!(\w|\/)+\??/, '');
+			}
 		}
 
 		return querystring.parse(param);
 	},
 
 	// 获取location
-	getLocation() {
+	getLocation(url) {
 		return {
-			path: this.getURL(),
-			query: this.getQuery()
+			path: this.getURL(url),
+			query: this.getQuery(url)
 		};
 	},
 

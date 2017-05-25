@@ -4,19 +4,35 @@
 
 import _ from 'lodash';
 
+let reg = /\[\]$/;
 const getFormParam = (form) => {
   let param = {};
 
   _.forEach(form.elements, (element) => {
-    if (element.name) {
+    let name = element.name;
 
+    if (name) {
       if (element.type == 'checkbox' || element.type == 'radio') {
         if (element.checked) {
-          param[ element.name ] = param.value || true;
+          if (reg.test(name)) {
+            name = name.replace(reg, '');
+            if (!param[name]) param[name] = [];
+            param[name].push(element.value);
+          }
+          else {
+            param[ name ] = element.value || true;
+          }
         }
       }
       else {
-        param[ element.name ] = element.value;
+        if (reg.test(name)) {
+          name = name.replace(reg, '');
+          if (!param[name]) param[name] = [];
+          param[name].push(element.value);
+        }
+        else {
+          param[ name ] = element.value;
+        }
       }
     }
   });
