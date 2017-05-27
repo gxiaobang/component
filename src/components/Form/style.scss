@@ -37,5 +37,19 @@
         color: $danger-color;
       }
     }
+
+    .form-item-control {
+      display: inline-block;
+    }
+  }
+
+  .form-item-group {
+    @for $i from 1 through 5 {
+      &.form-item-group-#{$i} {
+        .form-item {
+          width: 100% / $i;
+        }
+      }
+    }
   }
 }

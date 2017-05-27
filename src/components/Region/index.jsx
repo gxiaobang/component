@@ -46,9 +46,11 @@ class Region extends React.Component {
               areaOptions: []
             });
 
-            setTimeout(() => {
-              this.request('area', this.refs.city.getVal()); 
-            });
+            if (this.refs.city) {
+              setTimeout(() => {
+                this.request('area', this.refs.city.getVal()); 
+              });
+            }
             break;
           case 'area':
             this.setState({

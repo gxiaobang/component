@@ -30,9 +30,13 @@
     }
 
     &:disabled + .switch-inner {
-      background-color: #ccc;
-      border-color: #ccc;
-      cursor: default;
+      background-color: #f4f4f4;
+      border-color: #f4f4f4;
+
+      &:after {
+        background-color: #ccc;
+      }
+      cursor: not-allowed;
     }
   }
 

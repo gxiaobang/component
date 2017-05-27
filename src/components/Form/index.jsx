@@ -39,7 +39,9 @@ class FormItem extends React.Component {
           label &&
             <label className={classnames('form-item-label', required && 'required')}>{label}</label>
         }
-        {this.props.children}
+        <div className="form-item-control">
+          {this.props.children}
+        </div>
       </div>
     );
   }
@@ -48,8 +50,16 @@ class FormItem extends React.Component {
 // 组
 class FormItemGroup extends React.Component {
   render() {
+    // console.log(this.props.children.length);
+    const { children } = this.props;
+
+    let len = 1;
+    if (_.isArray(children)) {
+      len = children.length;
+    }
+
     return (
-      <div className="form-item-group">{this.props.children}</div>
+      <div className={classnames('form-item-group'/*, `form-item-group-${len}`*/)}>{children}</div>
     );
   }
 }

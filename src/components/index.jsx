@@ -25,4 +25,5 @@ export { default as TimePicker } from './TimePicker';
 export { default as Icon } from './Icon';
 export { default as Transfer } from './Transfer';
 export { default as Tooltip } from './Tooltip';
+export { default as ImgUpload } from './ImgUpload';
 export * from './Grid';

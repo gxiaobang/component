@@ -16,7 +16,10 @@ class Page extends React.Component {
   }
 
   handleOpen() {
-    Dialog.open('/dialog/info', { data: 123 }, '编辑');
+    Dialog.open({
+      url: '/dialog/info',
+      'title': '修改'
+    });
   }
 
   render() {

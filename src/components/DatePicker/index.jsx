@@ -12,7 +12,7 @@ import { Input } from 'components';
 
 import Calendar from 'rc-calendar';
 import zhCN from 'rc-calendar/lib/locale/zh_CN';
-import 'rc-calendar/dist/rc-calendar.min.css';
+import 'rc-calendar/assets/index.css';
 import './style.scss';
 
 const timePickerElement = <TimePickerPanel />;

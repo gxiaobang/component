@@ -1,7 +1,7 @@
 /**
  * 下拉选择框
  * @example
- *   <Select name="opt">
+ *   <Select name="opt" mode="combobox">
  *     <Option>请选择</Option>
  *     <Option>选项一</Option>
  *   </Select>
@@ -9,6 +9,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Input } from 'components';
 import classnames from 'classnames';
 import Validate from 'components/Validate';
 import http from 'utils/http';
@@ -26,10 +27,28 @@ class Select extends React.Component {
   static Option = Option;
 
   state = {
-    options: this.props.options || []
+    options: this.props.options || [],
+    // 搜索项
+    searchOptions: [],
+    // 值
+    activeNum: 0
   };
 
-  // value = this.props.defaultValue || this.props.value;
+  componentDidMount() {
+    if (this.props.http) {
+      this.request(this.props.http);
+    }
+  }
+
+  // props更新
+  componentWillReceiveProps(nextProps) {
+    if (this.props.options !== nextProps.options) {
+      // this.verify(nextProps);
+      this.setState({
+        options: nextProps.options
+      });
+    }
+  }
 
   // 获取元素
   getElement() {
@@ -50,19 +69,85 @@ class Select extends React.Component {
     this.props.onChange && this.props.onChange(e);
   }
 
-  componentDidMount() {
-    if (this.props.http) {
-      this.request(this.props.http);
+  // 搜索
+  handleSearch(e) {
+    const { options } = this.state;
+    let val = e.target.value.trim();
+    let searchOptions = [];
+    options.forEach((item) => {
+      if (item.label.indexOf(val) > -1) {
+        searchOptions.push(item);
+      }
+    });
+
+    if (val == '') {
+      this.refs.hiddenInput.value = '';
     }
+
+    this.setState({ 
+      searchOptions, 
+      activeNum: -1
+    });
   }
 
-  // props更新
-  componentWillReceiveProps(nextProps) {
-    if (this.props.options !== nextProps.options) {
-      // this.verify(nextProps);
-      this.setState({
-        options: nextProps.options
-      });
+  // 选中
+  handleSelect(item) {
+    // console.log(item);
+    let input = this.refs.input.getElement();
+    // this.refs.input.refs.validate.verify(item.label);
+    input.value = item.label;
+
+    this.refs.hiddenInput.value = item.value;
+
+    this.setState({
+      searchOptions: []
+    });
+  }
+
+  // 键盘事件
+  handleKeyDown(e) {
+    // console.log(e.keyCode);
+
+    // 阻止默认事件
+    switch (e.keyCode) {
+      case 13:
+      case 38:
+      case 40:
+        e.preventDefault();
+        break;
+    }
+
+    let { activeNum, searchOptions } = this.state;
+    switch (e.keyCode) {
+      // 上
+      case 38:
+        activeNum--;
+        
+        if (activeNum < 0) {
+          activeNum = searchOptions.length - 1;
+        }
+
+        this.setState({ activeNum });
+        break;
+
+      // 下
+      case 40:
+        activeNum++;
+        
+        if (activeNum > searchOptions.length - 1) {
+          activeNum = 0;
+        }
+
+        this.setState({ activeNum });
+        break;
+      
+      case 13:
+        // console.log(activeNum);
+
+        if (activeNum > -1) {
+          this.handleSelect(searchOptions[activeNum]);
+        }
+        break;
     }
   }
 
@@ -103,12 +188,8 @@ class Select extends React.Component {
     );
   }
 
-  render() {
-    const { className, keys = ['value', 'label'], http, rules, options, ...props } = this.props;
-    // const { options } = this.state;
-
-    let cls = classnames('select', className);
-
+  // 默认下拉框
+  renderDefault(rules, cls, keys, props) {
     if (rules) {
       return (
         <Validate ref="validate" rules={rules} name={this.props.name}>
@@ -118,6 +199,64 @@ class Select extends React.Component {
     }
     else {
       return this.renderElement(props, cls, keys);
+    }
+  }
+
+  // 搜索下拉框
+  renderCombobox(rules, cls, keys, props) {
+    const { options, searchOptions } = this.state;
+
+    return (
+      <div className="select-wrapper">
+        <Input onInput={
+          (e) => {
+            // console.log(e);
+            this.handleSearch(e);
+          }
+        } onKeyDown={
+          (e) => this.handleKeyDown(e)
+        } ref="input" />
+        {
+          searchOptions.length > 0 && 
+            <ul className="select-options">
+              {
+                searchOptions.map((item, index) => {
+                  return <li key={index} className={classnames(index == this.state.activeNum && 'active')} onClick={
+                    () => {
+                      this.handleSelect(item);
+                    }
+                  }>{item.label}</li>
+                })
+              }
+            </ul>
+        }
+        <input ref="hiddenInput" type="hidden" name={props.name} defaultValue={props.defaultValue} />
+      </div>
+    );
+  }
+
+  // 多选
+  renderTags() {
+
+  }
+
+  render() {
+    const { className, keys = ['value', 'label'], http, rules, options, mode = 'default', ...props } = this.props;
+    // const { options } = this.state;
+
+    let cls = classnames('select', className);
+
+    switch (mode) {
+      case 'default':
+        return this.renderDefault(rules, cls, keys, props);
+
+      // 搜索下拉框
+      case 'combobox':
+        return this.renderCombobox(rules, cls, keys, props);
+
+      // 多选
+      case 'tags':
+        return this.renderTags();
     }
   }
 }

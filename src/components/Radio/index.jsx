@@ -48,7 +48,7 @@ class RadioGroup extends React.Component {
     const { options } = this.state;
 
     return (
-      <div className="rc-smart-radio-group">
+      <div className="radio-group">
         {
           options.map((item, key) => {
             return <Radio key={key} name={name} value={item.value} defaultChecked={
@@ -72,7 +72,7 @@ class Radio extends React.Component {
     const props = {...this.props};
     delete props.children;
     return (
-      <label className="rc-smart-radio">
+      <label className="radio">
         <input {...props} type="radio" onChange={this.handleChange} />
         {this.props.children}
       </label>

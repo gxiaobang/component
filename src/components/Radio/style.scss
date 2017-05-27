@@ -1,6 +1,6 @@
 @import "~styles/main";
 
-.rc-smart-radio {
+.radio {
   @extend %form-element;
 
   input[type="radio"] {
