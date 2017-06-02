@@ -1,14 +1,12 @@
 
 @import "~styles/animation";
 
-.spin-wrap {
+.spin-wrapper {
   .spin {
     display: inline-block;
+    vertical-align: middle;
+    margin-top: -2px;
     margin-right: 6px;
-    font-size: 0;
-
-    &:before {
-      font-size: 15px;
-    }
+    line-height: 0;
   }
 }

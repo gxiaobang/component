@@ -6,7 +6,8 @@
 
 .switch {
   display: inline-block;
-  margin: 2px;
+  // margin: 2px;
+  line-height: 0;
   cursor: pointer;
 
   input[type="checkbox"] {
@@ -44,9 +45,10 @@
     display: inline-block;
     position: relative;
     min-width: 50px;
-    height: 22px;
+    height: 28px;
     border: $border;
-    border-radius: 10px;
+    border-width: 2px;
+    border-radius: 14px;
     background-color: #c0c0c0;
 
     overflow: hidden;
@@ -59,8 +61,8 @@
       left: 0;
       right: auto;
 
-      width: 20px;
-      height: 20px;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
 
       background-color: $white;
@@ -70,15 +72,15 @@
     .switch-unchecked {
       font-size: 12px;
       color: $white;
-      padding: 3px;
+      padding: 5px;
       text-align: center;
     }
     .switch-checked {
       display: none;
-      margin-right: 16px;
+      margin-right: 22px;
     }
     .switch-unchecked {
-      margin-left: 16px;
+      margin-left: 22px;
     }
   }
 }

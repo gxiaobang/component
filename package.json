@@ -41,6 +41,7 @@
     "gulp": "^3.9.1",
     "html-webpack-plugin": "^2.24.0",
     "i18n-webpack-plugin": "^0.3.0",
+    "json-comments": "^0.2.1",
     "node-sass": "^4.5.3",
     "open-browser-webpack-plugin": "^0.0.5",
     "opn": "^5.0.0",

@@ -8,12 +8,13 @@
   .transfer-list,
   .transfer-operation {
     display: inline-block;
+    vertical-align: middle;
   }
 
   .transfer-list {
     width: 200px;
     height: 180px;
-    vertical-align: middle;
+    
     
     border: $border;
 

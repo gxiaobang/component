@@ -3,6 +3,7 @@
  */
 
 import React from 'react';
+import { Icon } from 'components';
 import http from 'utils/http';
 import _ from 'lodash';
 import './style';
@@ -71,6 +72,9 @@ class Checkbox extends React.Component {
     return (
       <label className="checkbox">
         <input {...props} type="checkbox" onChange={this.handleChange} />
+        <span className="checkbox-box">
+          <Icon type="fuxuan" size={12} color="#fff" />
+        </span>
         {this.props.children}
       </label>
     );

@@ -1,8 +1,8 @@
-## 字体图标
+## SVG 图库
 
 ### 安装依赖包
 ```bash
-yarn
+yarn install
 ```
 
 ### 生成字体文件

@@ -23,8 +23,8 @@ class Switch extends React.Component {
       <label className="switch">
         <input type="checkbox" defaultChecked={defaultChecked} disabled={disabled} onChange={this.handleChange.bind(this)} />
         <div className="switch-inner">
-          <div className="switch-unchecked">{unCheckedChildren}</div>
-          <div className="switch-checked">{checkedChildren}</div>
+          <div className="switch-unchecked">{/*unCheckedChildren*/}</div>
+          <div className="switch-checked">{/*checkedChildren*/}</div>
         </div>
 
         <input type="hidden" name={name} defaultValue={defaultChecked ? value[1] : value[0]} ref="input" />

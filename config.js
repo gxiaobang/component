@@ -10,22 +10,6 @@ const srcPath = path.resolve(rootPath, './src');
 const distPath = path.resolve(rootPath, './dist');
 const publicPath = '/';
 
-// 请求接口配置
-const api = {
-	// 开发环境
-	dev: {
-		basedata: 'http://10.0.31.72:8080',
-	},
-	// 测试环境
-	test: {
-		basedata: ''
-	},
-	// 生产环境
-	prod: {
-		basedata: ''
-	}
-};
-
 module.exports = {
 	// 版本号
 	version: '1.0.0',
@@ -35,6 +19,8 @@ module.exports = {
 	port: 8000,
 	// 开发端口号
 	devPort: 3000,
+	// 语言
+	lang: 'zh-cn',
 	// 根路径
 	rootPath,
 	// node_modules
@@ -46,5 +32,5 @@ module.exports = {
 	// cdn地址
 	publicPath,
 	// 接口
-	api
+	api: require('./src/api.config')
 };

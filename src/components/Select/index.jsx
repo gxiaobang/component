@@ -99,9 +99,9 @@ class Select extends React.Component {
 
     this.refs.hiddenInput.value = item.value;
 
-    this.setState({
+    /*this.setState({
       searchOptions: []
-    });
+    });*/
   }
 
   // 键盘事件
@@ -146,9 +146,17 @@ class Select extends React.Component {
 
         if (activeNum > -1) {
           this.handleSelect(searchOptions[activeNum]);
+          this.close();
         }
         break;
     }
+  }
+
+  // 离开
+  handleOut() {
+    setTimeout(() => {
+      this.close();
+    }, 100)
   }
 
   request(options) {
@@ -163,6 +171,12 @@ class Select extends React.Component {
           this.refs.select.value = this.props.defaultValue;
         }
       }
+    });
+  }
+
+  close() {
+    this.setState({
+      searchOptions: []
     });
   }
 
@@ -208,14 +222,11 @@ class Select extends React.Component {
 
     return (
       <div className="select-wrapper">
-        <Input onInput={
-          (e) => {
-            // console.log(e);
-            this.handleSearch(e);
-          }
-        } onKeyDown={
-          (e) => this.handleKeyDown(e)
-        } ref="input" />
+        <Input 
+          ref="input"
+          onChange={(e) => this.handleSearch(e)}
+          onKeyDown={(e) => this.handleKeyDown(e)} 
+          onBlur={() => this.handleOut()} />
         {
           searchOptions.length > 0 && 
             <ul className="select-options">

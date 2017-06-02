@@ -7,6 +7,7 @@
 import React from 'react';
 import http from 'utils/http';
 import classnames from 'classnames';
+import { Button } from 'components';
 import './style';
 
 class Transfer extends React.Component {
@@ -162,10 +163,10 @@ class Transfer extends React.Component {
         {/* 操作 */}
         <ul className="transfer-operation">
           <li>
-            <button type="button" onClick={() => this.handleMove('left')}>&lt;</button>
+            <Button type="default" onClick={() => this.handleMove('left')}>向左移</Button>
           </li>
           <li>
-            <button type="button" onClick={() => this.handleMove('right')}>&gt;</button>
+            <Button type="default" onClick={() => this.handleMove('right')}>向右移</Button>
           </li>
         </ul>
 
