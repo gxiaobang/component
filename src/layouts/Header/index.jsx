@@ -15,7 +15,7 @@ class Header extends React.Component {
 		return (
       <div className="header">
         <div className="header-logo">
-          {__('web组件')}
+          web组件
         </div>
 
         {/*<Link href="/login" className="header-user-info">{__('注销')}</Link>*/}

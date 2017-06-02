@@ -5,11 +5,12 @@
 import React from 'react';
 import axios from 'axios';
 import mocks from 'mocks';
-// import api from 'api';
+import api from 'config/api';
 import { Dialog } from 'components';
 import _ from 'lodash';
 
-const api = { dev: {} };
+console.log(api);
+// const api = { dev: {} };
 const NODE_REFER = 'dev';
 
 let sysnames = Object.keys(api[NODE_REFER]);

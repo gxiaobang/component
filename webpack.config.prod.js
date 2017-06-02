@@ -105,12 +105,12 @@ module.exports = (env = {}) => {
       // 提取相同的文件
       new webpack.optimize.CommonsChunkPlugin({
         names: ['vendor', 'common'],
-        // minChunks: 5
+        minChunks: 5
       }),
 
       // 修改页面静态文件路径
       new HtmlWebpackPlugin({
-        title: '东呈国际酒店集团',
+        title: 'WEB 组件',
         lang: name,
         template: path.resolve(srcPath, './index.html'),
         filename: `index_${name}.html`

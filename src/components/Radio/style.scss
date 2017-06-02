@@ -1,6 +1,7 @@
 @import "~styles/main";
 
 .radio {
+  padding: 4px;
   @extend %form-element;
 
   input[type="radio"] {

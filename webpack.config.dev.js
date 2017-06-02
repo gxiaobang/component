@@ -11,8 +11,8 @@ const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 
 const path = require('path');
-const config = require('./config');
-const { version, host, devPort, srcPath, distPath, publicPath, api } = config;
+const config = require('./config/base');
+const { version, host, devPort, rootPath, srcPath, distPath, publicPath, api } = config;
 
 // 语言包
 const lang = require('./i18n/lang');
@@ -72,7 +72,7 @@ module.exports = (env = {}) => {
         'layouts': path.resolve(srcPath, './layouts'),
         'styles': path.resolve(srcPath, './styles'),
         'mocks': path.resolve(srcPath, './mocks'),
-        'api': path.resolve(srcPath, './api.config'),
+        'config': path.resolve(rootPath, './config'),
       }
     },
     /*externals: {
@@ -110,12 +110,12 @@ module.exports = (env = {}) => {
       // 提取相同的文件
       new webpack.optimize.CommonsChunkPlugin({
         names: ['vendor', 'common'],
-        // minChunks: 5
+        minChunks: 5
       }),
 
       // 修改页面静态文件路径
       new HtmlWebpackPlugin({
-        title: '东呈国际酒店集团',
+        title: 'WEB 组件',
         lang: env.lang,
         template: path.resolve(srcPath, './index.html')
       }),

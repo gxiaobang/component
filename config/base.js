@@ -4,7 +4,7 @@
 
 const path = require('path');
 
-const rootPath = path.resolve(__dirname);
+const rootPath = path.resolve(__dirname, '..');
 const nodeModulesPath = path.resolve(rootPath, './node_modules');
 const srcPath = path.resolve(rootPath, './src');
 const distPath = path.resolve(rootPath, './dist');
@@ -32,5 +32,5 @@ module.exports = {
 	// cdn地址
 	publicPath,
 	// 接口
-	api: require('./src/api.config')
+	api: require('./api')
 };
