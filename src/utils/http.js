@@ -5,7 +5,7 @@
 import React from 'react';
 import axios from 'axios';
 import mocks from 'mocks';
-import api from 'config/api';
+import api from 'config/api.config';
 import { Dialog } from 'components';
 import _ from 'lodash';
 

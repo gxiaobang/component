@@ -8,7 +8,9 @@ const opn = require('opn');
 
 const app = express();
 const path = require('path');
-const { version, host, port, distPath, api } = require('./config');
+
+const { version, port, distPath } = require('./config/base.config');
+const api = require('./config/api.config');
 
 const sitePath = path.resolve(distPath, version);
 
@@ -37,7 +39,7 @@ app.get('*', (req, res) => {
 
 
 // 监听port端口
-app.listen(port, host, (err) => {
+app.listen(port, '0.0.0.0', (err) => {
   if (err) throw err;
   console.log(`Listening at http://localhost:${port}`);
   opn(`http://localhost:${port}`);

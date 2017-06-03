@@ -13,8 +13,6 @@ const publicPath = '/';
 module.exports = {
 	// 版本号
 	version: '1.0.0',
-	// 本地地址
-	host: '0.0.0.0',
 	// 端口号
 	port: 8000,
 	// 开发端口号
@@ -30,7 +28,5 @@ module.exports = {
 	// 编译路径
 	distPath,
 	// cdn地址
-	publicPath,
-	// 接口
-	api: require('./api')
+	publicPath
 };

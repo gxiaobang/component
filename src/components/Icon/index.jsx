@@ -4,7 +4,7 @@
 
 import React from 'react';
 import classnames from 'classnames';
-import fileURL from 'file-loader!./symbols/lib/svg-symbols.svg';
+import fileURL from 'file-loader?name=[hash:5].[ext]!./symbols/lib/svg-symbols.svg';
 // import symbols from 'raw-loader!./symbols/lib/svg-symbols.svg';
 import './style';
 

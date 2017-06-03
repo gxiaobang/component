@@ -10,11 +10,10 @@ const I18nPlugin = require("i18n-webpack-plugin");
 const autoprefixer = require('autoprefixer');
 
 const path = require('path');
-const { version, host, port, srcPath, distPath, publicPath } = require('./config');
-const sitePath = path.resolve(distPath, version);
+const { version, srcPath, rootPath, distPath, publicPath } = require('./config/base.config');
 
 // 语言包
-const lang = require('./i18n/lang');
+const langFn = require('./i18n/lang');
 
 process.env.NODE_ENV = 'production';
 module.exports = (env = {}) => {
@@ -22,8 +21,8 @@ module.exports = (env = {}) => {
   env.refer = env.refer || 'dev';
   // env.lang = env.lang || 'zh-cn';
 
-  return ['zh-cn', 'en'].map((name) => ({
-    name: name,
+  return ['zh-cn', 'en'].map((lang) => ({
+    name: lang,
     entry: {
       app: [
         path.resolve(srcPath, './app')
@@ -35,7 +34,7 @@ module.exports = (env = {}) => {
       ]
     },
     output: {
-      path: sitePath,
+      path: path.resolve(distPath, version),
       filename: '[name].[chunkhash:5].js',
       publicPath: publicPath,
       chunkFilename: '[name].[chunkhash:5].js'
@@ -52,7 +51,7 @@ module.exports = (env = {}) => {
         'layouts': path.resolve(srcPath, './layouts'),
         'styles': path.resolve(srcPath, './styles'),
         'mocks': path.resolve(srcPath, './mocks'),
-        'api': path.resolve(srcPath, './api.config'),
+        'config': path.resolve(rootPath, './config'),
       }
     },
     module: { 
@@ -111,12 +110,12 @@ module.exports = (env = {}) => {
       // 修改页面静态文件路径
       new HtmlWebpackPlugin({
         title: 'WEB 组件',
-        lang: name,
+        lang: lang,
         template: path.resolve(srcPath, './index.html'),
-        filename: `index_${name}.html`
+        filename: `index_${lang}.html`
       }),
 
-      new I18nPlugin(lang(name)),
+      new I18nPlugin(langFn(lang)),
 
       // 压缩
       new webpack.optimize.UglifyJsPlugin({

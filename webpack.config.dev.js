@@ -11,18 +11,19 @@ const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 
 const path = require('path');
-const config = require('./config/base');
-const { version, host, devPort, rootPath, srcPath, distPath, publicPath, api } = config;
+
+const { devPort, rootPath, srcPath, lang } = require('./config/base.config');
+const api = require('./config/api.config');
 
 // 语言包
-const lang = require('./i18n/lang');
+const langFn = require('./i18n/lang');
 
 
 module.exports = (env = {}) => {
   // console.log(env)
 
   env.refer = env.refer || 'dev';
-  env.lang = env.lang || config.lang;
+  env.lang = env.lang || lang;
 
   // 代理
   const proxy = {};
@@ -55,7 +56,6 @@ module.exports = (env = {}) => {
       ]
     },
     output: {
-      path: distPath,
       filename: '[name].js',
       publicPath: '/',
       // chunkFilename: '[name].[chunkhash:5].js'
@@ -125,7 +125,7 @@ module.exports = (env = {}) => {
         url: `http://localhost:${devPort}`
       }),
 
-      new I18nPlugin(lang(env.lang)),
+      new I18nPlugin(langFn(env.lang)),
 
       // 自定义参数
       new webpack.DefinePlugin({
@@ -136,7 +136,7 @@ module.exports = (env = {}) => {
     // 代理服务器
     devServer: {
       contentBase: srcPath,
-      host: host,
+      host: '0.0.0.0',
       port: devPort,
       hot: true,
       inline: true,
