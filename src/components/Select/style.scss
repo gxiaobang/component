@@ -4,13 +4,42 @@
 
 @import "~styles/main";
 
-.rc-smart-select {
+.select {
+  width: 162px;
   height: 28px;
-  min-width: 162px;
   padding: 4px 7px;
   border: $border;
   border-radius: 6px;
   font-size: 12px;
   line-height: 1.5;
   color: #666;
+
+  @extend %form-disabled;
+}
+
+
+.select-wrapper {
+  .select-options {
+    position: absolute;
+    width: 160px;
+    height: 200px;
+    border: $border;
+    border-radius: 4px;
+    background: $white;
+    z-index: 9;
+
+    li {
+      padding: 4px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #eee;
+      }
+
+      &.active {
+        background-color: $primary-color;
+        color: $white;
+      }
+    }
+  }
 }

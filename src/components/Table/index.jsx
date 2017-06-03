@@ -13,7 +13,14 @@ import './style';
 
 // <colgroup><col style="width: 360px;"></colgroup>
 
+// 显示序号
+const showNo = () => {
+  return { title: __('No'), key: 'No', render: (text, item, index) => index + 1 };
+};
+
 class Table extends React.Component {
+
+  static showNo = showNo;
 
   renderColumns() {
     const { columns = [] } = this.props;
@@ -40,7 +47,7 @@ class Table extends React.Component {
               let { key, title } = item2;
               let text = item[ key ];
               if (_.isFunction(item2.render)) {
-                text = item2.render(text, item);
+                text = item2.render(text, item, index);
               }
               return <td key={key}>{text}</td>
             })
@@ -52,12 +59,12 @@ class Table extends React.Component {
   }
 
   render() {
-    const { pagination = {}, onChange, loading } = this.props;
+    const { pagination = {}, onChange, loading, style } = this.props;
 
     return (
-      <div className="rc-smart-table-wrap">
-        <div className="rc-smart-table-main">
-          <table className="rc-smart-table">
+      <div className="table-wrap">
+        <div className="table-main" ref="main">
+          <table className="table">
             <thead>
               {this.renderColumns()}
             </thead>
@@ -68,7 +75,7 @@ class Table extends React.Component {
 
           {
             loading && 
-              <div className="rc-smart-table-loading"><Spin /></div>
+              <div className="table-loading"><Spin /></div>
           }
         </div>
         <Pagination data={pagination} onChange={onChange} />

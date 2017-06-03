@@ -1,21 +1,22 @@
 /**
- * mock数据
+ * mock 数据
  */
-
-import Mock from 'mockjs';
 
 const mocks = (url) => {
   url = url.replace(/^\//, '');
 
   return new Promise((resolve, reject) => {
-    if (process.env.NODE_ENV !== 'production') {
-      setTimeout(() => {
-        import('mocks/' + url + '.json')
-          .then(json => {
-            json = Mock.mock(json);
-            resolve({ data: json });
-          });
-      }, 500);  // 500ms后返回数据
+    if (NODE_REFER != 'prod') {
+      import('mockjs')
+        .then((Mock) => {
+          setTimeout(() => {
+            import('mocks/' + url + '.json')
+              .then(json => {
+                json = Mock.mock(json);
+                resolve({ data: json });
+              });
+          }, 500);  // 500ms后返回数据
+        })
     }
   });
 }

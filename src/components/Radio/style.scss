@@ -1,6 +1,7 @@
 @import "~styles/main";
 
-.rc-smart-radio {
+.radio {
+  padding: 4px;
   @extend %form-element;
 
   input[type="radio"] {

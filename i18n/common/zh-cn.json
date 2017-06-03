@@ -1,0 +1,41 @@
+{
+  "No": "序号",
+  "action": "操作",
+  "all": "全部",
+  "select" : "请选择",
+  "save" : "保存",
+
+  "isEnable":"是否启用",
+  "enable":"启用",
+  "disable":"停用",
+  "update":"更新",
+  "edit": "修改",
+  "insert":"新增",
+  "info":"查看",
+
+  "saveSuccess":"保存成功",
+  "saveFailure":"保存失败",
+
+  "close": "关闭",
+  "return" : "返回",
+  "sort"  : "排序值",
+  "yes"  : "是",
+  "no"  : "否",
+  "type"  : "类型",
+  "param" : "参数",
+  "optional" : "可选项",
+  "delete"  : "删除",
+  "cancel" : "取消",
+
+  "areaUnit" : "平方米",
+  "status": "状态",
+  "content" : "内容",
+
+  // 系统术语
+  "brand": "品牌",
+  "enterprise": "集团",
+  "roomType": "房型",
+  "room": "房间",
+  "hotel": "酒店",
+  "conferenceRoom": "会议室"
+}

@@ -4,11 +4,16 @@
 
 @import "~styles/main";
 
-.rc-smart-link {
+.link {
   margin: 2px;
-  color: #337ab7;
+  color: $primary-color;
+  text-decoration: none;
+  
+  &:hover {
+    // text-decoration: underline;
+  }
 
-  &.rc-smart-link-danger {
+  &.link-danger {
     color: $red;
   }
 }

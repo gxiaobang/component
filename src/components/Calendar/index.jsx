@@ -7,7 +7,7 @@
 import React from 'react';
 import RcCalendar from 'rc-calendar';
 import zhCN from 'rc-calendar/lib/locale/zh_CN';
-import 'rc-calendar/dist/rc-calendar.min.css';
+import 'rc-calendar/assets/index.css';
 
 class Calendar extends React.Component {
   render() {

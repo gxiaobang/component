@@ -1,0 +1,36 @@
+/**
+ * Transfer 穿梭框
+ */
+
+@import "~styles/main";
+
+.transfer {
+  .transfer-list,
+  .transfer-operation {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .transfer-list {
+    width: 200px;
+    height: 180px;
+    
+    
+    border: $border;
+
+    li {
+      padding: 4px;
+
+      &.selected {
+        background: $blue;
+        color: $white;
+      }
+    }
+  }
+
+  .transfer-operation {
+    li {
+      padding: 4px;
+    }
+  }
+}

@@ -13,7 +13,7 @@ import './style';
 let wrap;
 const addMessage = (options) => {
   if (!wrap) {
-    wrap = wrapper(<Container />);
+    wrap = wrapper(<Container type="message" />);
   }
 
   const { data } = wrap.state;
@@ -54,6 +54,7 @@ class Container extends React.Component {
               item.rendered = true;
               item.timer = setTimeout(() => {
                 this.removeItem(item);
+                item.onClose && item.onClose();
               }, item.duration);
             }
             return <Message key={index} type={item.type}>{item.content}</Message>

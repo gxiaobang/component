@@ -2,4 +2,10 @@
  * 字体图标
  */
 
-@import "./iconfont/index.css";
+// @import "./symbols/lib/svg-symbols.css";
+
+.icon {
+  display: inline-block;
+  vertical-align: middle;
+  // line-height: 0;
+}

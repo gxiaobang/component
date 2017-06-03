@@ -1,0 +1,16 @@
+/**
+ * 日期输入
+ */
+@import "~styles/main";
+
+.rc-smart-date-picker {
+  // width: d
+
+  height: 28px;
+  padding: 4px 7px;
+  border: $border;
+  border-radius: 6px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #666;
+}

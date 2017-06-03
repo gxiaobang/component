@@ -12,23 +12,54 @@ import React from 'react';
 import classnames from 'classnames';
 import { getFormParam } from 'utils';
 import Validate from 'components/Validate';
+import { Message } from 'components';
+import VerifyStore from 'stores/verify';
 import _ from 'lodash';
 import './style';
 
 const { Validator } = Validate;
 
-
 class FormItem extends React.Component {
+  
+  static childContextTypes = {
+    label: React.PropTypes.string
+  }
+
+  getChildContext() {
+    return { label: this.props.label }
+  }
+
   render() {
-    const cls = classnames('rc-smart-form-item', this.props.className);
+    const { label, className, required } = this.props;
+    const cls = classnames('form-item', className);
+
     return (
       <div className={cls}>
         {
-          this.props.hasOwnProperty('label') &&
-            <div className="rc-smart-form-item-label">{this.props.label}</div>
+          label &&
+            <label className={classnames('form-item-label', required && 'required')}>{label}</label>
         }
-        {this.props.children}
+        <div className="form-item-control">
+          {this.props.children}
+        </div>
       </div>
+    );
+  }
+}
+
+// 组
+class FormItemGroup extends React.Component {
+  render() {
+    // console.log(this.props.children.length);
+    const { children } = this.props;
+
+    let len = 1;
+    if (_.isArray(children)) {
+      len = children.length;
+    }
+
+    return (
+      <div className={classnames('form-item-group'/*, `form-item-group-${len}`*/)}>{children}</div>
     );
   }
 }
@@ -37,43 +68,67 @@ class Form extends React.Component {
 
   static FormItem = FormItem;
 
+  static FormItemGroup = FormItemGroup;
+
+  verifyStore = new VerifyStore();
+
+  static childContextTypes = {
+    verifyStore: React.PropTypes.object
+  }
+
+  getChildContext() {
+    return { verifyStore: this.verifyStore }
+  }
+
+  // 获取表单数据
+  getFormParam() {
+    const form = this.refs.form;
+    return getFormParam(form);
+  }
+
   render() {
 
-    const cls = classnames('rc-smart-form', this.props.layout == 'inline' ? `rc-smart-form-inline` : null);
+    const cls = classnames('form', this.props.layout == 'inline' ? 'form-inline' : null);
 
     return (
-      <form ref="form" className={cls} method={this.props.method} onSubmit={this.handleSubmit.bind(this)}>
+      <form ref="form" className={cls} method={this.props.method} action="javascript:;" onSubmit={this.handleSubmit.bind(this)}>
         {this.props.children}
       </form>
     )
   }
 
   handleSubmit(e) {
-    // console.log(arguments);
-    e.preventDefault();
     const form = this.refs.form;
-    const param = getFormParam(form);
+    const param = this.getFormParam();
 
+    // console.log(param);
     const rules = {};
-    _.forEach(form.elements, element => {
-      // console.log(element)
-      const name = element.name;
-      const rule = element.getAttribute('data-rules');
-      if (name && rule) {
-        rules[ name ] = rule;
-      }
+    this.verifyStore.items.forEach(item => {
+      const name = item.name;
+      // const rules = item.rules;
+      rules[ name ] = item.rules;
     });
 
     const validation = new Validator(param, rules);
     if (validation.passes()) {
-      console.log('验证通过');
+      console.info('验证通过');
       this.props.onSubmit && this.props.onSubmit(param);
     }
     else {
-      console.log('验证不通过');
-    }
+      let errors = validation.errors.all();
+      let firstFlag = true;
+      for (let key in errors) {
+        // Message.warn(errors[key][0])
+        // 光标focus
+        /*if (firstFlag) {
+          firstFlag = false;
+          form[ key ].focus();
+        }*/
 
-    // this.props.onSubmit && this.props.onSubmit(param);
+        this.verifyStore.updateError(key, errors[key][0]);
+      }
+      console.warn('验证不通过');
+    }
   }
 } 
 

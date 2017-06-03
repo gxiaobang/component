@@ -8,7 +8,7 @@ import './style';
 class Row extends React.Component {
   render() {
     return (
-      <div className="rc-smart-row">{this.props.children}</div>
+      <div className="row">{this.props.children}</div>
     );
   }
 }
@@ -16,7 +16,7 @@ class Row extends React.Component {
 class Col extends React.Component {
   render() {
     return (
-      <div className="rc-smart-col">{this.props.children}</div>
+      <div className={`col-${this.props.span}`}>{this.props.children}</div>
     );
   }
 }

@@ -30,18 +30,7 @@ class Menu extends React.Component {
 	}
 
 	handleClick(data) {
-		// this.store.clearSelect();
-		const added = this.store.addItem(data);
-
-		// 已经添加过
-		if (added) {
-			this.store.selectItem(data.code);
-		}
-		else {
-			
-		}
-
-		router.setURL(data.url);
+		this.store.open(data);
 	}
 
 	// 渲染左侧菜单
@@ -52,7 +41,7 @@ class Menu extends React.Component {
 				this.rendered = true;
 				// console.log(item)
 				setTimeout(() => {
-					this.store.addItem(item);
+					this.store.open(item);
 				})
 			}
 			return <li key={index} className={

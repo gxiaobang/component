@@ -9,15 +9,17 @@ import ReactDOM from 'react-dom';
 import { Icon } from 'components';
 import './style';
 
-class Pagination extends React.Component {
+class Spin extends React.Component {
   render() {
     return (
-      <div className="rc-smart-spin-wrap">
-        <Icon type="spinner" className="spin" />
+      <div className="spin-wrapper">
+        <span className="spin">
+          <Icon type="spinner" size={16} />
+        </span>
         <span>{this.props.children || '加载中...'}</span>
       </div>
     );
   }
 }
 
-export default Pagination;
+export default Spin;

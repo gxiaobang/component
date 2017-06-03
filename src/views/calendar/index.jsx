@@ -13,12 +13,12 @@ class Page extends React.Component {
     return (
       <div className="page">
         <h3>{this.props.data.title}组件</h3>
-        <Form>
-          <FormItem>
-            <DatePicker /*showTime*/ format="YYYY-MM-DD" />
+        <Form layout="inline">
+          <FormItem label="日期">
+            <DatePicker /*showTime*/ format="YYYY MM-DD" />
           </FormItem>
 
-          <FormItem>
+          <FormItem label="时间">
             <TimePicker />
           </FormItem>
         </Form>

@@ -14,7 +14,6 @@ import { Button } from 'components';
 import router from 'utils/router';
 import wrapper from 'utils/wrapper';
 import classnames from 'classnames';
-import { EventEmitter } from 'events';
 
 // 引入样式
 import './style';
@@ -22,7 +21,7 @@ import './style';
 let wrap;
 const addDialog = (options) => {
   if (!wrap) {
-    wrap = wrapper(<Mask />);
+    wrap = wrapper(<Container type="dialog" />);
   }
 
   const { data } = wrap.state;
@@ -32,7 +31,7 @@ const addDialog = (options) => {
 }
 
 // 遮罩
-class Mask extends React.Component {
+class Container extends React.Component {
 
   state = {
     data: []
@@ -44,6 +43,22 @@ class Mask extends React.Component {
     if (index > -1) {
       data.splice(index, 1);
       this.setState({ data });
+    }
+  }
+
+  // 关闭当前页面弹窗
+  closeCurrent() {
+    /*if (data.length) {
+      data.splice(data.length - 1, 1);
+      this.setState();
+    }*/
+    const { data } = this.state;
+    for (let i = data.length - 1; i > -1; i--) {
+      if (data[i].isInsert) {
+        data.splice(i, 1);
+        this.setState({ data });
+        break;
+      }
     }
   }
   
@@ -58,7 +73,7 @@ class Mask extends React.Component {
             }
 
             return (
-              <Dialog disabled={index < this.state.data.length - 1} key={item.sequel} type={item.type} title={item.title} btns={item.btns} onClose={this.removeItem.bind(this, item)}>
+              <Dialog disabled={index < this.state.data.length - 1} key={item.sequel} type={item.type} title={item.title} btns={item.btns} onClose={this.removeItem.bind(this, item)} isInsert={item.isInsert}>
                 {item.content}
               </Dialog>
             );
@@ -74,35 +89,42 @@ class Mask extends React.Component {
 }
 
 class Dialog extends React.Component {
+
+  static closeCurrent() {
+    wrap.closeCurrent();
+  }
+
   // 警告框
   static alert(content, type = 'warn', onOk = noop) {
-    const btns = [{ text: '确定', type: 'primary', key: 'ok', onOk }];
+    const btns = [{ text: '确定', type: 'primary', key: 'ok', handler: onOk }];
     const title = '提示框';
     addDialog({ content, type, btns, title });
   }
 
   // 询问框
   static confirm(content, type = 'inquiry', onOk = noop) {
-    const btns = [{ text: '确定', type: 'primary', key: 'ok' }, { text: '取消', key: 'cancel' }];
+    const btns = [{ text: '确定', type: 'primary', key: 'ok', handler: onOk }, { text: '取消', key: 'cancel' }];
     const title = '提示框';
     addDialog({ content, type, btns, title });
   }
 
   // DOM插入
-  static insert(content, title = '提示框', btns = [{ text: '确定', type: 'primary', key: 'ok' }, { text: '取消', key: 'cancel' }]) {
-    addDialog({ content, btns, title });
+  static insert({ content, title = '提示框', btns = [{ text: '确定', type: 'primary', key: 'ok' }, { text: '取消', key: 'cancel' }]}) {
+    addDialog({ content, btns, title, isInsert: true });
   }
 
   // 打开一个页面
-  static open(url, title, data, btns) {
+  static open({ url, title, data = null, btns = [] }) {
+    // console.log(router.getPageURL(url))
+    const location = router.getLocation(url);
     import('views/' + router.getPageURL(url) + '.jsx')
       .then(module => {
         const Page = module.default;
-        console.log(Page)
-        Dialog.insert(<Page data={data} />, title, btns);
+        Dialog.insert({ content: <Page data={data} location={location} />, title, btns });
       })
       .catch(err => {
-        Dialog.alert('页面找不到啦！');
+        console.log(err)
+        throw err;
       });
   }
 
@@ -144,48 +166,53 @@ class Dialog extends React.Component {
   }
 
   render() {
-    const { type, btns, title, disabled } = this.props;
+    const { type, btns, title, disabled, isInsert } = this.props;
     const content = this.props.children;
 
     return (
-      <div className={classnames('dialog', 'animated bounceInDown',  disabled && 'dialog-disabled')} ref="dialog">
+      <div className={classnames('dialog', 'animated bounceInDown', disabled && 'dialog-disabled')} ref="dialog">
         <header onMouseDown={this.handleDragable.bind(this)}>
           {title}
           <span className="close" onClick={this.handleClose.bind(this)}>&times;</span>
         </header>
-        <section ref="content">
+        <section ref="content" className={classnames(!type && 'insert')}>
           {
-            type ? (
-              <div>
+            isInsert ? (
+              <div className="dialog-content">{content}</div>
+            ) : (
+              <div className="dialog-message-outer">
                 <i className={type}></i>
                 <div className="dialog-message">
                   {content}
                 </div>
               </div>
-            ) : (
-              <div>{content}</div>
             )
           }
         </section>
-        <footer ref="footer">
-          {
-            btns.map((item, index) => {
-              return (
-                <Button 
-                  key={index}
-                  type={item.type}
-                  onClick={
-                    () => {
-                      this.handleClose();
-                      item.handler && item.handler.call(this);
-                    }
-                  }>
-                  {item.text}
-                </Button>
-              )
-            })
-          }
-        </footer>
+        {
+          btns.length > 0 && 
+            <footer ref="footer">
+              {
+                btns.map((item, index) => {
+                  return (
+                    <Button 
+                      key={index}
+                      type={item.type}
+                      onClick={
+                        () => {
+                          this.handleClose();
+                          item.handler && item.handler.call(this);
+                          
+                          // eventEmitter._events[item.key] &&  eventEmitter._events[item.key].call(this);
+                        }
+                      }>
+                      {item.text}
+                    </Button>
+                  )
+                })
+              }
+            </footer>
+        }
       </div>
     )
   }
@@ -214,49 +241,10 @@ class Dialog extends React.Component {
 
   // 重置位置
   rebuild() {
-    this.refs.dialog.style.left = (document.documentElement.clientWidth - this.refs.dialog.offsetWidth) / 2 + 'px';
+    this.refs.dialog.style.left = Math.max((document.documentElement.clientWidth - this.refs.dialog.offsetWidth) / 2, 0) + 'px';
     this.refs.dialog.style.top = Math.max(
       (document.documentElement.clientHeight - this.refs.dialog.offsetHeight) / 2 - 50, 20) + 'px';
   }
 }
 
 export default Dialog;
-
-
-/*import Checkbox from 'components/checkbox';
-import Select from 'components/select';
-import Input from 'components/input';
-
-Dialog.warn('hello world')
-Dialog.info('hello world')
-Dialog.success('hello world')
-Dialog.error('hello world')
-const param = {};
-Dialog.open('views/abc/index', [
-  // 保存
-  () => {
-
-  },
-  // 取消
-  () => {
-
-  }
-])*/
-
-
-/*dialog.alert('警告框', 'warn');
-dialog.confirm('询问框', 'inquiry');
-// 弹窗页面
-dialog.load(
-    url, param, fn
-  );
-// dom插入
-dialog.insert(
-    <Page />, '标题'
-  );
-
-message.show('', 'warn');
-message.show('', 'success');
-
-// 表格组件
-<Table data={data} />*/ 

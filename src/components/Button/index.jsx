@@ -5,6 +5,7 @@
  */
 import React from 'react';
 import classnames from 'classnames';
+import _ from 'lodash';
 import './style';
 
 class Button extends React.Component {
@@ -14,12 +15,19 @@ class Button extends React.Component {
   }
 
   render() {
-    const { type = 'default' } = this.props;
-    const cls = classnames('btn', `btn-${type}`);
-    const btnType = this.props.hasOwnProperty('submit') ? 'submit' : 'button';
+    const { type = 'default', className } = this.props;
+    const cls = classnames('btn', `btn-${type}`, className);
+    const btnType = this.props.submit ? 'submit' : 'button';
+    let txt = this.props.children;
+    
+    if (_.isString(txt)) {
+      if (txt.length == 2) {
+        txt = txt[0] + ' ' + txt[1];
+      }
+    }
 
     return (
-      <button type={btnType} className={cls} onClick={this.handleClick.bind(this)}>{this.props.children}</button>
+      <button type={btnType} className={cls} onClick={this.handleClick.bind(this)}>{txt}</button>
     );
   }
 }

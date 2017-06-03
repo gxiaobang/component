@@ -1,6 +1,7 @@
 @import "~styles/main";
 
-.rc-smart-validate {
+.validate {
+  height: 46px;
   @extend %form-element;
 
   &.error {
@@ -9,8 +10,9 @@
     }
   }
 
-  .rc-smart-validate-error {
-    font-size: 14px;
+  .validate-error-label {
+    display: inline-block;
+    font-size: 12px;
     line-height: 1.5;
     color: $red;
   }

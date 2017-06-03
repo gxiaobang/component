@@ -4,19 +4,52 @@
 
 @import "~styles/main";
 
-.rc-smart-form {
-  &.rc-smart-form-inline {
-    .rc-smart-form-item {
-      display: inline-block;
+.form {
+  &.form-inline {
+    .form-item {
+      .form-item-label {
+        min-width: auto;
+      }
     }
   }
   
   // 表单元素
-  .rc-smart-form-item {
+  .form-item {
+    display: inline-block;
+    vertical-align: middle;
+    min-height: 54px;
     padding: 10px;
+    padding-bottom: 0;
 
-    .rc-smart-form-item-label {
-      line-height: 24px;
+    .form-item-label {
+      display: inline-block;
+      line-height: 29px;
+      min-width: 100px;
+      text-align: right;
+      vertical-align: top;
+      padding-left: 8px;
+      padding-right: 8px;
+
+      &.required:before {
+        content: "*";
+        margin: 1px;
+        font-weight: bold;
+        color: $danger-color;
+      }
+    }
+
+    .form-item-control {
+      display: inline-block;
+    }
+  }
+
+  .form-item-group {
+    @for $i from 1 through 5 {
+      &.form-item-group-#{$i} {
+        .form-item {
+          width: 100% / $i;
+        }
+      }
     }
   }
 }

@@ -1,9 +1,53 @@
 @import "~styles/main";
 
-.rc-smart-checkbox {
+.checkbox {
+  width: 112px;
+  padding: 4px;
   @extend %form-element;
 
   input[type="checkbox"] {
-    margin-right: 4px;
+    display: none !important;
+
+    &:checked {
+      + .checkbox-box {
+        // background: red;
+        border-color: $primary-color;
+        background-color: $primary-color;
+      }
+    }
+
+    &:disabled {
+      & {
+        + .checkbox-box {
+          background-color: #f5f5f5;
+          border: $border;
+        }
+
+        &:checked {
+          + .checkbox-box {
+            background-color: #bbb;
+            border-color: #bbb;
+          }
+        }
+      }
+    }
   }
+
+  .checkbox-box {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-right: 8px;
+    border: $border;
+    border-radius: 2px;
+
+    &:hover {
+      border-color: $primary-color;
+    }
+  }
+}
+
+.checkbox-group {
+  max-width: 672px;
+  // @extend %form-element;
 }

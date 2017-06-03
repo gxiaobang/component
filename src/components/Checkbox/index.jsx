@@ -3,22 +3,78 @@
  */
 
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { Icon } from 'components';
+import http from 'utils/http';
+import _ from 'lodash';
 import './style';
 
-class Checkbox extends React.Component {
-  
-  handleChnage(...args) {
-    const { onChange } = this.props;
+class CheckboxGroup extends React.Component {
 
-    onChange && onChange(...args);
+  state = {
+    options: this.props.options || []
+  };
+
+  componentDidMount() {
+    if (this.props.http) {
+      this.request();
+    }
+  }
+
+  request() {
+    const { keys = ['value', 'label'] } = this.props;
+
+    http({
+      ...this.props.http,
+      onSuccess: (data) => {
+        if (_.isArray(data.data.list)) {
+          let options = [];
+          data.data.list.forEach(item => {
+            options.push({
+              value: item[ keys[0] ],
+              label: item[ keys[1] ]
+            });
+          });
+
+          this.setState({ options });
+        }
+      }
+    });
   }
 
   render() {
-    const { name, checked, value } = this.props;
+    const { name, defaultValue = [], disabled } = this.props;
+    const { options } = this.state;
+
     return (
-      <label className="rc-smart-checkbox">
-        <input type="checkbox" name={name} defaultChecked={checked} onChange={this.handleChnage.bind(this)} />
+      <div className="checkbox-group">
+        {
+          options.map((item, key) => {
+            return <Checkbox key={key} name={name} value={item.value} defaultChecked={
+              defaultValue.indexOf(item.value) > -1
+            } disabled={disabled}>{item.label}</Checkbox>
+          })
+        }
+      </div>
+    );
+  }
+}
+
+class Checkbox extends React.Component {
+
+  static CheckboxGroup = CheckboxGroup;
+
+  handleChange = this.props.onChange;
+
+  render() {
+    // const { name, checked, value } = this.props;
+    const props = {...this.props};
+    delete props.children;
+    return (
+      <label className="checkbox">
+        <input {...props} type="checkbox" onChange={this.handleChange} />
+        <span className="checkbox-box">
+          <Icon type="fuxuan" size={12} color="#fff" />
+        </span>
         {this.props.children}
       </label>
     );

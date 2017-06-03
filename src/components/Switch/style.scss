@@ -4,34 +4,51 @@
 
 @import "~styles/main";
 
-.rc-smart-switch {
+.switch {
+  display: inline-block;
+  // margin: 2px;
+  line-height: 0;
   cursor: pointer;
 
   input[type="checkbox"] {
     display: none !important;
 
-    &:checked + .rc-smart-switch-inner {
-      border-color: #567b8b;
-      background-color: #567b8b;
+    &:checked + .switch-inner {
+      border-color: $primary-color;
+      background-color: $primary-color;
 
       &:after {
         left: auto;
         right: 0;
       }
-
-      .rc-smart-switch-unchecked {
+      
+      .switch-checked {
+        display: block;
+      }
+      .switch-unchecked {
         display: none;
       }
     }
+
+    &:disabled + .switch-inner {
+      background-color: #f4f4f4;
+      border-color: #f4f4f4;
+
+      &:after {
+        background-color: #ccc;
+      }
+      cursor: not-allowed;
+    }
   }
 
-  .rc-smart-switch-inner {
+  .switch-inner {
     display: inline-block;
     position: relative;
-    min-width: 40px;
-    height: 20px;
+    min-width: 50px;
+    height: 28px;
     border: $border;
-    border-radius: 10px;
+    border-width: 2px;
+    border-radius: 14px;
     background-color: #c0c0c0;
 
     overflow: hidden;
@@ -44,25 +61,26 @@
       left: 0;
       right: auto;
 
-      width: 18px;
-      height: 18px;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
 
       background-color: $white;
     }
 
-    .rc-smart-switch-checked,
-    .rc-smart-switch-unchecked {
+    .switch-checked,
+    .switch-unchecked {
       font-size: 12px;
       color: $white;
-      padding: 2px 4px;
+      padding: 5px;
       text-align: center;
     }
-    .rc-smart-switch-checked {
-      margin-right: 16px;
+    .switch-checked {
+      display: none;
+      margin-right: 22px;
     }
-    .rc-smart-switch-unchecked {
-      margin-left: 16px;
+    .switch-unchecked {
+      margin-left: 22px;
     }
   }
 }

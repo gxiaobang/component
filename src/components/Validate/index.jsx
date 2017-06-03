@@ -3,53 +3,85 @@
  */
 
 import React from 'react';
+import { observer } from 'mobx-react';
 import classnames from 'classnames';
 import Validator from 'validatorjs';
 import './style';
 
 Validator.useLang('zh');
 
+@observer
 class Validate extends React.Component {
   // 检验器
   static Validator = Validator;
 
-  state = {
-    errorMsg: ''
+  static contextTypes = {
+    label: React.PropTypes.string,
+    verifyStore: React.PropTypes.object
   };
 
   // props更新
   componentWillReceiveProps(nextProps) {
-    if (this.props.value !== nextProps.value) {
+    /*if (this.props.value !== nextProps.value) {
       this.verify(nextProps);
-    }
+    }*/
   }
-  // 校验
-  verify(props) {
-    const { rules, value } = props;
 
-    var validation = new Validator({ '': value }, { '': rules });
+  componentWillMount() {
+    this.initVerify();
+  }
 
-    let errorMsg = null;
-    if (validation.fails()) {
-      errorMsg = validation.errors.first('');
-    }
-    
-    this.setState({
-      errorMsg
+  componentDidMount() {
+    this.update({
+      rules: this.props.rules,
+      name: this.props.name
     });
   }
 
-  render() {
-    const { errorMsg } = this.state;
-    const cls = classnames('rc-smart-validate', errorMsg && 'error');
+  // 初始化验证
+  initVerify() {
+    this.verifyStoreItem = this.context.verifyStore.addItem({
+      label: this.context.label
+    });
+  }
+
+  // 更新验证
+  update(options) {
+    if (this.verifyStoreItem) {
+      // console.log(this.verifyStoreItem)
+      Object.assign(this.verifyStoreItem, options);
+    }
+  }
+
+  // 校验
+  verify(value) {
+    const { rules } = this.verifyStoreItem;
+    const { label } = this.context;
+
+    var validation = new Validator({ [label]: value }, { [label]: rules });
+
+    let error = null;
+    if (validation.fails()) {
+      error = validation.errors.first(label);
+    }
     
+    this.verifyStoreItem.error = error;
+    // this.setState({ error });
+  }
+
+  render() {
+    // console.log(this.context);
+    // const { error } = this.state;
+
+    const { error } = this.verifyStoreItem;
+    const cls = classnames('validate', error && 'error');
     return (
       <div className={cls}>
         {this.props.children}
         {
-          errorMsg && 
-            <div className="rc-smart-validate-error">
-              <div style={{ display: 'inline-block' }} className="animated wobble">{errorMsg}</div>
+          error && 
+            <div className="validate-error">
+              <label className="validate-error-label animated wobble">{error}</label>
             </div>
         }
       </div>
