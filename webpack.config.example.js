@@ -10,12 +10,12 @@ const I18nPlugin = require("i18n-webpack-plugin");
 const autoprefixer = require('autoprefixer');
 
 const path = require('path');
-const { version, host, port, srcPath, distPath, publicPath } = require('./config');
+const { version, srcPath, rootPath, distPath, publicPath } = require('./config/base.config');
 
 // 国际化
 const languages = {
   'zh-CN': null,
-  'en': require('./i18n/en'),
+  'en': null
 };
 
 process.env.NODE_ENV = 'production';
@@ -48,7 +48,8 @@ module.exports = {
       'components': path.resolve(srcPath, './components'),
       'layouts': path.resolve(srcPath, './layouts'),
       'styles': path.resolve(srcPath, './styles'),
-      'mocks': path.resolve(srcPath, './mocks')
+      'mocks': path.resolve(srcPath, './mocks'),
+      'config': path.resolve(rootPath, './config'),
     }
   },
   module: { 
@@ -145,8 +146,9 @@ module.exports = {
     // 自定义参数
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify('example')
-      }
+          NODE_ENV: JSON.stringify('production')
+        },
+      'NODE_REFER': JSON.stringify('example')
     })
   ]
 };
