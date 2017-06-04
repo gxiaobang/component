@@ -42,23 +42,13 @@ module.exports = (env = {}) => {
     devtool: 'eval-source-map',
     name: env.lang,
     entry: {
-      /*reload: [
-        `webpack-dev-server/client?http://${host}:${devPort}`,
-        'webpack/hot/only-dev-server',
-      ],*/
-      app: [
-        path.resolve(srcPath, './app')
-      ],
+      app: [path.resolve(srcPath, './app')],
       // 第三方
-      vendor: [
-        'react', 
-        'react-dom'
-      ]
+      vendor: ['core-js', 'react', 'react-dom', 'mobx',  'lodash', 'moment', 'axios', 'classnames']
     },
     output: {
       filename: '[name].js',
-      publicPath: '/',
-      // chunkFilename: '[name].[chunkhash:5].js'
+      publicPath: '/'
     },
     resolve: {
       extensions: ['.js', '.jsx', '.sass', '.scss'],

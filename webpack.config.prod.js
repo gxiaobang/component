@@ -24,14 +24,9 @@ module.exports = (env = {}) => {
   return ['zh-cn', 'en'].map((lang) => ({
     name: lang,
     entry: {
-      app: [
-        path.resolve(srcPath, './app')
-      ],
+      app: [path.resolve(srcPath, './app')],
       // 第三方
-      vendor: [
-        'react', 
-        'react-dom'
-      ]
+      vendor: ['core-js', 'react', 'react-dom', 'mobx',  'lodash', 'moment', 'axios', 'classnames']
     },
     output: {
       path: path.resolve(distPath, version),

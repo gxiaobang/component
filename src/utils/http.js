@@ -9,7 +9,7 @@ import api from 'config/api.config';
 import { Dialog } from 'components';
 import _ from 'lodash';
 
-console.log(api);
+// console.log(api);
 // const api = { dev: {} };
 const NODE_REFER = 'dev';
 
