@@ -40,19 +40,19 @@
       
       cursor: pointer;
 
-      &:hover {
+      &:hover, &.active {
         // background-color: darken($white, 5%);
-        border-color: #00bcd4;
+        border-color: $primary-color;
       }
 
       &.active {
         color: #fff;
-        background-color: #108ee9;
+        background-color: $primary-color;
       }
     }
   }
 
   .pagination-input {
-    width: 40px;
+    width: 45px;
   }
 }

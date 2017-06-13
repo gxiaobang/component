@@ -8,6 +8,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import wrapper from 'utils/wrapper';
+import { Icon } from 'components';
 import './style';
 
 let wrap;
@@ -17,6 +18,7 @@ const addMessage = (options) => {
   }
 
   const { data } = wrap.state;
+
   data.unshift(options);
   wrap.setState({ data });
 }
@@ -93,10 +95,14 @@ class Message extends React.Component {
   }
 
   render() {
+    let { type = 'success' } = this.props;
     return (
       <div className="message">
         <div className="message-content">
-          {this.props.children}
+          <Icon type={type} color="#fff" />
+          <div className="message-text">
+            {this.props.children}
+          </div>
         </div>
       </div>
     )

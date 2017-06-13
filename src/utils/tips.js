@@ -2,7 +2,7 @@
  * 消息提示
  */
 
-import { Dialog, Message } from 'components';
+import { Dialog, Toast } from 'components';
 import { getCache } from 'stores/cache';
 
 const homeStore = getCache('homeStore');
@@ -20,7 +20,7 @@ const tips = {
     }
     else {
       homeStore.refresh(code, method);
-      Message.success(msg);
+      Toast.success(msg);
     }
   }
 };

@@ -59,10 +59,10 @@ class Table extends React.Component {
   }
 
   render() {
-    const { pagination = {}, onChange, loading, style } = this.props;
-
+    const { data = [], pagination = {}, onChange, loading, style } = this.props;
+    // <img src={require('url-loader!images/kongshuju.svg')} alt=""/>
     return (
-      <div className="table-wrap">
+      <div className="table-wrapper">
         <div className="table-main" ref="main">
           <table className="table">
             <thead>
@@ -74,11 +74,19 @@ class Table extends React.Component {
           </table>
 
           {
-            loading && 
-              <div className="table-loading"><Spin /></div>
+            !loading && data.length == 0 &&
+              <img src={require('url-loader!images/kongshuju.svg')} alt="" style={{
+                maxHeight: 600
+              }} />
           }
         </div>
+        
         <Pagination data={pagination} onChange={onChange} />
+
+        {
+          loading && 
+            <div className="table-loading"><Spin /></div>
+        }
       </div>
     )
   }

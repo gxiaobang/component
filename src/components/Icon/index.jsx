@@ -19,20 +19,17 @@ renderSymbols();*/
 
 class Icon extends React.Component {
   render() {
-    const { type, className, size = 32, color, style } = this.props;
+    const { type, className, size = 32, color, style, spin } = this.props;
     // return <i className={classnames('icon', `icon-${type}`, className)}></i>
 
     return (
-      // <span className="icon" style={style}>
-        <svg role="img" className={className} style={{
-          width: size,
-          height: size,
-          fill: color
-        }}>
-          <use xlinkHref={`${fileURL}#${type}`}></use>*
-          {/*<use xlinkHref={`#${type}`}></use>*/}
-        </svg>
-      // </span>
+      <svg role={type} className={classnames(spin && 'animated infinite spin', className)} style={{
+        width: size,
+        height: size,
+        fill: color
+      }}>
+        <use xlinkHref={`${fileURL}#${type}`}></use>
+      </svg>
     );
   }
 }

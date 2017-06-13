@@ -31,3 +31,9 @@
 .pull-right {
   float: right !important;
 }
+
+// 三角形
+.caret {
+  @include triangle($dir: bottom, $size: 8px 4px);
+  margin: 2px;
+}

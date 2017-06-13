@@ -9,10 +9,11 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Input } from 'components';
+import { Input, Button } from 'components';
 import classnames from 'classnames';
 import Validate from 'components/Validate';
 import http from 'utils/http';
+import { evt, dom } from 'utils';
 import './style';
 
 class Option extends React.Component {
@@ -30,14 +31,24 @@ class Select extends React.Component {
     options: this.props.options || [],
     // 搜索项
     searchOptions: [],
+
+    // 选中多选
+    selectedOptions: this.props.defaultValue || [],
+
     // 值
-    activeNum: 0
+    activeNum: 0,
+    // 打开
+    isOpen: false
   };
 
   componentDidMount() {
     if (this.props.http) {
       this.request(this.props.http);
     }
+  }
+
+  componentWillUnmount() {
+    this.close();
   }
 
   // props更新
@@ -104,6 +115,21 @@ class Select extends React.Component {
     });*/
   }
 
+  // 选中多选
+  handleSelectTags(value, item) {
+    const { selectedOptions } = this.state;
+    let index = selectedOptions.indexOf(value);
+
+    if (index > -1) {
+      selectedOptions.splice(index, 1);
+    }
+    else {
+      selectedOptions.push(value);
+    }
+
+    this.setState({ selectedOptions });
+  }
+
   // 键盘事件
   handleKeyDown(e) {
     // console.log(e.keyCode);
@@ -159,6 +185,20 @@ class Select extends React.Component {
     }, 100)
   }
 
+  // 打开
+  handleOpen() {
+    this.setState({
+      isOpen: true
+    });
+
+    this.hide && this.hide();
+    this.hide = evt.add(document, 'click', (e) => {
+      if (!dom.contains(this.refs.self, e.target)) {
+        this.close()
+      }
+    });
+  }
+
   request(options) {
     this.http = http({
       ...options,
@@ -175,8 +215,10 @@ class Select extends React.Component {
   }
 
   close() {
+    this.hide && this.hide();
     this.setState({
-      searchOptions: []
+      searchOptions: [],
+      isOpen: false
     });
   }
 
@@ -247,8 +289,39 @@ class Select extends React.Component {
   }
 
   // 多选
-  renderTags() {
+  renderTags(rules, cls, keys, props) {
 
+    const { options, selectedOptions, isOpen } = this.state;
+
+    return (
+      <div className="select-wrapper" ref="self">
+        <Button onClick={
+          () => this.handleOpen()
+        }>
+          已选 {selectedOptions.length} 项
+          <span className="caret"></span>
+        </Button>
+        {
+          isOpen && 
+            <ul className="select-options">
+              {
+                options.map((item, index) => {
+                  return <li key={index} className={selectedOptions.indexOf(item[ keys[0] ]) > -1 && 'active'} onClick={
+                    () => {
+                      this.handleSelectTags(item[ keys[0] ], item);
+                    }
+                  }>{item[ keys[1] ]}</li>
+                })
+              }
+            </ul>
+        }
+        {
+          selectedOptions.map((value) => {
+            return <input type="hidden" name={props.name} value={value} />
+          })
+        }
+      </div>
+    );
   }
 
   render() {
@@ -267,9 +340,14 @@ class Select extends React.Component {
 
       // 多选
       case 'tags':
-        return this.renderTags();
+        return this.renderTags(rules, cls, keys, props);
     }
   }
 }
+
+/*import testComponent from 'utils/testComponent';
+testComponent(
+  <Select mode="tags" name="tags[]" options={[{ value: 123, label: '123' }, { value: 1234, label: '1234'}, { value: 12345, label: '12345' }]} defaultValue={[123, 12345]}></Select>
+);*/
 
 export default Select;

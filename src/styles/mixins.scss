@@ -9,3 +9,45 @@
     clear: both;
   }
 }
+
+// 设置大小
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+
+// 三角形函数
+@mixin triangle($dir, $size: 10px 10px, $color: currentColor) {
+  display: inline-block;
+  
+  border-width: 0;
+  border-color: transparent;
+  border-style: solid;
+
+  @if $dir == top {
+    border-bottom-color: $color;
+    border-bottom-width: nth($size, 2);
+    border-left-width: nth($size, 1) / 2;
+    border-right-width: nth($size, 1) / 2;
+  }
+  @else if $dir == bottom {
+    border-top-color: $color;
+    border-top-width: nth($size, 2);
+    border-left-width: nth($size, 1) / 2;
+    border-right-width: nth($size, 1) / 2;
+  }
+  @else if $dir == left {
+    border-right-color: $color;
+    border-right-width: nth($size, 1);
+    border-top-width: nth($size, 2) / 2;
+    border-bottom-width: nth($size, 2) / 2;
+  }
+  @else if $dir == right {
+    border-left-color: $color;
+    border-left-width: nth($size, 1);
+    border-top-width: nth($size, 2) / 2;
+    border-bottom-width: nth($size, 2) / 2;
+  }
+}
+
+// triangle($dir: top, $color: red);

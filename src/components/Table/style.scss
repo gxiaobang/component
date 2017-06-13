@@ -4,7 +4,8 @@
 
 @import "~styles/main";
 
-.table-wrap {
+.table-wrapper {
+  position: relative;
   // overflow: auto;
 
   .table-main {

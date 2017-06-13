@@ -1,0 +1,46 @@
+/**
+ * 树形控件
+ */
+
+.tree {
+  .tree-node {
+    margin: 4px;
+
+    > .tree-node-text {
+      > .caret {
+        margin-right: 5px;
+        transition: .3s;
+        transform: rotate(-90deg);
+      }
+    }
+
+    > .tree-node-list {
+      display: none;
+    }
+
+    &.show {
+
+      > .tree-node-text {
+        > .caret {
+          transform: none;
+        }
+      }
+
+      > .tree-node-list {
+        display: block;
+      }
+    }
+  }
+  
+  .tree-node-text {
+    cursor: pointer;
+  }
+
+  .tree-node-list {
+    margin-left: 5px;
+  }
+
+  .is-leaf {
+    margin-right: 16px;
+  }
+}

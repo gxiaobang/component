@@ -4,6 +4,39 @@
 
 @import "keyframes";
 
+.animated {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
+// 无限播放
+.animated.infinite {
+  animation-iteration-count: infinite;
+}
+
+// 短时间
+.animated.short {
+  animation-duration: .5s;
+}
+
+// 长时间
+.animated.hinge {
+  animation-duration: 2s;
+}
+
 .spin {
-  animation: spin 1s linear infinite;
+  animation-name: spin;
+  animation-timing-function: linear;
+}
+
+.fadeInDown {
+  animation-name: fadeInDown;
+}
+
+.fadeOutUp {
+  animation-name: fadeOutUp;
+}
+
+.wobble {
+  animation-name: wobble;
 }

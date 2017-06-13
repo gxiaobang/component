@@ -2,6 +2,7 @@
  * 变量声明
  */
 
+// 颜色
 $white:  #fff !default;
 $black:  #000 !default;
 $red:    #d9534f !default;
@@ -13,11 +14,16 @@ $teal:   #5bc0de !default;
 $pink:   #ff5b77 !default;
 $purple: #613d7c !default;
 
-$border: 1px solid #ccc;
-
 $primary-bg-color: #e4e4e4;
 $secondary-bg-color: $white;
 
+$success-color: $green;
 $primary-color: $blue;
 $warn-color: $yellow;
 $danger-color: $red;
+
+$border-color: #ccc;
+$text-color: #999;
+$text-light-color: #666;
+
+$border: 1px solid $border-color;

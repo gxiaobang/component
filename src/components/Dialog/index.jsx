@@ -9,8 +9,8 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { addEvent, removeEvent, fixEvent, noop } from 'utils';
-import { Button } from 'components';
+import { evt, effects, noop } from 'utils';
+import { Button, Icon } from 'components';
 import router from 'utils/router';
 import wrapper from 'utils/wrapper';
 import classnames from 'classnames';
@@ -52,11 +52,22 @@ class Container extends React.Component {
       data.splice(data.length - 1, 1);
       this.setState();
     }*/
+
+    /*effects.anim();
+    effects(div).frame('fadeInDown', () => {
+
+    });
+*/
     const { data } = this.state;
     for (let i = data.length - 1; i > -1; i--) {
       if (data[i].isInsert) {
-        data.splice(i, 1);
-        this.setState({ data });
+        // console.log(data[i])
+        this.removeItem(data[i]);
+        /*effects(data[i].com.refs.dialog)
+          .frame('fadeOutUp')
+          .then(() => {
+            this.removeItem(data[i]);
+          })*/
         break;
       }
     }
@@ -73,7 +84,7 @@ class Container extends React.Component {
             }
 
             return (
-              <Dialog disabled={index < this.state.data.length - 1} key={item.sequel} type={item.type} title={item.title} btns={item.btns} onClose={this.removeItem.bind(this, item)} isInsert={item.isInsert}>
+              <Dialog disabled={index < this.state.data.length - 1} key={item.sequel} type={item.type} title={item.title} btns={item.btns} onClose={this.removeItem.bind(this, item)} isInsert={item.isInsert} animated={item.animated} ref={com => item.com = com}>
                 {item.content}
               </Dialog>
             );
@@ -91,7 +102,7 @@ class Container extends React.Component {
 class Dialog extends React.Component {
 
   static closeCurrent() {
-    wrap.closeCurrent();
+    wrap && wrap.closeCurrent();
   }
 
   // 警告框
@@ -109,8 +120,8 @@ class Dialog extends React.Component {
   }
 
   // DOM插入
-  static insert({ content, title = '提示框', btns = [{ text: '确定', type: 'primary', key: 'ok' }, { text: '取消', key: 'cancel' }]}) {
-    addDialog({ content, btns, title, isInsert: true });
+  static insert({ content, title = '提示框', btns = [{ text: '确定', type: 'primary', key: 'ok' }, { text: '取消', key: 'cancel' }], animated }) {
+    addDialog({ content, btns, title, isInsert: true, animated });
   }
 
   // 打开一个页面
@@ -147,7 +158,7 @@ class Dialog extends React.Component {
     let dy = e.clientY - elem.offsetTop;
 
     function _move(e) {
-      e = fixEvent(e);
+      e = evt.fix(e);
 
       // console.log(e.clientX, e.clientY);
       let x = Math.max(e.clientX - dx, 0);
@@ -157,64 +168,89 @@ class Dialog extends React.Component {
     }
 
     function _end() {
-      removeEvent(document, 'mousemove', _move);
-      removeEvent(document, 'mouseup', _end);
+      evt.remove(document, 'mousemove', _move);
+      evt.remove(document, 'mouseup', _end);
     }
 
-    addEvent(document, 'mousemove', _move);
-    addEvent(document, 'mouseup', _end);
+    evt.add(document, 'mousemove', _move);
+    evt.add(document, 'mouseup', _end);
   }
 
   render() {
-    const { type, btns, title, disabled, isInsert } = this.props;
+    const { type, btns, title, disabled, isInsert, animated = true } = this.props;
     const content = this.props.children;
 
-    return (
-      <div className={classnames('dialog', 'animated bounceInDown', disabled && 'dialog-disabled')} ref="dialog">
-        <header onMouseDown={this.handleDragable.bind(this)}>
-          {title}
-          <span className="close" onClick={this.handleClose.bind(this)}>&times;</span>
-        </header>
-        <section ref="content" className={classnames(!type && 'insert')}>
+    if (isInsert) {
+      return (
+        <div className={classnames('dialog', animated && 'animated short fadeInDown', disabled && 'dialog-disabled')} ref="dialog">
+          <header onMouseDown={this.handleDragable.bind(this)}>
+            {title}
+            <span className="close" onClick={this.handleClose.bind(this)}>&times;</span>
+          </header>
+          <section ref="content">
+            <div className="dialog-content">{content}</div>
+          </section>
           {
-            isInsert ? (
-              <div className="dialog-content">{content}</div>
-            ) : (
-              <div className="dialog-message-outer">
-                <i className={type}></i>
-                <div className="dialog-message">
-                  {content}
-                </div>
-              </div>
-            )
+            btns.length > 0 && 
+              <footer ref="footer">
+                {
+                  btns.map((item, index) => {
+                    return (
+                      <Button 
+                        key={index}
+                        type={item.type}
+                        onClick={
+                          () => {
+                            this.handleClose();
+                            item.handler && item.handler.call(this);
+                          }
+                        }>
+                        {item.text}
+                      </Button>
+                    )
+                  })
+                }
+              </footer>
           }
-        </section>
-        {
-          btns.length > 0 && 
-            <footer ref="footer">
-              {
-                btns.map((item, index) => {
-                  return (
-                    <Button 
-                      key={index}
-                      type={item.type}
-                      onClick={
-                        () => {
-                          this.handleClose();
-                          item.handler && item.handler.call(this);
-                          
-                          // eventEmitter._events[item.key] &&  eventEmitter._events[item.key].call(this);
-                        }
-                      }>
-                      {item.text}
-                    </Button>
-                  )
-                })
-              }
-            </footer>
-        }
-      </div>
-    )
+        </div>
+      )
+    }
+    else {
+      return (
+        <div className={classnames('dialog dialog-message', 'animated short fadeInDown', disabled && 'dialog-disabled')} ref="dialog">
+          <section ref="content">
+            <Icon type={type} className={`dialog-icon-${type}`} />
+            <div className="dialog-message-text">
+              <div className="dialog-message-text-main">
+                {content}
+              </div>
+            </div>
+          </section>
+          {
+            btns.length > 0 && 
+              <footer ref="footer">
+                {
+                  btns.map((item, index) => {
+                    return (
+                      <Button 
+                        key={index}
+                        type={item.type}
+                        onClick={
+                          () => {
+                            this.handleClose();
+                            item.handler && item.handler.call(this);
+                          }
+                        }>
+                        {item.text}
+                      </Button>
+                    )
+                  })
+                }
+              </footer>
+          }
+        </div>
+      )
+    }
   }
 
   // 关闭弹窗
@@ -223,7 +259,7 @@ class Dialog extends React.Component {
   }
 
   events() {
-    this.unbind = addEvent(window, 'resize', () => {
+    this.unbind = evt.add(window, 'resize', () => {
       this.reflow();
     });
   }
@@ -231,7 +267,7 @@ class Dialog extends React.Component {
   // 回流
   reflow() {
     this.limit();
-    this.rebuild();
+    // this.rebuild();
   }
 
   // 限制

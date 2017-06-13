@@ -3,15 +3,23 @@
  */
 
 import querystring from 'querystring';
-import { addEvent } from 'utils/event';
-import { parse as parseURL } from 'url';
+import evt from 'utils/evt';
+import { parse as parseURL, format as formatURL } from 'url';
+import qs from 'qs';
 
 const location = global.location;
 const history = global.history;
 
 const router = {
 	// 设置地址
-	setURL(url) {
+	setURL(url, query = null) {
+		// url 参数
+		if (query) {
+			let data = parseURL(url);
+			data.query = Object.assign(qs.parse(data.query), query);
+			url = formatURL(data);
+		}
+
 		if (this.isSuport()) {
 			history.pushState(null, null, url);
 		}
@@ -73,7 +81,7 @@ const router = {
 	// 监听路径变化
 	listen(fn) {
 		if (this.isSuport()) {
-			addEvent(window, 'popstate', function(event) {
+			evt.add(window, 'popstate', function(event) {
 				fn && fn.call(window, event);
 			});
 		}

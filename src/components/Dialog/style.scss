@@ -12,6 +12,11 @@
   height: 100%;
   background-color: rgba(0,0,0,.4);
   z-index: 99;
+
+  display: flex;
+  align-items: center;
+  // text-align: center;
+  justify-content: center;
   
   .dialog {
   	position: absolute;
@@ -20,7 +25,7 @@
   	// min-height: 120px;
   	// border: $border;
   	border-radius: 4px;
-  	background-color: #f4f4f4;
+  	background-color: $white;
     box-shadow: 0 0 6px #ccc;
 
     &.dialog-disabled:after {
@@ -33,12 +38,59 @@
       height: 100%;
       background-color: rgba(255,255,255,.3);
     }
+
+    &.dialog-message {
+      width: 400px;
+      // height: 192px;
+      padding: 40px;
+      
+      section {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        min-height: 100px;
+      }
+
+      .dialog-message-text {
+        // max-height: 180px;
+        // display: inline-block;
+        margin: 10px;
+        overflow: auto;
+  
+        .dialog-message-text-main {
+          font-size: 16px;
+          color: #666;
+        }
+
+        .dialog-message-text-sub {
+          font-size: 12px;
+          color: #999 ;
+        }
+      }
+    }
+    
+    // 图标
+    .dialog-icon-warn {
+      // fill: $warn-color;
+      fill: #ff0000;
+    }
+    .dialog-icon-success {
+      fill: $success-color;
+    }
+    .dialog-icon-info {
+      fill: $primary-color;
+    }
+    .dialog-icon-error {
+      fill: $danger-color;
+    }
   	
   	header {
   		padding: 14px 16px;
       // padding-left: 46px;
       font-size: 16px;
       line-height: 30px;
+      background-color: #f4f4f4;
       // border-bottom: $border;|
   	
   		.close {
@@ -55,40 +107,33 @@
         line-height: 31px;
 
         &:hover {
-          background-color: darken($primary-color, 6%);
+          background-color: lighten($primary-color, 6%);
         }
   		}
   	}
 
   	section {
-  		padding: 10px;
-    	min-height: 100px;
+  		// padding: 10px;
+    	// min-height: 100px;
       background-color: $white;
     	overflow: auto;
 
-      &.insert {
+      .dialog-content {
         width: 960px;
         min-height: 520px;
-      }
-
-      .dialog-message-outer {
-        max-width: 500px;
-
-        .dialog-message {
-          max-height: 180px;
-          overflow: auto;
-        }
+        padding: 10px;
       }
   	}
 
   	footer {
-  		padding: 10px;
+  		// padding: 10px;
       // border-top: $border;
 
       text-align: center;
 
       button {
         margin: 0 4px;
+        font-size: 14px;
       }
   	}
 

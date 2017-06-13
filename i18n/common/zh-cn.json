@@ -27,6 +27,8 @@
   "delete"  : "删除",
   "cancel" : "取消",
 
+  "loading": "加载中...",
+
   "areaUnit" : "平方米",
   "status": "状态",
   "content" : "内容",

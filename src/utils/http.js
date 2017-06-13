@@ -9,11 +9,7 @@ import api from 'config/api.config';
 import { Dialog } from 'components';
 import _ from 'lodash';
 
-// console.log(api);
-// const api = { dev: {} };
-const NODE_REFER = 'dev';
-
-let sysnames = Object.keys(api[NODE_REFER]);
+let sysnames = Object.keys(api[NODE_REFER] || {});
 
 // console.log(sysnames)
 
@@ -38,6 +34,11 @@ const parameter = (options) => {
 
 const http = (options = {}) => {
   const { baseURL = '/api', url, param } = options;
+
+  // 开启mock
+  if (NODE_REFER == 'mock') {
+    options.mock = true;
+  }
 
   let promise;
   // mock请求

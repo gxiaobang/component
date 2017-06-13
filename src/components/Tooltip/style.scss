@@ -9,4 +9,42 @@
   border-radius: 4px;
   background-color: rgba(0,0,0,.6);
   color: $white;
+
+  &:after {
+    content: "";
+    opacity: .6;
+    position: absolute;
+  }
+
+  &.tooltip-placement-top {
+    &:after {
+      left: calc(50% - 5px);
+      top: -8px;
+      @include triangle($dir: top, $size: 10px 8px, $color: #000);
+    }
+  }
+
+  &.tooltip-placement-bottom {
+    &:after {
+      left: calc(50% - 5px);
+      bottom: -8px;
+      @include triangle($dir: bottom, $size: 10px 8px, $color: #000);
+    }
+  }
+
+  &.tooltip-placement-left {
+    &:after {
+      left: -8px;
+      top: calc(50% - 5px);
+      @include triangle($dir: left, $size: 8px 10px, $color: #000);
+    }
+  }
+
+   &.tooltip-placement-right {
+    &:after {
+      right: -8px;
+      top: calc(50% - 5px);
+      @include triangle($dir: right, $size: 8px 10px, $color: #000);
+    }
+  }
 }

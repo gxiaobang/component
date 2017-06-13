@@ -1,9 +1,12 @@
 /**
  * TreeSelect 树选择
+ * @example
+ * <TreeSelecte></TreeSelecte>
  */
 
 import React from 'react';
 import { Input } from 'components';
+import Tree from 'components/Tree';
 import classnames from 'classnames';
 import _ from 'lodash';
 import './style';
@@ -12,7 +15,7 @@ class TreeSelect extends React.Component {
 
   state = {
     value: '',
-    data: this.props.data || []
+    treeData: this.props.treeData || []
   };
 
   // 选择
@@ -33,11 +36,11 @@ class TreeSelect extends React.Component {
   }
 
   // 渲染数据
-  renderList(data) {
+  renderList(treeData) {
     return (
       <ul>
         {
-          data.map((item, index) => {
+          treeData.map((item, index) => {
             if (_.isArray(item.children)) {
               return (
                 <li key={index}>
@@ -73,11 +76,16 @@ class TreeSelect extends React.Component {
           <input type="hidden" name={name} value={this.state.value} />
         </div>
         <div className={classnames('tree-select-list', this.state.isOpen ? 'open' : '')}>
-          {this.renderList(this.state.data)}
+          {this.renderList(this.state.treeData)}
         </div>
       </div>
     );
   }
 }
+
+/*import testComponent from 'utils/testComponent';
+testComponent(
+  <TreeSelecte></TreeSelecte>
+);*/
 
 export default TreeSelect;
