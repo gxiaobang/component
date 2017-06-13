@@ -15,6 +15,14 @@ class Spin extends React.Component {
       <div className="spin-wrapper">
         <Icon type="spinner" size={16} spin />
         <span>{this.props.children || __('loading')}</span>
+        
+        {/*<span className="spin-anim">
+          <span className="spin-circle"></span>
+          <span className="spin-circle"></span>
+          <span className="spin-circle"></span>
+          <span className="spin-circle"></span>
+          <span className="spin-circle"></span>
+        </span>*/}
       </div>
     );
   }
