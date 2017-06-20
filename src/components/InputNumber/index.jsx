@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import { Input } from 'components';
+import { Input } from '@/components';
 
 
 class InputNumber extends React.Component {

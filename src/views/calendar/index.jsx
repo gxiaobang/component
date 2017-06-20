@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import { Button, DatePicker, TimePicker, Form } from 'components';
+import { Button, DatePicker, TimePicker, Form } from '@/components';
 // import Calendar from 'rc-calendar';
 const { FormItem } = Form;
 

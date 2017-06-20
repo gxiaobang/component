@@ -13,7 +13,7 @@ const path = require('path');
 const { version, srcPath, rootPath, distPath, publicPath } = require('./config/base.config');
 
 // 语言包
-const langFn = require('./i18n/lang');
+const locale = require('./i18n/locale');
 
 process.env.NODE_ENV = 'production';
 module.exports = (env = {}) => {
@@ -24,28 +24,21 @@ module.exports = (env = {}) => {
   return ['zh-cn', 'en'].map((lang) => ({
     name: lang,
     entry: {
-      app: [path.resolve(srcPath, './app')],
+      app: path.resolve(srcPath, './app'),
       // 第三方
       vendor: ['core-js', 'react', 'react-dom', 'mobx',  'lodash', 'moment', 'axios', 'classnames']
     },
     output: {
       path: path.resolve(distPath, version),
-      filename: '[name].[chunkhash:5].js',
       publicPath: publicPath,
+      filename: '[name].[chunkhash:5].js',
       chunkFilename: '[name].[chunkhash:5].js'
     },
     resolve: {
       extensions: ['.js', '.jsx', '.sass', '.scss'],
       // 简称
       alias: {
-        'utils': path.resolve(srcPath, './utils'),
-        'stores': path.resolve(srcPath, './stores'),
-        'views': path.resolve(srcPath, './views'),
-        'images': path.resolve(srcPath, './images'),
-        'components': path.resolve(srcPath, './components'),
-        'layouts': path.resolve(srcPath, './layouts'),
-        'styles': path.resolve(srcPath, './styles'),
-        'mocks': path.resolve(srcPath, './mocks'),
+        '@': srcPath,
         'config': path.resolve(rootPath, './config'),
       }
     },
@@ -72,7 +65,7 @@ module.exports = (env = {}) => {
                 options: {
                   plugins: () => {
                     return [
-                      autoprefixer({ browsers: ['last 10 version'] })
+                      autoprefixer({ browsers: ['> 1%', 'last 2 version'] })
                     ]
                   }
                 }
@@ -83,7 +76,7 @@ module.exports = (env = {}) => {
           })
         },
         {
-          test: /\.(png|jpg)$/,
+          test: /\.(png|jpg|gif)$/,
           use: ['url-loader?limit=25000']
         }
       ]
@@ -104,13 +97,13 @@ module.exports = (env = {}) => {
 
       // 修改页面静态文件路径
       new HtmlWebpackPlugin({
-        title: 'WEB 组件',
+        title: 'Web组件',
         lang: lang,
         template: path.resolve(srcPath, './index.html'),
         filename: `index_${lang}.html`
       }),
 
-      new I18nPlugin(langFn(lang)),
+      new I18nPlugin(locale.use(lang)),
 
       // 压缩
       new webpack.optimize.UglifyJsPlugin({

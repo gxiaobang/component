@@ -4,9 +4,9 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Button, Input, Form, Select, Message } from 'components';
-import { getFormParam, http } from 'utils';
-import router from 'utils/router';
+import { Button, Input, Form, Select, Message } from '@/components';
+import { getFormParam, http } from '@/utils';
+import router from '@/utils/router';
 import './style';
 
 const { FormItem } = Form;

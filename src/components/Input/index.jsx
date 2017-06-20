@@ -1,13 +1,13 @@
 /**
- * 文本输入
- * @author gxiaobang
+ * 输入框
  * @example
  *   <Input name="user" defaultValue="admin" />
  */
 
 import React from 'react';
+import ReactDOM from 'react-dom';
 import classnames from 'classnames';
-import Validate from 'components/Validate';
+import Validate from '@/components/Validate';
 import './style';
 
 const { Validator } = Validate;
@@ -21,6 +21,20 @@ class Input extends React.Component {
     value: this.props.value
   };*/
 
+  get $elem() {
+    return this.getElement();
+  }
+
+  get $val() {
+    return this.$elem.value;
+  }
+
+
+  // 获取表单元素
+  getElement() {
+    return this.refs.input;
+  }
+
   componentDidMount() {
 
   }
@@ -33,18 +47,12 @@ class Input extends React.Component {
     }
   }
 
-  // 获取表单元素
-  getElement() {
-    return this.refs.input;
-  }
-
   // 输入变化
   handleChange(e) {
     const { onChange } = this.props;
     let value = e.target.value;
     // 校验规则
     this.refs.validate && this.refs.validate.verify(value);
-
     onChange && onChange(e);
   }
 

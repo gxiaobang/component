@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import { Dialog, Button, Icon } from 'components';
+import { Dialog, Button, Icon } from '@/components';
 
 class Page extends React.Component {
 

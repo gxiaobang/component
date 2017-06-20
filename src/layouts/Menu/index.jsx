@@ -4,8 +4,8 @@
 
 import React from 'react';
 import { observer } from 'mobx-react';
-import router from 'utils/router';
-import http from 'utils/http';
+import router from '@/utils/router';
+import http from '@/utils/http';
 import './style';
 
 // 菜单

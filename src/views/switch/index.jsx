@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import { Button, Switch } from 'components';
+import { Button, Switch } from '@/components';
 
 class Page extends React.Component {
 

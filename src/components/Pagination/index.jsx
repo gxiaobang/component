@@ -7,7 +7,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import classnames from 'classnames';
-import { Input } from 'components';
+import { Input } from '@/components';
+import keyCode from '@/utils/keyCode';
 import './style';
 
 class Pagination extends React.Component {
@@ -78,15 +79,15 @@ class Pagination extends React.Component {
     return node;
   }
 
-  handleKeyDown(e) {
-    if (e.keyCode == 13) {
-      let input = this.refs.input.getElement();
-      let num = parseInt(input.value);
-      input.value = '';
+  handleKeyUp(e) {
+    // 回车
+    if (keyCode(e.keyCode).is('enter')) {
+      let elem = this.refs.input.$elem;
+      let num = parseInt(elem.value);
+      elem.value = '';
 
-      if (num > 0 && num <= this.count) {
-        this.handleClick(num);
-      }
+      num = Math.min(Math.max(0, num), this.count);
+      this.handleClick(num);
     }
   }
   
@@ -101,8 +102,8 @@ class Pagination extends React.Component {
             {this.renderRecord()}
           </ul>
           <div className="pagination-goto">
-            跳至 <Input ref="input" className="pagination-input" onKeyDown={
-              (e) => this.handleKeyDown(e)
+            跳至 <Input ref="input" className="pagination-input" onKeyUp={
+              (e) => this.handleKeyUp(e)
             } /> 页
           </div>
         </div>

@@ -1,6 +1,5 @@
 /*
  * 弹框
- * @author gxiaobang
  * @version 0.1.0
  * @example
  *   Dialog.alert('内容123', 'warn');
@@ -9,20 +8,27 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { evt, effects, noop } from 'utils';
-import { Button, Icon } from 'components';
-import router from 'utils/router';
-import wrapper from 'utils/wrapper';
 import classnames from 'classnames';
+import { evt, effects, noop } from '@/utils';
+import { Button, Icon, Animate } from '@/components';
+import router from '@/utils/router';
+import wrapper from '@/utils/wrapper';
 
 // 引入样式
 import './style';
+
+let animConfig = {
+  in: 'fadeInDown',
+  out: 'fadeOutUp'
+};
 
 let wrap;
 const addDialog = (options) => {
   if (!wrap) {
     wrap = wrapper(<Container type="dialog" />);
   }
+
+  wrap.clear();
 
   const { data } = wrap.state;
   data.push(options);
@@ -37,27 +43,34 @@ class Container extends React.Component {
     data: []
   };
 
+  // 清除已卸载的弹窗
+  clear() {
+    const { data } = this.state;
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].unmount) {
+        data.splice(i, 1);
+        i--;
+      }
+    }
+  }
+
   removeItem(item) {
     const { data } = this.state;
     let index = data.indexOf(item);
+    let { animate = animConfig.out } = item;
     if (index > -1) {
-      data.splice(index, 1);
-      this.setState({ data });
+      data[ index ].unmount = true;
+      effects(item.com.refs.dialog)
+        .frame(animate)
+        .then(() => {
+          data.splice(index, 1);
+          this.setState({ data });
+        })
     }
   }
 
   // 关闭当前页面弹窗
   closeCurrent() {
-    /*if (data.length) {
-      data.splice(data.length - 1, 1);
-      this.setState();
-    }*/
-
-    /*effects.anim();
-    effects(div).frame('fadeInDown', () => {
-
-    });
-*/
     const { data } = this.state;
     for (let i = data.length - 1; i > -1; i--) {
       if (data[i].isInsert) {
@@ -84,7 +97,7 @@ class Container extends React.Component {
             }
 
             return (
-              <Dialog disabled={index < this.state.data.length - 1} key={item.sequel} type={item.type} title={item.title} btns={item.btns} onClose={this.removeItem.bind(this, item)} isInsert={item.isInsert} animated={item.animated} ref={com => item.com = com}>
+              <Dialog disabled={index < this.state.data.length - 1} key={item.sequel} type={item.type} title={item.title} btns={item.btns} onClose={this.removeItem.bind(this, item)} isInsert={item.isInsert} animate={item.animate} ref={com => item.com = com}>
                 {item.content}
               </Dialog>
             );
@@ -120,15 +133,17 @@ class Dialog extends React.Component {
   }
 
   // DOM插入
-  static insert({ content, title = '提示框', btns = [{ text: '确定', type: 'primary', key: 'ok' }, { text: '取消', key: 'cancel' }], animated }) {
-    addDialog({ content, btns, title, isInsert: true, animated });
+  static insert({ content, title = '提示框', btns = [{ text: '确定', type: 'primary', key: 'ok' }, { text: '取消', key: 'cancel' }], animate }) {
+    addDialog({ content, btns, title, isInsert: true, animate });
   }
 
   // 打开一个页面
   static open({ url, title, data = null, btns = [] }) {
     // console.log(router.getPageURL(url))
-    const location = router.getLocation(url);
-    import('views/' + router.getPageURL(url) + '.jsx')
+    let location = router.getLocation(url);
+    // console.log(location)
+    let pageURL = router.getPageURL(url);
+    import('@/views/' + pageURL + '.jsx')
       .then(module => {
         const Page = module.default;
         Dialog.insert({ content: <Page data={data} location={location} />, title, btns });
@@ -177,78 +192,82 @@ class Dialog extends React.Component {
   }
 
   render() {
-    const { type, btns, title, disabled, isInsert, animated = true } = this.props;
+    const { type, btns, title, disabled, isInsert, animate = animConfig.in } = this.props;
     const content = this.props.children;
 
     if (isInsert) {
       return (
-        <div className={classnames('dialog', animated && 'animated short fadeInDown', disabled && 'dialog-disabled')} ref="dialog">
-          <header onMouseDown={this.handleDragable.bind(this)}>
-            {title}
-            <span className="close" onClick={this.handleClose.bind(this)}>&times;</span>
-          </header>
-          <section ref="content">
-            <div className="dialog-content">{content}</div>
-          </section>
-          {
-            btns.length > 0 && 
-              <footer ref="footer">
-                {
-                  btns.map((item, index) => {
-                    return (
-                      <Button 
-                        key={index}
-                        type={item.type}
-                        onClick={
-                          () => {
-                            this.handleClose();
-                            item.handler && item.handler.call(this);
-                          }
-                        }>
-                        {item.text}
-                      </Button>
-                    )
-                  })
-                }
-              </footer>
-          }
-        </div>
+        <Animate name={animate}>
+          <div className={classnames('dialog', disabled && 'dialog-disabled')} ref="dialog">
+            <header onMouseDown={this.handleDragable.bind(this)}>
+              {title}
+              <span className="close" onClick={this.handleClose.bind(this)}>&times;</span>
+            </header>
+            <section ref="content">
+              <div className="dialog-content">{content}</div>
+            </section>
+            {
+              btns.length > 0 && 
+                <footer ref="footer">
+                  {
+                    btns.map((item, index) => {
+                      return (
+                        <Button 
+                          key={index}
+                          type={item.type}
+                          onClick={
+                            () => {
+                              this.handleClose();
+                              item.handler && item.handler.call(this);
+                            }
+                          }>
+                          {item.text}
+                        </Button>
+                      )
+                    })
+                  }
+                </footer>
+            }
+          </div>
+        </Animate>
       )
     }
     else {
       return (
-        <div className={classnames('dialog dialog-message', 'animated short fadeInDown', disabled && 'dialog-disabled')} ref="dialog">
-          <section ref="content">
-            <Icon type={type} className={`dialog-icon-${type}`} />
-            <div className="dialog-message-text">
-              <div className="dialog-message-text-main">
-                {content}
+        <Animate name="fadeInDown">
+          <div className={classnames('dialog dialog-message', disabled && 'dialog-disabled')} ref="dialog">
+            <section ref="content">
+              <Icon type={type} className={`dialog-icon-${type}`} />
+              <div className="dialog-message-text">
+                <div className="dialog-message-text-main">
+                  {content}
+                </div>
               </div>
-            </div>
-          </section>
-          {
-            btns.length > 0 && 
-              <footer ref="footer">
-                {
-                  btns.map((item, index) => {
-                    return (
-                      <Button 
-                        key={index}
-                        type={item.type}
-                        onClick={
-                          () => {
-                            this.handleClose();
-                            item.handler && item.handler.call(this);
-                          }
-                        }>
-                        {item.text}
-                      </Button>
-                    )
-                  })
-                }
-              </footer>
-          }
-        </div>
+            </section>
+            {
+              btns.length > 0 && 
+                <footer ref="footer">
+                  {
+                    btns.map((item, index) => {
+                      return (
+                        <Button 
+                          key={index}
+                          type={item.type}
+                          onClick={
+                            () => {
+                              this.handleClose();
+                              item.handler && item.handler.call(this);
+                            }
+                          }>
+                          {item.text}
+                        </Button>
+                      )
+                    })
+                  }
+                </footer>
+            }
+          </div>
+        </Animate>
       )
     }
   }

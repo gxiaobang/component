@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import { Table, Link } from 'components';
+import { Table, Link } from '@/components';
 
 class Page extends React.Component {
 

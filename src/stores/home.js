@@ -5,10 +5,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { observable, computed } from 'mobx';
-import redirect from 'utils/redirect';
-import router from 'utils/router';
-import { session } from 'utils/storage';
-import { Spin } from 'components';
+import redirect from '@/utils/redirect';
+import router from '@/utils/router';
+import { session } from '@/utils/storage';
+import { Spin } from '@/components';
 
 // 更新菜单session存贮
 const updateSession = (items) => {
@@ -48,8 +48,9 @@ class MenuItem {
 
   // 导入页面
   importPage(data) {
+    let url = router.getPageURL(data.url);
     // let url = data.url.replace(/^\//, '').replace(/\?(\w|\/|=){0,}/, '');
-    import('views/' + router.getPageURL(data.url) + '.jsx')
+    import('@/views/' + url + '.jsx')
       .then(module => {
         // console.log(module)
         const Page = module.default;
@@ -179,7 +180,7 @@ class MenuStore {
   // 打开
   open(item) {
     // 清空数据数据
-    // this.empty();
+    this.empty();
 
     item.active = true;
     const added = this.addItem(item);
@@ -189,7 +190,8 @@ class MenuStore {
       this.selectItem(item.code);
     }
 
-    router.setURL(item.url);
+    document.title = item.title + ' - ' + '东呈国际酒店集团';
+    router.setURL(item.url, { lang: global.lang });
   }
 
   // 临时

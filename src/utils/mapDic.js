@@ -2,7 +2,7 @@
  * 字典表map
  */
 
-import http from 'utils/http';
+import { http } from '@/utils';
 
 let dic;
 // 请求字典表

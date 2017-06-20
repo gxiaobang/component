@@ -4,7 +4,7 @@
 
 import React from 'react';
 // import ReactDOM from 'react-dom';
-import { Dialog } from 'components';
+import { Dialog } from '@/components';
 
 const testComponent = (content) => {
   Dialog.closeCurrent();
@@ -12,7 +12,7 @@ const testComponent = (content) => {
     content,
     title: '组件测试',
     btns: [],
-    animated: false
+    animate: null
   });
 }
 

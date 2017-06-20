@@ -3,9 +3,9 @@
  */
 
 import querystring from 'querystring';
-import evt from 'utils/evt';
 import { parse as parseURL, format as formatURL } from 'url';
 import qs from 'qs';
+import evt from '@/utils/evt';
 
 const location = global.location;
 const history = global.history;

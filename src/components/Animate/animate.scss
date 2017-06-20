@@ -1,0 +1,43 @@
+/**
+ * 动画
+ */
+
+@import "keyframes";
+
+.animated {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
+// 无限播放
+.animated.infinite {
+  animation-iteration-count: infinite;
+}
+
+// 长时间
+.animated.hinge {
+  animation-duration: 2s;
+}
+
+.spin {
+  animation-name: spin;
+  animation-timing-function: linear;
+}
+
+.fadeInDown {
+  animation-duration: .5s;
+  animation-name: fadeInDown;
+}
+
+.fadeOutUp {
+  animation-duration: .5s;
+  animation-name: fadeOutUp;
+}
+
+.fadeInUp {
+  animation-name: fadeInUp;
+}
+
+.wobble {
+  animation-name: wobble;
+}

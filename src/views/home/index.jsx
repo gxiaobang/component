@@ -4,12 +4,11 @@
 
 import React from 'react';
 import { observer } from 'mobx-react';
-
-import Menu from 'layouts/Menu';
-import Content from 'layouts/Content';
-import Header from 'layouts/Header';
-import Main from 'layouts/Main';
-import router from 'utils/router';
+import Menu from '@/layouts/Menu';
+import Content from '@/layouts/Content';
+import Header from '@/layouts/Header';
+import Main from '@/layouts/Main';
+import router from '@/utils/router';
 import './style';
 
 /*router.listen(event => {

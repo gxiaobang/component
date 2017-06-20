@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import { Message, Button } from 'components';
+import { Message, Button } from '@/components';
 
 class Page extends React.Component {
   guide = 1;

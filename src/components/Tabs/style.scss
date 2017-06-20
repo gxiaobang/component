@@ -2,25 +2,27 @@
  * tabs
  */
 
-.rc-smart-tabs {
-  .rc-smart-tabs-header {
+@import "~@/styles/main";
+
+.tabs {
+  .tabs-header {
 
   }
 
-  .rc-smart-tabs-tab {
+  .tabs-tab {
     display: inline-block;
     padding: 5px;
-    border-radius: 2px;
+    border-radius: 4px;
     cursor: pointer;
 
     &.active {
       // display: block;
       color: white;
-      background: #00BCD4;
+      background: $primary-color;
     }
   }
   
-  .rc-smart-tabs-pane {
+  .tabs-pane {
     display: none;
     padding: 5px;
     

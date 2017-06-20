@@ -5,8 +5,8 @@
  */
 
 import React from 'react';
-import { Select } from 'components';
-import http from 'utils/http';
+import { Select } from '@/components';
+import http from '@/utils/http';
 import './style';
 
 const { Option } = Select;

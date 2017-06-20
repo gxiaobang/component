@@ -3,9 +3,9 @@
  */
 import React from 'react';
 import { observer } from 'mobx-react';
-import { Close } from 'components';
-import router from 'utils/router';
 import classnames from 'classnames';
+import { Close } from '@/components';
+import router from '@/utils/router';
 import './style';
 
 // tabs切换

@@ -1,12 +1,12 @@
 /**
  * 按钮
  */
-@import "~styles/main";
+@import "~@/styles/main";
 
 .btn {
   min-width: 56px;
   padding: 6px 10px;
-  border: $border;
+  border: $border-transparent;
   border-radius: 5px;
   font-size: 12px;
   outline: none;

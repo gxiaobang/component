@@ -7,12 +7,12 @@
 import React from 'react';
 import TimePickerPanel from 'rc-time-picker/lib/Panel';
 import Picker from 'rc-calendar/lib/Picker';
-import moment from 'moment';
-import { Input } from 'components';
-
-import Calendar from 'rc-calendar';
 import zhCN from 'rc-calendar/lib/locale/zh_CN';
+import Calendar from 'rc-calendar';
 import 'rc-calendar/assets/index.css';
+import moment from 'moment';
+
+import { Input } from '@/components';
 import './style.scss';
 
 const timePickerElement = <TimePickerPanel />;

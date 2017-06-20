@@ -6,8 +6,8 @@
  */
 
 import React from 'react';
-import http from 'utils/http';
 import _ from 'lodash';
+import http from '@/utils/http';
 import './style';
 
 class RadioGroup extends React.Component {

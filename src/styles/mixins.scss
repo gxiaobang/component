@@ -10,6 +10,18 @@
   }
 }
 
+// 定位
+@mixin position($position, $values) {
+  position: $position;
+  @each $name, $val in $values {
+    #{$name}: $val;
+  }
+}
+
+@mixin absolute($values) {
+  @include position(absolute, $values);
+}
+
 // 设置大小
 @mixin size($width, $height: $width) {
   width: $width;

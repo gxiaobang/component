@@ -1,13 +1,20 @@
-@import "~styles/main";
+@import "~@/styles/main";
+
+.popover-wrapper {
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+}
 
 .popover {
+  $triangle-border-color: #aeaeae;
   position: absolute;
   left: 0;
   top: 0;
 
-  padding: 8px 16px;
+  padding: 10px;
   border-radius: 4px;
-  // background-color: rgba(0,0,0,.6);
   background-color: $white;
   border: $border;
   color: #666;
@@ -19,23 +26,11 @@
   }
 
   &.popover-placement-top {
-    &:before {
-      left: calc(50% - 5px);
-      top: -9px;
-      @include triangle($dir: top, $size: 10px 8px, $color: $border-color);
-    }
-    &:after {
-      left: calc(50% - 5px);
-      top: -8px;
-      @include triangle($dir: top, $size: 10px 8px, $color: $white);
-    }
-  }
-
-  &.popover-placement-bottom {
+    transform: translate(-50%, -100%);
     &:before {
       left: calc(50% - 5px);
       bottom: -9px;
-      @include triangle($dir: bottom, $size: 10px 8px, $color: $border-color);
+      @include triangle($dir: bottom, $size: 10px 8px, $color: $triangle-border-color);
     }
     &:after {
       left: calc(50% - 5px);
@@ -44,29 +39,45 @@
     }
   }
 
-  &.popover-placement-left {
+  &.popover-placement-bottom {
+    transform: translateX(-50%);
     &:before {
-      left: -9px;
-      top: calc(50% - 5px);
-      @include triangle($dir: left, $size: 8px 10px, $color: $border-color);
+      left: calc(50% - 5px);
+      top: -9px;
+      @include triangle($dir: top, $size: 10px 8px, $color: $triangle-border-color);
     }
     &:after {
-      left: -8px;
-      top: calc(50% - 5px);
-      @include triangle($dir: left, $size: 8px 10px, $color: $white);
+      left: calc(50% - 5px);
+      top: -8px;
+      @include triangle($dir: top, $size: 10px 8px, $color: $white);
     }
   }
 
-   &.popover-placement-right {
+  &.popover-placement-left {
+    transform: translate(-100%, -50%);
     &:before {
       right: -9px;
       top: calc(50% - 5px);
-      @include triangle($dir: right, $size: 8px 10px, $color: $border-color);
+      @include triangle($dir: right, $size: 8px 10px, $color: $triangle-border-color);
     }
     &:after {
       right: -8px;
       top: calc(50% - 5px);
       @include triangle($dir: right, $size: 8px 10px, $color: $white);
+    }
+  }
+
+  &.popover-placement-right {
+    transform: translateY(-50%);
+    &:before {
+      left: -9px;
+      top: calc(50% - 5px);
+      @include triangle($dir: left, $size: 8px 10px, $color: $triangle-border-color);
+    }
+    &:after {
+      left: -8px;
+      top: calc(50% - 5px);
+      @include triangle($dir: left, $size: 8px 10px, $color: $white);
     }
   }
 }

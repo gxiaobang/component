@@ -10,60 +10,158 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { evt, getPoint } from '@/utils';
+import wrapper from '@/utils/wrapper';
+import turnoff from '@/utils/turnoff';
 import './style';
 
 let wrap;
-const addPopover = (options) => {
-  if (!wrap) {
-    wrap = wrapper(<Container type="popover" />);
+class Container extends React.Component {
+
+  static add(item) {
+    if (!wrap) {
+      wrap = wrapper(<Container type="popover" />);
+    }
+    let { data } = wrap.state;
+    if (data.indexOf(item) == -1) {
+      data.push(item);
+      wrap.setState({ data });
+    }
   }
 
-  const { data } = wrap.state;
-
-  // 清空数据
-  data.length = 0;
-
-  data.unshift(options);
-  wrap.setState({ data });
-}
-
-let elem;
-const show = ({ message, point, dir }) => {
-  if (!elem) {
-    elem = document.createElement('div');
-    document.body.appendChild(elem);
+  static remove(item) {
+    let { data } = wrap.state;
+    let index = data.indexOf(item);
+    if (index > -1) {
+      data.splice(index, 1);
+      wrap.setState({ data })
+    }
   }
 
-  ReactDOM.render(<Popover point={point} dir={dir}>{message}</Popover>, elem);
-}
 
-class Popover extends React.Component {
-  static show = show;
+  state = {
+    data: []
+  };
 
   render() {
-    const { children, title, point = [], dir = 'top' } = this.props;
+    let { data } = this.state;
     return (
-      <div className={`popover popover-placement-${dir}`} style={
-        { left: point[0], top: point[1] }
-      }>
-        {children}
+      <div className="popover-wrapper">
+        {
+          data.map((item, index) => {
+            let { content, placement, point = [] } = item;
+            return (
+              <div key={index} className={`popover popover-placement-${placement}`} style={
+                { left: point[0], top: point[1] }
+              }>
+                {content}
+              </div>
+            );
+          })
+        }
       </div>
     );
   }
 }
 
-/*import testComponent from 'utils/testComponent';
+class Popover extends React.Component {
+
+  opt = {
+    placement: this.props.placement || 'top'
+  };
+
+  componentDidMount() {
+    this.init();
+  }
+
+  init() {
+    let { trigger = ['click'] } = this.props;
+    let elem = ReactDOM.findDOMNode(this);
+    
+    if (trigger.indexOf('click') > -1) {
+      // let { dir } = this.props;
+      evt.add(elem, 'click', () => {
+        // console.log('我被点击了');
+        this.show(elem);
+        turnoff(elem, () => {
+          console.log('destroy');
+          this.destroy();
+        });
+      });
+    }
+
+    if (trigger.indexOf('hover') > -1) {
+      evt.add(elem, 'mouseenter', () => {
+        this.show(elem);
+      })
+      evt.add(elem, 'mouseleave', () => {
+        this.destroy();
+      })
+    }
+  }
+
+  show(elem) {
+    let point = getPoint(elem);
+    switch (this.opt.placement) {
+      case 'right':
+        this.opt.point = [
+          point.x  + elem.offsetWidth + 10,
+          point.y + elem.offsetHeight / 2
+        ];
+        break;
+      case 'left':
+        this.opt.point = [
+          point.x - 10,
+          point.y + elem.offsetHeight / 2
+        ];
+        break;
+      case 'top':
+        this.opt.point = [
+          point.x + elem.offsetWidth / 2,
+          point.y - 10
+        ];
+        break;
+      case 'bottom':
+        this.opt.point = [
+          point.x + elem.offsetWidth / 2,
+          point.y + elem.offsetHeight + 10
+        ];
+        break;
+    }
+    
+    this.opt.content = this.props.content;
+    Container.add(this.opt);
+  }
+
+  // 销毁
+  destroy() {
+    Container.remove(this.opt);
+  }
+
+  render() {
+    // const { children, title, point = [], dir = 'top' } = this.props;
+    return this.props.children;
+  }
+}
+
+/*import testComponent from '@/utils/testComponent';
+import { Button } from '@/components';
 testComponent(
   <div>
-    <Popover point={[ 120, 120 ]} dir="top">1234567</Popover>
-    <Popover point={[ 120, 200 ]} dir="bottom">1234567</Popover>
-    <Popover point={[ 120, 280 ]} dir="left">1234567</Popover>
-    <Popover point={[ 120, 360 ]} dir="right">1234567</Popover>
+    <Popover placement="left" content="fdasfdasfsafd" trigger={['hover', 'click']}>
+      <Button>图标</Button>
+    </Popover>
+    <Popover placement="top" content="fdasfdasfsafd">
+      <Button>图标</Button>
+    </Popover>
+    <Popover placement="right" content="fdasfdasfsafd">
+      <Button>图标</Button>
+    </Popover>
+    <Popover placement="bottom" content="fdasfdasfsafd">
+      <Button>图标</Button>
+    </Popover>
   </div>
 );*/
 
-// Popover.show({ point: [ 300, 200], message: '123' });
-
-// Popover.show
 
 export default Popover;

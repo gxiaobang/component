@@ -8,7 +8,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'lodash';
-import { Pagination, Spin } from 'components';
+import { Pagination, Spin } from '@/components';
 import './style';
 
 // <colgroup><col style="width: 360px;"></colgroup>
@@ -75,7 +75,7 @@ class Table extends React.Component {
 
           {
             !loading && data.length == 0 &&
-              <img src={require('url-loader!images/kongshuju.svg')} alt="" style={{
+              <img src={require('url-loader!@/images/kongshuju.svg')} alt="" style={{
                 maxHeight: 600
               }} />
           }

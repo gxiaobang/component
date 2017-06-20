@@ -1,7 +1,5 @@
 /**
  * 标签页
- * @author gxiaobang
- * @version 0.1.0
  */
 
 import React from 'react';
@@ -11,42 +9,40 @@ import './style';
 
 class TabPane extends React.Component {
   render() {
-    return this.props.children;
+    return (
+      <div className={classnames('tabs-pane', this.props.active && 'active')}>{this.props.children}</div>
+    )
   }
 }
 
 class Tabs extends React.Component {
   static TabPane = TabPane;
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      index: this.props.index || 0
-    };
-  }
+  state = {
+    current: this.props.current || 0
+  };
 
   // tab点击事件
   handleClick(index) {
-    this.setState({
-      index: index
-    });
+    this.setState({ current: index });
   }
 
   render() {
+    let { current } = this.state;
+
     return (
-      <div className="rc-smart-tabs">
-        <div className="rc-smart-tabs-header">
+      <div className="tabs">
+        <div className="tabs-header">
           {
             this.props.children.map((item, index) => {
-              return <div key={index} className={classnames('rc-smart-tabs-tab', this.state.index == index ? 'active' : '')} onClick={this.handleClick.bind(this, index)}>{item.props.tab}</div>
+              return <div key={index} className={classnames('tabs-tab', current == index && 'active')} onClick={this.handleClick.bind(this, index)}>{item.props.label}</div>
             })
           }
         </div>
-        <div className="rc-smart-tabs-body">
+        <div className="tabs-body">
           {
-            this.props.children.map((item, index) => {
-              return <div key={index} className={classnames('rc-smart-tabs-pane', this.state.index == index ? 'active' : '')}>{item.props.children}</div>
+            this.props.children.map((tabPane, index) => {
+              return <TabPane key={index} active={current == index}>{tabPane.props.children}</TabPane>
             })
           }
         </div>
@@ -54,5 +50,14 @@ class Tabs extends React.Component {
     );
   }
 }
+
+/*import testComponent from 'utils/testComponent';
+testComponent(
+  <Tabs>
+    <TabPane label="Tab 1" key="1">Content of tab 1</TabPane>
+    <TabPane label="Tab 2" key="2">Content of tab 2</TabPane>
+    <TabPane label="Tab 3" key="3">Content of tab 3</TabPane>
+  </Tabs>
+);*/
 
 export default Tabs;

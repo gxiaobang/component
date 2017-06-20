@@ -1,4 +1,11 @@
-@import "~styles/main";
+@import "~@/styles/main";
+
+.tooltip-wrapper {
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+}
 
 .tooltip {
   position: absolute;
@@ -17,14 +24,7 @@
   }
 
   &.tooltip-placement-top {
-    &:after {
-      left: calc(50% - 5px);
-      top: -8px;
-      @include triangle($dir: top, $size: 10px 8px, $color: #000);
-    }
-  }
-
-  &.tooltip-placement-bottom {
+    transform: translate(-50%, -100%);
     &:after {
       left: calc(50% - 5px);
       bottom: -8px;
@@ -32,19 +32,30 @@
     }
   }
 
-  &.tooltip-placement-left {
+  &.tooltip-placement-bottom {
+    transform: translateX(-50%);
     &:after {
-      left: -8px;
-      top: calc(50% - 5px);
-      @include triangle($dir: left, $size: 8px 10px, $color: #000);
+      left: calc(50% - 5px);
+      top: -8px;
+      @include triangle($dir: top, $size: 10px 8px, $color: #000);
     }
   }
 
-   &.tooltip-placement-right {
+  &.tooltip-placement-left {
+    transform: translate(-100%, -50%);
     &:after {
       right: -8px;
       top: calc(50% - 5px);
       @include triangle($dir: right, $size: 8px 10px, $color: #000);
+    }
+  }
+
+  &.tooltip-placement-right {
+    transform: translateY(-50%);
+    &:after {
+      left: -8px;
+      top: calc(50% - 5px);
+      @include triangle($dir: left, $size: 8px 10px, $color: #000);
     }
   }
 }

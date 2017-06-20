@@ -10,7 +10,7 @@ const mocks = (url) => {
       import('mockjs')
         .then((Mock) => {
           setTimeout(() => {
-            import('mocks/' + url + '.json')
+            import('@/mocks/' + url + '.json')
               .then(json => {
                 json = Mock.mock(json);
                 resolve({ data: json });

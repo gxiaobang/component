@@ -4,8 +4,8 @@
 
 import React from 'react';
 import _ from 'lodash';
-import { cls } from 'utils';
 import classnames from 'classnames';
+import { cls, http } from '@/utils';
 import './style';
 
 class TreeNode extends React.Component {
@@ -72,30 +72,95 @@ class Tree extends React.Component {
     onSelect: React.PropTypes.func
   }
 
+  state = {
+    dataSource: this.props.dataSource
+  };
+
   getChildContext() {
     return { onSelect: this.props.onSelect }
   }
 
+  componentDidMount() {
+    this.request();
+  }
+
+  // 请求
+  request() {
+    if (this.props.http) {
+      let { onSuccess } = this.props.http;
+      http({
+        ...this.props.http,
+        onSuccess: (data) => {
+          // console.log(data);
+          this.setState({
+            dataSource: data.data
+          })
+          onSuccess && onSuccess(data);
+        }
+      });
+    }
+  }
+
+  // 渲染树节点
+  renderTree(data) {
+    let nodes = [];
+    for (let i = 0; i < data.length; i++) {
+      if (_.isArray(data[i].children)) {
+        nodes.push(
+          <TreeNode key={i} label={data[i].label} value={data[i].value}>{this.renderTree(data[i].children)}</TreeNode>
+        );
+      }
+      else {
+        nodes.push(
+          <TreeNode key={i} label={data[i].label} value={data[i].value}></TreeNode>
+        );
+      }
+    }
+
+    return nodes;
+  }
+
   render() {
-    return <div className="tree">{this.props.children}</div>
+    let { dataSource = [] } = this.state;
+    return (
+      <div className="tree">
+        {
+          dataSource.length > 0 ? 
+            this.renderTree(dataSource)
+            : this.props.children
+        }
+      </div>
+    );
   }
 }
 
 
 /*import testComponent from 'utils/testComponent';
 testComponent(
-  <Tree onSelect={
+  <Tree dataSource={[
+      { label: '0-0', value: '0-0', children: [
+        { label: '0-0-0', value: '0-0-0' },
+        { label: '0-0-1', value: '0-0-1' }
+      ] },
+      { label: '0-1', value: '0-1' }
+    ]} onSelect={
     (value) => console.log(value)
   }>
-    <TreeNode label="0-0" value="0-0">
-      <TreeNode label="1-1" value="1-1">
-        <TreeNode label="2-1" value="2-1"></TreeNode>
-        <TreeNode label="2-2" value="2-2"></TreeNode>
-      </TreeNode>
-      <TreeNode label="1-2" value="1-2"></TreeNode>
-    </TreeNode>
   </Tree>
-);*/
+);
 
+
+testComponent(
+  <Tree http={{
+    url: '/tree',
+    onSuccess: (data) => {
+      console.log(data);
+    }
+  }} onSelect={
+    (value) => console.log(value)
+  }>
+  </Tree>
+);
+*/
 
 export default Tree;

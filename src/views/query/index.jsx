@@ -3,9 +3,9 @@
  */
 
 import React from 'react';
-import { Form, Input, Select, Button, Link, Dialog } from 'components';
-import http from 'utils/http';
-import Query from 'layouts/Query';
+import { Form, Input, Select, Button, Link, Dialog } from '@/components';
+import http from '@/utils/http';
+import Query from '@/layouts/Query';
 
 
 const { QueryForm, QueryList, QueryBtns } = Query;

@@ -4,7 +4,6 @@
  */
 
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const I18nPlugin = require("i18n-webpack-plugin");
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
@@ -15,8 +14,8 @@ const path = require('path');
 const { devPort, rootPath, srcPath, lang } = require('./config/base.config');
 const api = require('./config/api.config');
 
-// 语言包
-const langFn = require('./i18n/lang');
+// 国际化
+const locale = require('./i18n/locale');
 
 
 module.exports = (env = {}) => {
@@ -38,11 +37,11 @@ module.exports = (env = {}) => {
   }
 
   return {
-    // 调试map
-    devtool: 'eval-source-map',
     name: env.lang,
+    // cheap-module-eval-source-map is faster for development
+    devtool: '#cheap-module-eval-source-map',
     entry: {
-      app: [path.resolve(srcPath, './app')],
+      app: path.resolve(srcPath, './app'),
       // 第三方
       vendor: ['core-js', 'react', 'react-dom', 'mobx',  'lodash', 'moment', 'axios', 'classnames']
     },
@@ -54,14 +53,7 @@ module.exports = (env = {}) => {
       extensions: ['.js', '.jsx', '.sass', '.scss'],
       // 简称
       alias: {
-        'utils': path.resolve(srcPath, './utils'),
-        'stores': path.resolve(srcPath, './stores'),
-        'views': path.resolve(srcPath, './views'),
-        'images': path.resolve(srcPath, './images'),
-        'components': path.resolve(srcPath, './components'),
-        'layouts': path.resolve(srcPath, './layouts'),
-        'styles': path.resolve(srcPath, './styles'),
-        'mocks': path.resolve(srcPath, './mocks'),
+        '@': srcPath,
         'config': path.resolve(rootPath, './config'),
       }
     },
@@ -84,7 +76,7 @@ module.exports = (env = {}) => {
           ]
         },
         {
-          test: /\.(png|jpg)$/,
+          test: /\.(png|jpg|gif)$/,
           use: ['url-loader?limit=25000']
         }
       ]
@@ -95,8 +87,6 @@ module.exports = (env = {}) => {
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NamedModulesPlugin(),
 
-      // new ExtractTextPlugin('styles.css'),
-
       // 提取相同的文件
       new webpack.optimize.CommonsChunkPlugin({
         names: ['vendor', 'common'],
@@ -105,7 +95,7 @@ module.exports = (env = {}) => {
 
       // 修改页面静态文件路径
       new HtmlWebpackPlugin({
-        title: 'WEB 组件',
+        title: 'Web组件',
         lang: env.lang,
         template: path.resolve(srcPath, './index.html')
       }),
@@ -115,7 +105,7 @@ module.exports = (env = {}) => {
         url: `http://localhost:${devPort}`
       }),
 
-      new I18nPlugin(langFn(env.lang)),
+      new I18nPlugin(locale.use(env.lang)),
 
       // 自定义参数
       new webpack.DefinePlugin({

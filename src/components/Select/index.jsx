@@ -9,11 +9,11 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Input, Button } from 'components';
 import classnames from 'classnames';
-import Validate from 'components/Validate';
-import http from 'utils/http';
-import { evt, dom } from 'utils';
+import { Input, Button } from '@/components';
+import Validate from '@/components/Validate';
+import { evt, dom } from '@/utils';
+import http from '@/utils/http';
 import './style';
 
 class Option extends React.Component {
@@ -59,6 +59,15 @@ class Select extends React.Component {
         options: nextProps.options
       });
     }
+  }
+
+  // 获取$elem
+  get $elem() {
+    return this.getElement();
+  }
+
+  get $val() {
+    return this.$elem.value;
   }
 
   // 获取元素
@@ -131,7 +140,7 @@ class Select extends React.Component {
   }
 
   // 键盘事件
-  handleKeyDown(e) {
+  handleKeyUp(e) {
     // console.log(e.keyCode);
 
     // 阻止默认事件
@@ -267,7 +276,7 @@ class Select extends React.Component {
         <Input 
           ref="input"
           onChange={(e) => this.handleSearch(e)}
-          onKeyDown={(e) => this.handleKeyDown(e)} 
+          onKeyUp={(e) => this.handleKeyUp(e)} 
           onBlur={() => this.handleOut()} />
         {
           searchOptions.length > 0 && 

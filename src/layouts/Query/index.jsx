@@ -4,10 +4,10 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Form, Button, Table } from 'components';
-import { getFormParam } from 'utils';
-import http from 'utils/http';
 import _ from 'lodash';
+import { Form, Button, Table } from '@/components';
+import { getFormParam } from '@/utils';
+import http from '@/utils/http';
 import './style';
 
 const { FormItem } = Form;

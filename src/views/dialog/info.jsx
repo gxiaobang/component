@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import { Form, Input } from 'components';
+import { Form, Input } from '@/components';
 
 const { FormItem } = Form;
 

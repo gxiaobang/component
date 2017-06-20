@@ -1,29 +1,29 @@
 /**
  * TreeSelect 树选择
  * @example
- * <TreeSelecte></TreeSelecte>
+ *   <TreeSelect dataSource={dataSource}></TreeSelect>
  */
 
 import React from 'react';
-import { Input } from 'components';
-import Tree from 'components/Tree';
 import classnames from 'classnames';
 import _ from 'lodash';
+import { Input, Tree } from '@/components';
+import { http } from '@/utils';
 import './style';
 
 class TreeSelect extends React.Component {
 
   state = {
     value: '',
-    treeData: this.props.treeData || []
+    dataSource: this.props.dataSource || []
   };
 
   // 选择
-  handleSelect(item) {
+  handleSelect(value, label) {
     // console.log(item);
     this.setState({
-      label: item.label,
-      value: item.value,
+      label: label,
+      value: value,
       isOpen: false
     });
   }
@@ -35,31 +35,9 @@ class TreeSelect extends React.Component {
     });
   }
 
-  // 渲染数据
-  renderList(treeData) {
-    return (
-      <ul>
-        {
-          treeData.map((item, index) => {
-            if (_.isArray(item.children)) {
-              return (
-                <li key={index}>
-                  {item.label}
-                  {this.renderList(item.children)}
-                </li>
-              );
-            }
-            else {
-              return <li className="clickable" onClick={this.handleSelect.bind(this, item)} key={index}>{item.label}</li>
-            }
-          })
-        }
-      </ul>
-    );
-  }
-
   render() {
-    const { name } = this.props;
+    let { name } = this.props;
+    let { dataSource = [] } = this.state;
 
     return (
       <div className="tree-select">
@@ -72,11 +50,15 @@ class TreeSelect extends React.Component {
             () => {
               // this.toggleOpen(false);
             }
-          } />
+          } 
+            onInput={
+              (e) => this.setState({ label: e.target.value })
+            }
+          />
           <input type="hidden" name={name} value={this.state.value} />
         </div>
         <div className={classnames('tree-select-list', this.state.isOpen ? 'open' : '')}>
-          {this.renderList(this.state.treeData)}
+          <Tree dataSource={dataSource} onSelect={this.handleSelect.bind(this)}></Tree>
         </div>
       </div>
     );
@@ -85,7 +67,15 @@ class TreeSelect extends React.Component {
 
 /*import testComponent from 'utils/testComponent';
 testComponent(
-  <TreeSelecte></TreeSelecte>
+  <TreeSelect dataSource={[
+      { label: '0-0', value: '0-0', children: [
+        { label: '0-0-0', value: '0-0-0' },
+        { label: '0-0-1', value: '0-0-1' }
+      ] },
+      { label: '0-1', value: '0-1' }
+    ]} onSelect={
+    (value) => console.log(value)
+  }></TreeSelect>
 );*/
 
 export default TreeSelect;

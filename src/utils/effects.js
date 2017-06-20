@@ -10,7 +10,6 @@
  *   effects(elem)
  *     .anim({
  *       from: {
- *         
  *       },
  *       to: {
  *       },
@@ -22,14 +21,16 @@
  *     })
  */
 
-import evt from 'utils/evt';
-import css from 'utils/css';
-import cls from 'utils/cls';
+import { evt, css, cls } from '@/utils';
 import _ from 'lodash';
 
 // 动画帧 name, 完成 complete
 const frame = (elem) => {
   return (name) => {
+    if (!name) {
+      return new Promise(resolve => resolve(elem));
+    }
+
     cls.add(elem, 'animated');
     cls.add(elem, name);
     return new Promise((resolve, reject) => {
@@ -73,6 +74,6 @@ const effects = (elem) => {
   }
 };
 
-global.effects = effects;
+// global.effects = effects;
 
 export default effects;

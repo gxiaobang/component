@@ -2,7 +2,7 @@
  * dialog style
  */
 
-@import "~styles/main";
+@import "~@/styles/main";
 
 .mask {
   position: fixed;
@@ -12,6 +12,7 @@
   height: 100%;
   background-color: rgba(0,0,0,.4);
   z-index: 99;
+  overflow: hidden;
 
   display: flex;
   align-items: center;

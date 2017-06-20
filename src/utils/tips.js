@@ -2,8 +2,8 @@
  * 消息提示
  */
 
-import { Dialog, Toast } from 'components';
-import { getCache } from 'stores/cache';
+import { Dialog, Toast } from '@/components';
+import { getCache } from '@/stores/cache';
 
 const homeStore = getCache('homeStore');
 

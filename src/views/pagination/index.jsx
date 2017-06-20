@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import { Pagination } from 'components';
+import { Pagination } from '@/components';
 
 class Page extends React.Component {
 

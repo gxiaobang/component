@@ -12,7 +12,7 @@
 
 import React from 'react';
 import _ from 'lodash';
-import http from 'utils/http';
+import http from '@/utils/http';
 
 class Fetch extends React.Component {
   

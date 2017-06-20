@@ -10,11 +10,11 @@
 
 import React from 'react';
 import classnames from 'classnames';
-import { getFormParam } from 'utils';
-import Validate from 'components/Validate';
-import { Message } from 'components';
-import VerifyStore from 'stores/verify';
 import _ from 'lodash';
+import { getFormParam } from '@/utils';
+import { Message } from '@/components';
+import Validate from '@/components/Validate';
+import VerifyStore from '@/stores/verify';
 import './style';
 
 const { Validator } = Validate;
@@ -71,13 +71,15 @@ class Form extends React.Component {
   static FormItemGroup = FormItemGroup;
 
   verifyStore = new VerifyStore();
+  formParam = {};
 
   static childContextTypes = {
-    verifyStore: React.PropTypes.object
+    verifyStore: React.PropTypes.object,
+    formParam: React.PropTypes.object
   }
 
   getChildContext() {
-    return { verifyStore: this.verifyStore }
+    return { verifyStore: this.verifyStore, formParam: this.formParam }
   }
 
   // 获取表单数据
@@ -100,6 +102,8 @@ class Form extends React.Component {
   handleSubmit(e) {
     const form = this.refs.form;
     const param = this.getFormParam();
+
+    Object.assign(param, this.formParam);
 
     // console.log(param);
     const rules = {};

@@ -5,9 +5,9 @@
  */
 
 import React from 'react';
-import http from 'utils/http';
 import classnames from 'classnames';
-import { Button } from 'components';
+import http from '@/utils/http';
+import { Button } from '@/components';
 import './style';
 
 class Transfer extends React.Component {

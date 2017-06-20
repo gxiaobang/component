@@ -7,8 +7,8 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import wrapper from 'utils/wrapper';
-import { Icon } from 'components';
+import wrapper from '@/utils/wrapper';
+import { Icon } from '@/components';
 import './style';
 
 let wrap;

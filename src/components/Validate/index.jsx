@@ -6,6 +6,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
 import Validator from 'validatorjs';
+import { Animate } from '@/components';
 import './style';
 
 Validator.useLang('zh');
@@ -81,7 +82,9 @@ class Validate extends React.Component {
         {
           error && 
             <div className="validate-error">
-              <label className="validate-error-label animated wobble">{error}</label>
+              <Animate name="wobble">
+                <label className="validate-error-label">{error}</label>
+              </Animate>
             </div>
         }
       </div>

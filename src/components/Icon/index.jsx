@@ -23,7 +23,7 @@ class Icon extends React.Component {
     // return <i className={classnames('icon', `icon-${type}`, className)}></i>
 
     return (
-      <svg role={type} className={classnames(spin && 'animated infinite spin', className)} style={{
+      <svg role={type} className={classnames('icon', spin && 'animated infinite spin', className)} style={{
         width: size,
         height: size,
         fill: color

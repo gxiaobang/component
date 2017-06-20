@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import { Button, Input, Form, Checkbox, Radio, Select, Message, ImgUpload } from 'components';
+import { Button, Input, Form, Checkbox, Radio, Select, Message, ImgUpload } from '@/components';
 
 const { FormItem, FormItemGroup } = Form;
 const { Option } = Select;

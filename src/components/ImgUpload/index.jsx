@@ -5,8 +5,8 @@
  */
 
 import React from 'react';
-import { Button } from 'components';
-import upload from 'utils/upload';
+import { Button } from '@/components';
+import upload from '@/utils/upload';
 import './style';
 
 class ImgUpload extends React.Component {

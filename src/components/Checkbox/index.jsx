@@ -3,9 +3,9 @@
  */
 
 import React from 'react';
-import { Icon } from 'components';
-import http from 'utils/http';
 import _ from 'lodash';
+import { Icon } from '@/components';
+import http from '@/utils/http';
 import './style';
 
 class CheckboxGroup extends React.Component {
