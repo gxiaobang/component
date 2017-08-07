@@ -1,45 +1,39 @@
-## react组件库
+# react-ui
+## 基于react组件化封装
 
-### 项目说明
-+ 基于react组件化封装
-+ 用webpack进行项目打包
-+ 项目热更新，实时反馈到浏览器
-
-### 项目结构
-* src 源目录
-	* utils 工具函数
-	* components 基础组件
-	* containers 业务组件
-	* images 图片
-	* fonts 字体图标
-	* styles 样式
-	* views 视图
-	* stores 数据存贮
-	
-* dist 上线打包编译
-
-* i18n 国际化
-
-
-### 开发环境执行下面命令
+### 安装
 ```bash
-$npm run dev
+npm install
 ```
 
-### 生产环境打包执行
+### 运行
 ```bash
-$npm run build
+npm run dev
 ```
 
-### 请求代理
+### 目录结构
 ```bash
-$npm run server
+├── config
+|  ├── api.config.js
+|  ├── base.config.js
+|  └── fetch.config.js
+├── i18n
+|  ├── common
+|  └── locale.js
+├── package.json
+├── README.md
+├── server.js
+├── src
+|  ├── app.js
+|  ├── components
+|  ├── images
+|  ├── index.html
+|  ├── layouts
+|  ├── mocks
+|  ├── styles
+|  ├── utils
+|  └── views
+├── webpack.config.dev.js
+├── webpack.config.prod.js
+└── yarn.lock
 ```
-
-### 组件内容
-+ Tab选项卡
-+ Modal弹窗
-+ Message消息提示
-+ Select下拉框
-+ Checkout勾选框
-+ Spin加载中
