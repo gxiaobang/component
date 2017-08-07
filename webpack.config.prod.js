@@ -29,10 +29,10 @@ module.exports = (env = {}) => {
       vendor: ['core-js', 'react', 'react-dom', 'mobx',  'lodash', 'moment', 'axios', 'classnames']
     },
     output: {
-      path: path.resolve(distPath, version),
+      path: distPath,
       publicPath: publicPath,
-      filename: '[name].[chunkhash:5].js',
-      chunkFilename: '[name].[chunkhash:5].js'
+      filename: 'static/js/[name].[chunkhash:5].js',
+      chunkFilename: 'static/js/[name].[chunkhash:5].js'
     },
     resolve: {
       extensions: ['.js', '.jsx', '.sass', '.scss'],
@@ -84,7 +84,7 @@ module.exports = (env = {}) => {
     plugins: [
       // 独立css文件
       new ExtractTextPlugin({
-        filename: 'styles.css',
+        filename: 'static/css/app.[chunkhash:5].css',
         disable: false,
         allChunks: true
       }),

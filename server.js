@@ -12,29 +12,25 @@ const path = require('path');
 const { version, port, distPath } = require('./config/base.config');
 const api = require('./config/api.config');
 
-const sitePath = path.resolve(distPath, version);
-
 // 接口代理
 for (let key in api.dev) {
   if (api.dev[ key ]) {
-    app.use(`/proxy/${key}`, proxy({
+    console.log('proxy: ' + '/' + key);
+    app.use('/' + key, proxy({
       target: api.dev[ key ], // 代理服务的地址,
-      changeOrigin: true,
-      pathRewrite: {
-        '^/proxy': ''
-      }
+      changeOrigin: true
     }));
-  } 
+  }
 }
 
 // 静态文件
-app.use(express.static(sitePath));
+app.use(express.static(distPath));
 
 // 重定向到主页
 app.get('*', (req, res) => {
   // console.log(req.query)
   let { lang = 'zh-cn' } = req.query;
-  res.sendFile(`${sitePath}/index_${lang}.html`);
+  res.sendFile(`${distPath}/index_${lang}.html`);
 });
 
 
