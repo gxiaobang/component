@@ -2,7 +2,7 @@
   "scripts": {
     "dev": "webpack-dev-server --config webpack.config.dev.js --progress --colors",
     "build": "webpack --config webpack.config.prod.js --progress --colors",
-    "zip": "gulp zip",
+    "archive": "gulp archive",
     "server": "node server.js",
     "clean": "rm dist -rf"
   },
