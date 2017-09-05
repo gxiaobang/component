@@ -35,7 +35,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, './example'),
     filename: '[name].js',
-    publicPath: 'https://gxiaobang.github.io/component/example/',
+    publicPath: 'https://gxiaobang.github.io/react-ui/example/',
     chunkFilename: '[name].js'
   },
   resolve: {
