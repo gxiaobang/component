@@ -6,6 +6,7 @@ import React from 'react';
 import _ from 'lodash';
 import classnames from 'classnames';
 import { cls, http } from '@/utils';
+import PropTypes from 'prop-types';
 import './style';
 
 class TreeNode extends React.Component {
@@ -13,7 +14,7 @@ class TreeNode extends React.Component {
   // showFlag = true;
 
   static contextTypes = {
-    onSelect: React.PropTypes.func
+    onSelect: PropTypes.func
   };
 
   state = {
@@ -57,7 +58,7 @@ class TreeNode extends React.Component {
         {
           children &&
             <div className="tree-node-list">
-              {children} 
+              {children}
             </div>
         }
       </div>
@@ -69,7 +70,7 @@ class Tree extends React.Component {
   static TreeNode = TreeNode;
 
   static childContextTypes = {
-    onSelect: React.PropTypes.func
+    onSelect: PropTypes.func
   }
 
   state = {
@@ -125,7 +126,7 @@ class Tree extends React.Component {
     return (
       <div className="tree">
         {
-          dataSource.length > 0 ? 
+          dataSource.length > 0 ?
             this.renderTree(dataSource)
             : this.props.children
         }

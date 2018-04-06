@@ -7,6 +7,7 @@ import { observer } from 'mobx-react';
 import classnames from 'classnames';
 import Validator from 'validatorjs';
 import { Animate } from '@/components';
+import PropTypes from 'prop-types';
 import './style';
 
 Validator.useLang('zh');
@@ -17,8 +18,8 @@ class Validate extends React.Component {
   static Validator = Validator;
 
   static contextTypes = {
-    label: React.PropTypes.string,
-    verifyStore: React.PropTypes.object
+    label: PropTypes.string,
+    verifyStore: PropTypes.object
   };
 
   // props更新
@@ -65,7 +66,7 @@ class Validate extends React.Component {
     if (validation.fails()) {
       error = validation.errors.first(label);
     }
-    
+
     this.verifyStoreItem.error = error;
     // this.setState({ error });
   }
@@ -80,7 +81,7 @@ class Validate extends React.Component {
       <div className={cls}>
         {this.props.children}
         {
-          error && 
+          error &&
             <div className="validate-error">
               <Animate name="wobble">
                 <label className="validate-error-label">{error}</label>

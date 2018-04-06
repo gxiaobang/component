@@ -15,14 +15,15 @@ import { getFormParam } from '@/utils';
 import { Message } from '@/components';
 import Validate from '@/components/Validate';
 import VerifyStore from '@/stores/verify';
+import PropTypes from 'prop-types';
 import './style';
 
 const { Validator } = Validate;
 
 class FormItem extends React.Component {
-  
+
   static childContextTypes = {
-    label: React.PropTypes.string
+    label: PropTypes.string
   }
 
   getChildContext() {
@@ -74,8 +75,8 @@ class Form extends React.Component {
   formParam = {};
 
   static childContextTypes = {
-    verifyStore: React.PropTypes.object,
-    formParam: React.PropTypes.object
+    verifyStore: PropTypes.object,
+    formParam: PropTypes.object
   }
 
   getChildContext() {
@@ -134,6 +135,6 @@ class Form extends React.Component {
       console.warn('验证不通过');
     }
   }
-} 
+}
 
 export default Form;
